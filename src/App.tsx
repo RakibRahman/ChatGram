@@ -1,19 +1,17 @@
 import { useState } from 'react'
-import reactLogo from './assets/react.svg'
 import './App.css'
-import { Modal } from './components/modal/Modal'
+import { ChatRoom } from './components/ChatRoom'
+import { ChatRoomData } from './context/context'
 
 function App() {
   const [isOpen, setOpen] = useState(false)
 
   return (
-    <div className="App">
-      <button onClick={(): void => setOpen(true)}>Toggle</button>
-      <Modal isOpen={isOpen} onClose={() => setOpen(false)}>
-
-
-      </Modal>
-    </div>
+    <ChatRoomData>
+      <div className="App">
+        <ChatRoom />
+      </div>
+    </ChatRoomData>
   )
 }
 
