@@ -1,6 +1,7 @@
 import React from 'react'
 
 export const SentMessage = () => {
+
     return (
         <div>
             <form className="flex items-center space-x-6">

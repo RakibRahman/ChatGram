@@ -1,7 +1,7 @@
 import { FirebaseApp, } from 'firebase/app'
 import { useContext, createContext, useEffect, FC, useState } from 'react'
 import { CurrentUser, UserContext } from '../models/types'
-import { useAuthState, useSignInWithGoogle } from 'react-firebase-hooks/auth';
+import { useAuthState, useSignInWithGoogle, useSignOut } from 'react-firebase-hooks/auth';
 import { db, auth } from '../firebase'
 
 
@@ -25,13 +25,15 @@ export function useChatRoomContext() {
 export const ChatRoomData: FC<ChatRoomDataProp> = ({ children }) => {
     // const [user, setUser] = useState<CurrentUser>(null);
     const [signInWithGoogle, user, loading, error] = useSignInWithGoogle(auth);
+    const [signOut] = useSignOut(auth);
 
     return (
         <context.Provider value={{
             currentUser: user,
             loading,
             userError: error,
-            signInWithGoogle
+            signInWithGoogle,
+            signOut
         }}>
             {children}
         </context.Provider>
