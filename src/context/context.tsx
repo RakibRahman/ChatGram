@@ -24,8 +24,9 @@ export function useChatRoomContext() {
 
 export const ChatRoomData: FC<ChatRoomDataProp> = ({ children }) => {
     // const [user, setUser] = useState<CurrentUser>(null);
-    const [signInWithGoogle, user, loading, error] = useSignInWithGoogle(auth);
+    const [signInWithGoogle] = useSignInWithGoogle(auth);
     const [signOut] = useSignOut(auth);
+    const [user, loading, error] = useAuthState(auth);
 
     return (
         <context.Provider value={{
