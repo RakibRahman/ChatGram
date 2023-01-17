@@ -1,5 +1,5 @@
 import { useLayoutEffect, useRef, useState } from 'react';
-import { collection, doc, getDoc, getDocs, query, where } from "firebase/firestore";
+import { collection, doc, getDoc, getDocs, query, where, onSnapshot } from "firebase/firestore";
 import { useChatRoomContext } from '../../context/context';
 import { db } from '../../firebase';
 import { ChatRoom } from '../../models/types';
@@ -42,13 +42,15 @@ export const useChatRoomList = () => {
     }
 
     useLayoutEffect(() => {
-        isMounted.current = true;
-        if (isMounted.current) {
-            getChatList();
-        }
-        return () => {
-            isMounted.current = false;
-        };
+        getChatList();
+
+        // isMounted.current = true;
+        // if (isMounted.current) {
+        //     getChatList();
+        // }
+        // return () => {
+        //     isMounted.current = false;
+        // };
     }, []);
     return { currentUser, list: chatList ?? [], fetchStatus } as const;
 }
