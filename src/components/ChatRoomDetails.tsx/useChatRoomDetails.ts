@@ -1,6 +1,6 @@
 import React from 'react'
 import { useChatRoomContext } from '../../context/context';
-import { doc, getDoc, setDoc, query, collection, where, orderBy, limit } from "firebase/firestore";
+import { doc, getDoc, setDoc, query, collection, where, orderBy, limit, limitToLast } from "firebase/firestore";
 import { nanoid } from 'nanoid';
 import { db, timeStamp } from '../../firebase';
 import { useParams } from 'react-router-dom';
@@ -17,7 +17,7 @@ export const useChatRoomDetails = () => {
     const q = query(chatRoomsRef, where("id", "==", chatRoomId));
 
 
-    const messageQuery = query(chatMessagesRef, orderBy("sentTime", "desc"), limit(10), where("chatRoomId", "==", chatRoomId));
+    const messageQuery = query(chatMessagesRef, orderBy("sentTime", "asc"), limitToLast(10), where("chatRoomId", "==", chatRoomId));
     const [value, loading, error] = useCollection(
         q,
         {
@@ -71,7 +71,7 @@ export const useChatRoomDetails = () => {
 
     return {
         lastMessage, currentUser, loading, error, chatRoomInfo, sendMessage, messageData: {
-            loadingMessage, errorMessage, message: message?.docs.map((d) => d.data()).reverse()
+            loadingMessage, errorMessage, message: message?.docs.map((d) => d.data())
         }
     } as const;
 }

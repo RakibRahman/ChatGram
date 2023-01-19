@@ -15,7 +15,6 @@ export const useCreateChatRoom = () => {
         if (!currentUser) return;
         const currentUserInfo: ChatUserInfo = currentUser;
         const { uid, displayName, email, photoURL } = currentUserInfo;
-        console.log(chatRoomName);
         const createNewChatRoom = await setDoc(doc(db, "chatRooms", chatRoomId), {
             name: chatRoomName,
             id: chatRoomId,
