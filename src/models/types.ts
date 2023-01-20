@@ -35,3 +35,17 @@ export interface CreateChatRoom {
     createNewChatRoom: () => Promise<void>
     currentUser: ChatRoom['createdBy']
 }
+export interface GroupMessage {
+    "message": string
+    "sentBy": {
+        "name": string,
+        "id": string,
+        "pic": string
+    },
+    "sentTime": {
+        "seconds": number,
+        "nanoseconds": number
+    },
+    "type": string
+    "chatRoomId": string
+}

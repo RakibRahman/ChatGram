@@ -1,17 +1,13 @@
-import { useState } from 'react'
-import './App.css'
-import { ChatRoom } from './components/ChatRoom'
-import { ChatRoomData } from './context/context'
 import {
-  BrowserRouter as Router,
-  Routes,
-  Route,
-  Navigate,
+  BrowserRouter as Router, Route, Routes
 } from "react-router-dom";
-import { ChatRoomDetails } from './components/ChatRoomDetails.tsx/ChatRoomDetails';
+import './App.css';
+import { ChatRoom } from './components/ChatRoom';
+import { ChatRoomDetailsContainer } from './components/ChatRoomDetails.tsx/ChatRoomDetailsContainer';
+import { ChatRoomData } from './context/context';
 
 function App() {
-  const [isOpen, setOpen] = useState(false)
+
 
   return (
 
@@ -19,7 +15,7 @@ function App() {
       <ChatRoomData>
         <Routes>
           <Route path="/" element={<ChatRoom />} />
-          <Route path=":chatRoomId" element={<ChatRoomDetails />} />
+          <Route path=":chatRoomId" element={<ChatRoomDetailsContainer />} />
 
         </Routes>
       </ChatRoomData>
