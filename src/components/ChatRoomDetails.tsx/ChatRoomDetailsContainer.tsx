@@ -1,6 +1,6 @@
-import React from 'react'
-import { ChatRoomDetails } from './ChatRoomDetails'
-import { GroupMessages } from './GroupMessages'
+import React from 'react';
+import { ChatRoomDetails } from './ChatRoomDetails';
+import { GroupMessages } from './GroupMessages';
 
 export const ChatRoomDetailsContainer = () => {
     return (
@@ -8,5 +8,5 @@ export const ChatRoomDetailsContainer = () => {
             <ChatRoomDetails />
             <GroupMessages />
         </div>
-    )
-}
+    );
+};
