@@ -1,5 +1,6 @@
 import { Link } from 'react-router-dom';
 import { Loader } from '../Loader/Loader';
+import { ChatCard } from './ChatCard';
 import { useChatRoomList } from './useChatRoomList';
 
 export const ChatRoomList = () => {
@@ -21,17 +22,20 @@ export const ChatRoomList = () => {
     }
 
     return (
-        <div className="container mx-auto px-4 border">
-            <h1>ChatRoomList</h1>
-
-            <ul>
-                {chatListData?.list?.map((chatRoom) => (
-                    <li key={chatRoom.id}>
-                        <Link to={chatRoom.id}>{chatRoom.name}</Link>
-                        <p>{chatRoom?.recentMessage?.message}</p>
-                    </li>
+        <div className=" flex flex-col space-y-4">
+            {chatListData.list &&
+                chatListData?.list?.map((chatRoom) => (
+                    <>
+                        {' '}
+                        <ChatCard
+                            name={chatRoom.name!}
+                            recentMessage={chatRoom.recentMessage!}
+                            logo={chatRoom.logo!}
+                            id={chatRoom.id!}
+                            key={chatRoom.id}
+                        />
+                    </>
                 ))}
-            </ul>
         </div>
     );
 };

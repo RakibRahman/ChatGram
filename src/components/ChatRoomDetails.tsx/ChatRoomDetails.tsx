@@ -4,21 +4,21 @@ import { useChatRoomDetails } from './useChatRoomDetails';
 export const ChatRoomDetails = () => {
     const { chatRoomInfo, loading, error } = useChatRoomDetails();
 
-    if (!chatRoomInfo) {
-        return <h1>No such chat room exists</h1>;
-    }
-    const createDate = getTime(chatRoomInfo?.createdAt?.seconds, true);
-
     if (loading) {
         return <Loader />;
     }
+
+    if (!chatRoomInfo && !loading) {
+        return <h1>No such chat room exists</h1>;
+    }
+    const createDate = getTime(chatRoomInfo?.createdAt?.seconds, true);
 
     if (error) {
         return <p>Failed to load chat </p>;
     }
 
     return (
-        <div>
+        <div className="h-60 bg-red-500">
             <div
                 className="hero"
                 style={{ backgroundImage: `url(${chatRoomInfo?.logo!})` }}

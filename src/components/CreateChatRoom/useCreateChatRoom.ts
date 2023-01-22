@@ -19,7 +19,7 @@ export const useCreateChatRoom = () => {
                 name: chatRoomName,
                 id: chatRoomId,
                 createdAt: timeStamp,
-                logo: 'https://images.pexels.com/photos/1111370/pexels-photo-1111370.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1',
+                logo: 'https://picsum.photos/300',
                 createdBy: {
                     name: displayName,
                     email,

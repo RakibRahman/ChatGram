@@ -35,7 +35,7 @@ export interface ChatRoom {
     recentMessage: {
         message: string;
         sentBy: string;
-        timeStamp: Timestamp;
+        timestamp: Timestamp;
     };
 }
 export interface CreateChatRoom {
@@ -63,4 +63,11 @@ export interface UserInfo {
     email: string;
     photoURL: string;
     chatRooms: string[];
+}
+
+export interface ChatCardProps {
+    id: string;
+    name: string;
+    logo: string;
+    recentMessage: ChatRoom['recentMessage'];
 }
