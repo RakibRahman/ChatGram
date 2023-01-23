@@ -4,8 +4,8 @@ import { GroupMessages } from './GroupMessages';
 
 export const ChatRoomDetailsContainer = () => {
     return (
-        <div>
-            <ChatRoomDetails />
+        <div className="grow">
+            {/* <ChatRoomDetails /> */}
             <GroupMessages />
         </div>
     );

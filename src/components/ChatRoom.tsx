@@ -1,8 +1,7 @@
 import { useChatRoomContext } from '../context/context';
-import { ChatRoomList } from './ChatRoomList/ChatRoomList';
 import { CreateChatRoom } from './CreateChatRoom/CreateChatRoom';
 import { useState, useRef, useEffect } from 'react';
-import { Modal } from './modal/Modal';
+import { Modal } from './common/modal/Modal';
 import { joinChatRoom, updateUserOnlineStatus } from './apiOperations';
 import { useNavigate } from 'react-router-dom';
 export const ChatRoom = () => {
@@ -60,7 +59,7 @@ export const ChatRoom = () => {
                 </svg>
                 Button
             </button>
-            {currentUser ? <ChatRoomList /> : null}
+            {/* {currentUser ? <ChatRoomList /> : null} */}
             <Modal
                 isOpen={toggleModal}
                 onClose={() => setToggleModal(false)}

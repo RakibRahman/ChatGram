@@ -2,17 +2,18 @@ import React, { useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useChatRoomContext } from '../../context/context';
 import BG from '../../assets/login_bg.svg';
+import { joinChatRoom, updateUserOnlineStatus } from '../apiOperations';
 
 export const Login = () => {
-    const navigate = useNavigate();
+    // const navigate = useNavigate();
     const { signInWithGoogle, currentUser, loading, userError, signOut } =
         useChatRoomContext();
 
-    useEffect(() => {
-        if (currentUser) {
-            navigate('/');
-        }
-    }, [currentUser]);
+    // useEffect(() => {
+    //     if (currentUser) {
+    //         navigate('/');
+    //     }
+    // }, [currentUser]);
     return (
         <div className="hero" style={{ backgroundImage: `url(${BG})` }}>
             <div className="grid place-items-center  py-10 h-screen">

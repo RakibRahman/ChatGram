@@ -8,36 +8,34 @@ import {
 import './App.css';
 import { ChatRoom } from './components/ChatRoom';
 import { ChatRoomDetailsContainer } from './components/ChatRoomDetails.tsx/ChatRoomDetailsContainer';
+import { ChatRoomList } from './components/ChatRoomList/ChatRoomList';
 import { Login } from './components/Login/Login';
-import { ChatRoomData, useChatRoomContext } from './context/context';
+import { useChatRoomContext } from './context/context';
 
 function App() {
     const { currentUser, loading, userError, signOut } = useChatRoomContext();
-    // useEffect(() => {
-    //     if (!currentUser) {
-    //         navigate('/login');
-
-    //     }
-    //     if (currentUser) {
-
-    //         navigate('/')
-    //     }
-
-    // }, [currentUser]);
 
     return (
         <div data-theme="aqua">
             <Router>
-                <ChatRoomData>
+                {currentUser ? (
+                    <div className=" flex max-w-7xl  mx-auto px-4 border h-screen py-16 items-start gap-6">
+                        {currentUser ? <ChatRoomList /> : null}
+
+                        <Routes>
+                            {/* <Route path="/login" element={<Login />}></Route> */}
+                            {/* <Route path="/" element={<ChatRoom />} /> */}
+                            <Route
+                                path=":chatRoomId"
+                                element={<ChatRoomDetailsContainer />}
+                            />
+                        </Routes>
+                    </div>
+                ) : (
                     <Routes>
-                        <Route path="/login" element={<Login />}></Route>
-                        <Route path="/" element={<ChatRoom />} />
-                        <Route
-                            path=":chatRoomId"
-                            element={<ChatRoomDetailsContainer />}
-                        />
+                        <Route path="/" element={<Login />}></Route>
                     </Routes>
-                </ChatRoomData>
+                )}
             </Router>
         </div>
     );

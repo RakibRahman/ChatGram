@@ -1,5 +1,5 @@
 import { getTime } from '../../utilities/getTime';
-import { Loader } from '../Loader/Loader';
+import { Loader } from '../common/Loader/Loader';
 import { useChatRoomDetails } from './useChatRoomDetails';
 export const ChatRoomDetails = () => {
     const { chatRoomInfo, loading, error } = useChatRoomDetails();
