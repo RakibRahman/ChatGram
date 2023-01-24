@@ -19,7 +19,7 @@ function App() {
         <div data-theme="aqua">
             <Router>
                 {currentUser ? (
-                    <div className=" flex max-w-7xl  mx-auto px-4 border h-screen py-16 items-start gap-6">
+                    <div className=" flex max-w-7xl  mx-auto px-4 border border-green-500 h-screen py-16 items-start gap-6">
                         {currentUser ? <ChatRoomList /> : null}
 
                         <Routes>

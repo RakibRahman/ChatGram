@@ -23,7 +23,7 @@ export const ChatRoomList = () => {
     if (chatListData.chatRoomListError) {
         return <h2>Error loading chat room list</h2>;
     }
-    console.log(isOpen);
+
     return (
         <div>
             <div className="flex">

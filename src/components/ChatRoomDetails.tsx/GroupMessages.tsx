@@ -1,9 +1,11 @@
-import React, { useRef } from 'react';
+import React, { useLayoutEffect, useRef } from 'react';
 import { getTime } from '../../utilities/getTime';
 import { useChatRoomDetails } from './useChatRoomDetails';
 
 export const GroupMessages = () => {
-    const message = useRef<HTMLInputElement>(null);
+    const messageRef = useRef<HTMLInputElement>(null);
+    const messageContainerRef = useRef<HTMLDivElement>(null);
+
     const {
         lastMessage,
         currentUser,
@@ -12,6 +14,14 @@ export const GroupMessages = () => {
         isValidUser,
         chatRoomInfo,
     } = useChatRoomDetails();
+
+
+    useLayoutEffect(() => {
+        if (messageContainerRef.current) {
+
+            messageContainerRef.current.scrollIntoView(false)
+        }
+    }, [messageData?.groupMessages])
 
     if (!chatRoomInfo) {
         return null;
@@ -26,9 +36,9 @@ export const GroupMessages = () => {
     }
 
     return (
-        <div>
+        <div className='border-red-500 border ' ref={messageContainerRef}>
             <h1>Messages</h1>
-            <div className="md:container md:mx-auto border">
+            <div className="md:container md:mx-auto ">
                 {messageData.groupMessages?.map((m) => (
                     <div className="chat chat-start">
                         <div className="chat-image avatar">
@@ -52,19 +62,19 @@ export const GroupMessages = () => {
                     </div>
                 ))}
                 <input
-                    ref={message}
+                    ref={messageRef}
                     type="text"
                     placeholder="Type here"
                     className="input w-full max-w-lg"
                 />
                 <button
                     onClick={() => {
-                        if (message.current && currentUser) {
-                            lastMessage(message.current?.value!);
-                            sendMessage(message.current?.value!);
+                        if (messageRef.current && currentUser) {
+                            lastMessage(messageRef.current?.value!);
+                            sendMessage(messageRef.current?.value!);
                         }
-                        if (message.current) {
-                            message.current.value = '';
+                        if (messageRef.current) {
+                            messageRef.current.value = '';
                         }
                     }}
                 >
