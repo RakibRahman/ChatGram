@@ -21,6 +21,7 @@ export const ChatRoomList = () => {
     }
 
     if (chatListData.chatRoomListError) {
+        console.log(chatListData.chatRoomListError);
         return <h2>Error loading chat room list</h2>;
     }
 

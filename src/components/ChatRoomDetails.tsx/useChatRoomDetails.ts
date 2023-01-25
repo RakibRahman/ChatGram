@@ -28,7 +28,7 @@ export const useChatRoomDetails = () => {
     const groupMessageQuery = query(
         chatMessagesRef,
         orderBy('sentTime', 'asc'),
-        limitToLast(10),
+        limitToLast(20),
         where('chatRoomId', '==', chatRoomId)
     );
 
@@ -55,6 +55,7 @@ export const useChatRoomDetails = () => {
         await setDoc(
             doc(db, 'chatRooms', chatRoomId),
             {
+                lastActivity: timeStamp,
                 recentMessage: {
                     message,
                     sentBy: currentUser?.displayName,

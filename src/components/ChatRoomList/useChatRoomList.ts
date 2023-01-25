@@ -1,4 +1,4 @@
-import { collection, doc, query, where } from 'firebase/firestore';
+import { collection, doc, orderBy, query, where } from 'firebase/firestore';
 import { useCollection, useDocument } from 'react-firebase-hooks/firestore';
 import { useChatRoomContext } from '../../context/context';
 import { db } from '../../firebase';
@@ -20,7 +20,7 @@ export const useChatRoomList = () => {
         userInfoLoading,
     };
     const chatRoomsRef = collection(db, 'chatRooms');
-    const q = query(chatRoomsRef, where('id', 'in', usersChatRooms ?? ['']));
+    const q = query(chatRoomsRef, where('id', 'in', usersChatRooms ?? ['']), orderBy("lastActivity", "desc"));
     const [chatRoomList, chatRoomListLoading, chatRoomListError] =
         useCollection(q, {
             snapshotListenOptions: { includeMetadataChanges: true },

@@ -1,12 +1,16 @@
 import React from 'react';
 import { ChatRoomDetails } from './ChatRoomDetails';
+import { DetailsTopCard } from './DetailsTopCard';
 import { GroupMessages } from './GroupMessages';
+import { SentMessage } from './SentMessage';
 
 export const ChatRoomDetailsContainer = () => {
     return (
-        <div className="grow   overflow-y-scroll h-full overflow-hidden">
+        <div className="grow ">
             {/* <ChatRoomDetails /> */}
-            <GroupMessages />
+            <DetailsTopCard />
+            <div className="h-[32rem] overflow-hidden overflow-y-scroll"> <GroupMessages /></div>
+            <SentMessage />
         </div>
     );
 };
