@@ -1,17 +1,16 @@
-import { useState } from 'react';
+import { useRef, useState } from 'react';
 import { Link } from 'react-router-dom';
+import { updateUserOnlineStatus } from '../apiOperations';
 import { Drawer } from '../common/Drawer';
 import { Loader } from '../common/Loader/Loader';
 import { ChatCard } from './ChatCard';
 import { useChatRoomList } from './useChatRoomList';
 
 export const ChatRoomList = () => {
-    const { currentUser, chatListData, usersChatRooms } = useChatRoomList();
+    const { currentUser, chatListData, usersChatRooms, signOut } = useChatRoomList();
     const [isOpen, setIsOpen] = useState(false);
+    const userId = useRef(currentUser?.uid);
 
-    if (usersChatRooms?.length === 0) {
-        return <p>'You have no chat rooms'</p>;
-    }
     if (!currentUser) {
         return <h1>Log in to see chat rooms</h1>;
     }
@@ -74,6 +73,8 @@ export const ChatRoomList = () => {
                 </div>
             </div>
             <div className=" flex flex-col space-y-4">
+
+                {usersChatRooms?.length === 0 ? <p className='p-4'>No chat yet</p> : null}
                 {chatListData.list &&
                     chatListData?.list?.map((chatRoom) => (
                         <>
@@ -95,6 +96,19 @@ export const ChatRoomList = () => {
                         className="rounded-full object-cover w-20 h-20"
                     />
                     {JSON.stringify(currentUser.displayName)}
+
+                    {currentUser ? (
+                        <button
+                            className="btn"
+                            onClick={() => {
+                                signOut();
+
+                                updateUserOnlineStatus(userId.current!, 'Offline');
+                            }}
+                        >
+                            Sign Out
+                        </button>
+                    ) : null}
                 </div>
             </Drawer>
         </div>

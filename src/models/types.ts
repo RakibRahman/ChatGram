@@ -58,7 +58,7 @@ export interface GroupMessage {
 }
 
 export interface UserInfo {
-    id: string;
+    uid: string;
     name: string;
     email: string;
     photoURL: string;

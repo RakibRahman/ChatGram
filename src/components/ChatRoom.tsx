@@ -34,7 +34,7 @@ export const ChatRoom = () => {
                     className="btn"
                     onClick={() => {
                         signOut();
-                        updateUserOnlineStatus(userId.current, 'Offline');
+                        // updateUserOnlineStatus(userId.current, 'Offline');
                     }}
                 >
                     Sign Out
