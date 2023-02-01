@@ -3,12 +3,15 @@ import { Link } from 'react-router-dom';
 import { updateUserOnlineStatus } from '../apiOperations';
 import { Drawer } from '../common/Drawer';
 import { Loader } from '../common/Loader/Loader';
+import { CreateChatRoom } from '../CreateChatRoom/CreateChatRoom';
 import { ChatCard } from './ChatCard';
 import { useChatRoomList } from './useChatRoomList';
 
 export const ChatRoomList = () => {
     const { currentUser, chatListData, usersChatRooms, signOut } = useChatRoomList();
     const [isOpen, setIsOpen] = useState(false);
+    const [isOpenModal, setIsOpenModal] = useState(false);
+
     const userId = useRef(currentUser?.uid);
 
     if (!currentUser) {
@@ -89,27 +92,38 @@ export const ChatRoomList = () => {
                     ))}
             </div>
             <Drawer isOpen={isOpen} setIsOpen={setIsOpen}>
-                <div className="text-black">
-                    <img
-                        src={currentUser.photoURL ?? ''}
-                        alt="profile picture"
-                        className="rounded-full object-cover w-20 h-20"
-                    />
-                    {JSON.stringify(currentUser.displayName)}
+                <div className='flex flex-col items-start justify-between  h-full px-4'>
+                    <div className="text-black">
+                        <img
+                            src={currentUser.photoURL ?? ''}
+                            alt="profile picture"
+                            className="rounded-full object-cover w-20 h-20"
+                        />
+                        {JSON.stringify(currentUser.displayName)}
 
-                    {currentUser ? (
-                        <button
-                            className="btn"
-                            onClick={() => {
-                                signOut();
 
-                                updateUserOnlineStatus(userId.current!, 'Offline');
-                            }}
-                        >
-                            Sign Out
-                        </button>
-                    ) : null}
+                    </div>
+                    <div>
+                        {currentUser ? <button onClick={() => setIsOpenModal(true)} className='btn outline-dotted'> Create chat room
+                        </button> : null}
+
+                    </div>
+                    <div>
+                        {currentUser ? (
+                            <button
+                                className="btn"
+                                onClick={() => {
+                                    signOut();
+
+                                    updateUserOnlineStatus(userId.current!, 'Offline');
+                                }}
+                            >
+                                Sign Out
+                            </button>
+                        ) : null}
+                    </div>
                 </div>
+                <CreateChatRoom isOpen={isOpenModal} onClose={() => setIsOpenModal(false)} />
             </Drawer>
         </div>
     );

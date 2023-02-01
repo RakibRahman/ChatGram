@@ -41,7 +41,7 @@ export const ChatRoom = () => {
                 </button>
             ) : null}
 
-            {currentUser ? <CreateChatRoom /> : null}
+            {/* {currentUser ? <CreateChatRoom /> : null} */}
             <button className="btn gap-2" onClick={() => setToggleModal(true)}>
                 <svg
                     xmlns="http://www.w3.org/2000/svg"
