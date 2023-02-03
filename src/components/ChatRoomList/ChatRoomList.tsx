@@ -1,6 +1,7 @@
 import { useRef, useState } from 'react';
 import { Link } from 'react-router-dom';
 import { updateUserOnlineStatus } from '../apiOperations';
+import { Avatar } from '../common/Avatar';
 import { Drawer } from '../common/Drawer';
 import { Loader } from '../common/Loader/Loader';
 import { CreateChatRoom } from '../CreateChatRoom/CreateChatRoom';
@@ -78,6 +79,8 @@ export const ChatRoomList = () => {
             <div className=" flex flex-col space-y-4">
 
                 {usersChatRooms?.length === 0 ? <p className='p-4'>No chat yet</p> : null}
+                <Avatar name={currentUser.displayName!} img={currentUser.photoURL!} />
+
                 {chatListData.list &&
                     chatListData?.list?.map((chatRoom) => (
                         <>
@@ -112,10 +115,10 @@ export const ChatRoomList = () => {
                         {currentUser ? (
                             <button
                                 className="btn"
-                                onClick={() => {
+                                onClick={async () => {
+                                    await updateUserOnlineStatus(userId.current!, 'Offline');
                                     signOut();
 
-                                    updateUserOnlineStatus(userId.current!, 'Offline');
                                 }}
                             >
                                 Sign Out

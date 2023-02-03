@@ -15,7 +15,7 @@ export const Login = () => {
     //     }
     // }, [currentUser]);
 
-
+    console.log(currentUser)
 
     return (
         <div className="hero" style={{ backgroundImage: `url(${BG})` }}>

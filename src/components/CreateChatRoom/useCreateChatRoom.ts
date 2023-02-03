@@ -19,7 +19,7 @@ export const useCreateChatRoom = () => {
                 name: chatRoomName,
                 id: chatRoomId,
                 createdAt: timeStamp,
-                logo: 'https://picsum.photos/300',
+                logo: '',
                 createdBy: {
                     name: displayName,
                     email,
@@ -28,7 +28,7 @@ export const useCreateChatRoom = () => {
                 },
                 members: [uid],
                 lastActivity: timeStamp,
-
+                type: 'room'
             }
         );
 

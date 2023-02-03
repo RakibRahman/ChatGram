@@ -1,4 +1,5 @@
 import React from 'react';
+import { Avatar } from '../common/Avatar';
 import { ChatRoomDetails } from './ChatRoomDetails';
 import { DetailsTopCard } from './DetailsTopCard';
 import { GroupMessages } from './GroupMessages';
