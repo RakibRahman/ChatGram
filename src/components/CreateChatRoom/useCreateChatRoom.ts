@@ -28,7 +28,7 @@ export const useCreateChatRoom = () => {
                 },
                 members: [uid],
                 lastActivity: timeStamp,
-                type: 'room'
+                type: 'room',
             }
         );
 
@@ -58,7 +58,7 @@ export const useCreateChatRoom = () => {
 
         try {
             Promise.all([createNewChatRoom, createUserInfo()]).then(
-                (values) => { }
+                (values) => {}
             );
         } catch {
             alert('Error creating chat room');

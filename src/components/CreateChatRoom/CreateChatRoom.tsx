@@ -4,10 +4,13 @@ import { useCreateChatRoom } from './useCreateChatRoom';
 
 interface CreateChatRoomProps {
     isOpen: boolean;
-    onClose: () => void
+    onClose: () => void;
 }
 
-export const CreateChatRoom: React.FC<CreateChatRoomProps> = ({ isOpen, onClose }) => {
+export const CreateChatRoom: React.FC<CreateChatRoomProps> = ({
+    isOpen,
+    onClose,
+}) => {
     const chatRoomName = useRef<HTMLInputElement>(null);
     const { createNewChatRoom, currentUser } = useCreateChatRoom();
 
@@ -17,7 +20,7 @@ export const CreateChatRoom: React.FC<CreateChatRoomProps> = ({ isOpen, onClose 
                 isOpen={isOpen}
                 onClose={onClose}
                 title="Create Chat Room"
-                yesText='Create'
+                yesText="Create"
                 onConfirm={() => {
                     if (chatRoomName.current?.value !== '' && currentUser) {
                         createNewChatRoom(chatRoomName.current?.value!);
@@ -31,10 +34,8 @@ export const CreateChatRoom: React.FC<CreateChatRoomProps> = ({ isOpen, onClose 
                         placeholder="Chat room name"
                         className="input w-full max-w-xs border border-blue-300 focus:outline-none"
                     />
-
                 </div>
             </Modal>
-
         </div>
     );
 };

@@ -1,4 +1,4 @@
-import React, { useRef } from 'react'
+import React, { useRef } from 'react';
 import { useChatRoomDetails } from './useChatRoomDetails';
 
 export const SentMessage = () => {
@@ -46,5 +46,5 @@ export const SentMessage = () => {
                 </svg>
             </button>
         </div>
-    )
-}
+    );
+};

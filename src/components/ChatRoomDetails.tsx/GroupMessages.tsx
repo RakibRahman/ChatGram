@@ -4,14 +4,9 @@ import { getTime } from '../../utilities/getTime';
 import { useChatRoomDetails } from './useChatRoomDetails';
 export const GroupMessages = () => {
     const messageContainerRef = useRef<HTMLDivElement>(null);
-    const {
+    const { messageData, isValidUser, chatRoomInfo } = useChatRoomDetails();
 
-        messageData,
-        isValidUser,
-        chatRoomInfo,
-    } = useChatRoomDetails();
-
-    useScrollIntoView(messageContainerRef, messageData?.groupMessages)
+    useScrollIntoView(messageContainerRef, messageData?.groupMessages);
 
     if (!chatRoomInfo) {
         return null;
@@ -27,7 +22,6 @@ export const GroupMessages = () => {
 
     return (
         <>
-
             <div ref={messageContainerRef}>
                 <h1>Messages</h1>
                 <div className="md:container md:mx-auto ">
@@ -53,10 +47,8 @@ export const GroupMessages = () => {
                             <div className="chat-bubble">{m?.message}</div>
                         </div>
                     ))}
-
                 </div>
             </div>
-
         </>
     );
 };

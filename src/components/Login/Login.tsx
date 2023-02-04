@@ -2,7 +2,11 @@ import React, { useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useChatRoomContext } from '../../context/context';
 import BG from '../../assets/login_bg.svg';
-import { joinChatRoom, updateUserOnlineStatus, createUser } from '../apiOperations';
+import {
+    joinChatRoom,
+    updateUserOnlineStatus,
+    createUser,
+} from '../apiOperations';
 
 export const Login = () => {
     const navigate = useNavigate();
@@ -15,7 +19,7 @@ export const Login = () => {
     //     }
     // }, [currentUser]);
 
-    console.log(currentUser)
+    console.log(currentUser);
 
     return (
         <div className="hero" style={{ backgroundImage: `url(${BG})` }}>
@@ -24,7 +28,6 @@ export const Login = () => {
                     className="btn"
                     onClick={() => {
                         signInWithGoogle();
-
                     }}
                 >
                     Log in with google

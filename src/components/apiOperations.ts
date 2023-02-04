@@ -25,17 +25,15 @@ export const joinChatRoom = async (chatRoomId: string, userId: string) => {
 
 export const updateUserOnlineStatus = async (
     userId: string,
-    status: 'Online' | 'Offline' = 'Online'
+    status: 'online' | 'offline' | 'away' = 'online'
 ): Promise<void> => {
     if (!userId) return;
     const userRef = doc(db, 'users', userId);
 
-    const isOnline = status === 'Online' ? true : false;
-
     await setDoc(
         userRef,
         {
-            isOnline: isOnline,
+            status,
         },
         { merge: true }
     )
@@ -49,7 +47,7 @@ export const updateUserOnlineStatus = async (
 
 export const createUser = async (currentUser: ChatUserInfo) => {
     if (!currentUser) return;
-    const { uid, displayName, email, photoURL } = currentUser
+    const { uid, displayName, email, photoURL } = currentUser;
     const docRef = doc(db, 'users', uid);
 
     setDoc(docRef, {
@@ -59,5 +57,4 @@ export const createUser = async (currentUser: ChatUserInfo) => {
         email,
         photoURL,
     });
-
 };
