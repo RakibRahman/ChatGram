@@ -9,6 +9,7 @@ import './App.css';
 import { ChatRoom } from './components/ChatRoom';
 import { ChatRoomDetailsContainer } from './components/ChatRoomDetails.tsx/ChatRoomDetailsContainer';
 import { ChatRoomList } from './components/ChatRoomList/ChatRoomList';
+import { LeftSideBar } from './components/LeftSideBar/LeftSideBar';
 import { Login } from './components/Login/Login';
 import { useChatRoomContext } from './context/context';
 
@@ -20,7 +21,9 @@ function App() {
             <Router>
                 {currentUser ? (
                     <div className=" flex max-w-7xl  mx-auto px-4 border border-green-500 h-screen py-16 items-start gap-6">
-                        {currentUser ? <ChatRoomList /> : null}
+
+                        {currentUser ? <LeftSideBar /> : null}
+
 
                         <Routes>
                             {/* <Route path="/login" element={<Login />}></Route> */}

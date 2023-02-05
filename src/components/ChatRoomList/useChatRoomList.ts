@@ -14,7 +14,7 @@ import { createUser, updateUserOnlineStatus } from '../apiOperations';
 
 export const useChatRoomList = (userName?: string) => {
     const { currentUser, signOut } = useChatRoomContext();
-
+    console.log(currentUser)
     const usersRef = doc(db, 'users', currentUser?.uid!);
 
     const [userInfo, userInfoError, userInfoLoading] = useDocument(usersRef, {
@@ -50,7 +50,7 @@ export const useChatRoomList = (userName?: string) => {
     const handleSearch = async (userName: string) => {
         console.log('first');
         const usersSearchRef = collection(db, 'users');
-        const nameQuery = query(usersSearchRef, where('name', '>=', userName));
+        const nameQuery = query(usersSearchRef, where('name', '>=', userName.toLowerCase()));
         const querySnapshot = await getDocs(nameQuery);
         console.log('isEmpty', querySnapshot.empty);
         return querySnapshot.docs.map((doc) => doc.data());

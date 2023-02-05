@@ -53,7 +53,7 @@ export const createUser = async (currentUser: ChatUserInfo) => {
     setDoc(docRef, {
         chatRooms: [],
         uid: uid,
-        name: displayName,
+        name: displayName?.toLowerCase(),
         email,
         photoURL,
     });

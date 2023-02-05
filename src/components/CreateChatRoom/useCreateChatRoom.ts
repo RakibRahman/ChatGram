@@ -16,12 +16,12 @@ export const useCreateChatRoom = () => {
         const createNewChatRoom = await setDoc(
             doc(db, 'chatRooms', chatRoomId),
             {
-                name: chatRoomName,
+                name: chatRoomName?.toLowerCase(),
                 id: chatRoomId,
                 createdAt: timeStamp,
                 logo: '',
                 createdBy: {
-                    name: displayName,
+                    name: displayName?.toLowerCase(),
                     email,
                     photoURL,
                     id: uid,
@@ -49,7 +49,7 @@ export const useCreateChatRoom = () => {
                 setDoc(docRef, {
                     chatRooms: [chatRoomId],
                     id: uid,
-                    name: displayName,
+                    name: displayName?.toLowerCase(),
                     email,
                     photoURL,
                 });
@@ -58,7 +58,7 @@ export const useCreateChatRoom = () => {
 
         try {
             Promise.all([createNewChatRoom, createUserInfo()]).then(
-                (values) => {}
+                (values) => { }
             );
         } catch {
             alert('Error creating chat room');
