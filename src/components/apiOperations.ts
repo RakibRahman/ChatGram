@@ -50,11 +50,14 @@ export const createUser = async (currentUser: ChatUserInfo) => {
     const { uid, displayName, email, photoURL } = currentUser;
     const docRef = doc(db, 'users', uid);
 
-    setDoc(docRef, {
-        chatRooms: [],
-        uid: uid,
-        name: displayName?.toLowerCase(),
-        email,
-        photoURL,
-    });
+    setDoc(
+        docRef,
+        {
+            uid: uid,
+            name: displayName?.toLowerCase(),
+            email,
+            photoURL,
+        },
+        { merge: true }
+    );
 };

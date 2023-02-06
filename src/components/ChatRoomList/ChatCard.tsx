@@ -2,6 +2,7 @@ import React from 'react';
 import { ChatCardProps } from '../../models/types';
 import { Link } from 'react-router-dom';
 import { getTime } from '../../utilities/getTime';
+import { Avatar } from '../common/Avatar/Avatar';
 
 export const ChatCard: React.FC<ChatCardProps> = ({
     name,
@@ -13,11 +14,7 @@ export const ChatCard: React.FC<ChatCardProps> = ({
         <div className="overflow-hidden max-w-sm space-y-6 hover:opacity-50">
             <Link to={`/${id}`}>
                 <div className=" gap-3  flex w-full px-2">
-                    <img
-                        className="w-12 h-12 rounded-full object-cover"
-                        alt={name}
-                        src={logo}
-                    ></img>
+                    <Avatar name={name} img={logo} />
                     <div className="grow">
                         <div className="flex justify-between   items-center ">
                             <p className="text-base  font-bold">{name}</p>

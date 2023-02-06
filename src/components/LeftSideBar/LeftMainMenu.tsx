@@ -1,4 +1,4 @@
-import React, { useRef, useState } from 'react'
+import React, { useRef, useState } from 'react';
 import { useChatRoomContext } from '../../context/context';
 import { updateUserOnlineStatus } from '../apiOperations';
 import { Avatar } from '../common/Avatar/Avatar';
@@ -75,5 +75,5 @@ export const LeftMainMenu = () => {
                 />
             </Drawer>
         </div>
-    )
-}
+    );
+};

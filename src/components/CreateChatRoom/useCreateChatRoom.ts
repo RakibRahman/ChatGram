@@ -46,19 +46,23 @@ export const useCreateChatRoom = () => {
                     { merge: true }
                 );
             } else {
-                setDoc(docRef, {
-                    chatRooms: [chatRoomId],
-                    id: uid,
-                    name: displayName?.toLowerCase(),
-                    email,
-                    photoURL,
-                });
+                setDoc(
+                    docRef,
+                    {
+                        chatRooms: [chatRoomId],
+                        id: uid,
+                        name: displayName?.toLowerCase(),
+                        email,
+                        photoURL,
+                    },
+                    { merge: true }
+                );
             }
         };
 
         try {
             Promise.all([createNewChatRoom, createUserInfo()]).then(
-                (values) => { }
+                (values) => {}
             );
         } catch {
             alert('Error creating chat room');

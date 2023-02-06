@@ -21,9 +21,7 @@ function App() {
             <Router>
                 {currentUser ? (
                     <div className=" flex max-w-7xl  mx-auto px-4 border border-green-500 h-screen py-16 items-start gap-6">
-
                         {currentUser ? <LeftSideBar /> : null}
-
 
                         <Routes>
                             {/* <Route path="/login" element={<Login />}></Route> */}

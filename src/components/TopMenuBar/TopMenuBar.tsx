@@ -1,16 +1,22 @@
-import React, { SetStateAction, useRef, useState } from 'react'
+import React, { SetStateAction, useRef, useState } from 'react';
+import { UserInfo, ChatRoom } from '../../models/types';
 import { ProfileCard } from '../common/ProfileCard/ProfileCard';
 import { useLeftSideBar } from '../LeftSideBar/useLeftSideBar';
 
 interface TopMenuBarProps {
     isSearchActive: boolean;
-    setSearchActive: React.Dispatch<SetStateAction<boolean>>
-
+    setSearchActive: React.Dispatch<SetStateAction<boolean>>;
 }
-export const TopMenuBar: React.FC<TopMenuBarProps> = ({ isSearchActive, setSearchActive }) => {
+export const TopMenuBar: React.FC<TopMenuBarProps> = ({
+    isSearchActive,
+    setSearchActive,
+}) => {
     const searchQuery = useRef<HTMLInputElement>(null);
 
-    const [searchResult, setSearchResult] = useState<any[]>([]);
+    const [searchResult, setSearchResult] = useState<any>({
+        users: [],
+        groups: [],
+    });
 
     const { handleSearch } = useLeftSideBar();
     const searchUsers = async (e: React.FormEvent) => {
@@ -20,15 +26,17 @@ export const TopMenuBar: React.FC<TopMenuBarProps> = ({ isSearchActive, setSearc
         if (!q) return;
         setSearchActive(true);
         if (q) {
-
             await handleSearch(q).then((result) => {
-                console.log('search by result', result);
+                // console.log('search by result', result);
                 if (result.length > 0) {
-                    setSearchResult(result);
+                    const users = result.filter((user) => user.type === 'user');
+                    const rooms = result.filter((room) => room.type === 'room');
+                    setSearchResult({
+                        users,
+                        rooms,
+                    });
                 }
             });
-
-
         }
     };
     return (
@@ -44,14 +52,20 @@ export const TopMenuBar: React.FC<TopMenuBarProps> = ({ isSearchActive, setSearc
                             className="input input-bordered input-sm w-full max-w-xs "
                         />
                         <div className="absolute right-14 top-1">
-                            {isSearchActive ? <button className="btn btn-xs bg-transparent border-none" onClick={() => {
-                                setSearchActive(false);
-                                if (searchQuery?.current?.value) {
-
-                                    searchQuery.current.value = '';
-                                    setSearchResult([])
-                                }
-                            }}>X </button> : null}
+                            {isSearchActive ? (
+                                <button
+                                    className="btn btn-xs bg-transparent border-none"
+                                    onClick={() => {
+                                        setSearchActive(false);
+                                        if (searchQuery?.current?.value) {
+                                            searchQuery.current.value = '';
+                                            setSearchResult([]);
+                                        }
+                                    }}
+                                >
+                                    X{' '}
+                                </button>
+                            ) : null}
                         </div>
                         <button className="btn btn-sm" type="submit">
                             <svg
@@ -71,15 +85,46 @@ export const TopMenuBar: React.FC<TopMenuBarProps> = ({ isSearchActive, setSearc
                         </button>
                     </div>
                 </form>
-
             </div>
             <div>
-                {isSearchActive && searchResult.length === 0 ? <p>No results found, please be more specific</p> : null}
-                {isSearchActive && searchResult?.map((searchResult) => (
-                    < ProfileCard name={searchResult?.name!} pic={searchResult?.photoURL!} />
-
-                ))}
+                {isSearchActive && searchResult.length === 0 ? (
+                    <p>No results found, please be more specific</p>
+                ) : null}
+                {isSearchActive && (
+                    <div>
+                        <p>Users</p>
+                        {searchResult?.users?.map((user: UserInfo) => (
+                            <div
+                                onClick={() => {
+                                    console.log(user);
+                                }}
+                            >
+                                <ProfileCard
+                                    name={user?.name!}
+                                    pic={user?.photoURL!}
+                                />
+                            </div>
+                        ))}
+                    </div>
+                )}
+                {isSearchActive && (
+                    <div>
+                        <p>Rooms</p>
+                        {searchResult?.rooms?.map((room: ChatRoom) => (
+                            <div
+                                onClick={() => {
+                                    console.log(room);
+                                }}
+                            >
+                                <ProfileCard
+                                    name={room?.name!}
+                                    pic={room?.logo!}
+                                />
+                            </div>
+                        ))}
+                    </div>
+                )}
             </div>
-        </div >
-    )
-}
+        </div>
+    );
+};

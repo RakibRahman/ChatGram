@@ -25,6 +25,7 @@ export const CreateChatRoom: React.FC<CreateChatRoomProps> = ({
                     if (chatRoomName.current?.value !== '' && currentUser) {
                         createNewChatRoom(chatRoomName.current?.value!);
                     }
+                    onClose();
                 }}
             >
                 <div className="form-control">

@@ -4,7 +4,6 @@ import { ProfileCard } from '../common/ProfileCard/ProfileCard';
 import { ChatCard } from './ChatCard';
 import { useChatRoomList } from './useChatRoomList';
 
-
 export const ChatRoomList = () => {
     const { currentUser, chatListData, usersChatRooms, handleSearch } =
         useChatRoomList();
@@ -31,7 +30,6 @@ export const ChatRoomList = () => {
         console.log(chatListData.chatRoomListError);
         return <h2>Error loading chat room list</h2>;
     }
-
 
     return (
         <div>
@@ -70,7 +68,6 @@ export const ChatRoomList = () => {
                 </div> */}
             </div>
 
-
             <div className=" flex flex-col space-y-4">
                 {usersChatRooms?.length === 0 ? (
                     <p className="p-4">No chat yet</p>
@@ -89,7 +86,6 @@ export const ChatRoomList = () => {
                         </>
                     ))}
             </div>
-
         </div>
     );
 };
