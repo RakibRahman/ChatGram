@@ -30,7 +30,7 @@ export const ChatRoomList = () => {
         console.log(chatListData.chatRoomListError);
         return <h2>Error loading chat room list</h2>;
     }
-
+    console.log(chatListData.list);
     return (
         <div>
             <div className="flex">
@@ -76,13 +76,33 @@ export const ChatRoomList = () => {
                 {chatListData.list &&
                     chatListData?.list?.map((chatRoom) => (
                         <>
-                            <ChatCard
-                                name={chatRoom.name!}
-                                recentMessage={chatRoom.recentMessage!}
-                                logo={chatRoom.logo!}
-                                id={chatRoom.id!}
-                                key={chatRoom.id}
-                            />
+                            {chatRoom?.type === 'room' ? (
+                                <ChatCard
+                                    name={chatRoom.name!}
+                                    recentMessage={chatRoom.recentMessage!}
+                                    logo={chatRoom.logo!}
+                                    id={chatRoom.id!}
+                                    key={chatRoom.id}
+                                />
+                            ) : (
+                                <ChatCard
+                                    name={
+                                        chatRoom['members'][0] !==
+                                        currentUser?.uid
+                                            ? chatRoom?.userOne?.name
+                                            : chatRoom?.userTwo?.name
+                                    }
+                                    recentMessage={chatRoom.recentMessage!}
+                                    logo={
+                                        chatRoom?.userOne.id !==
+                                        currentUser?.uid
+                                            ? chatRoom?.userOne?.photoURL
+                                            : chatRoom?.userTwo?.photoURL
+                                    }
+                                    id={chatRoom.id!}
+                                    key={chatRoom.id}
+                                />
+                            )}
                         </>
                     ))}
             </div>

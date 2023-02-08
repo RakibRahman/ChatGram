@@ -1,7 +1,9 @@
 import React, { SetStateAction, useRef, useState } from 'react';
 import { UserInfo, ChatRoom } from '../../models/types';
+import { createUser } from '../apiOperations';
 import { ProfileCard } from '../common/ProfileCard/ProfileCard';
 import { useLeftSideBar } from '../LeftSideBar/useLeftSideBar';
+import { useTopMenuBar } from './useTopMenuBar';
 
 interface TopMenuBarProps {
     isSearchActive: boolean;
@@ -18,7 +20,8 @@ export const TopMenuBar: React.FC<TopMenuBarProps> = ({
         groups: [],
     });
 
-    const { handleSearch } = useLeftSideBar();
+    const { handleSearch, currentUser } = useLeftSideBar();
+    const { createOneToOneChatRoom, joinChatRoom } = useTopMenuBar();
     const searchUsers = async (e: React.FormEvent) => {
         e.preventDefault();
 
@@ -93,10 +96,15 @@ export const TopMenuBar: React.FC<TopMenuBarProps> = ({
                 {isSearchActive && (
                     <div>
                         <p>Users</p>
+
                         {searchResult?.users?.map((user: UserInfo) => (
                             <div
+                                key={user?.uid}
                                 onClick={() => {
-                                    console.log(user);
+                                    console.log(user.uid + currentUser?.uid);
+                                    const chatRoomId =
+                                        user.uid + currentUser?.uid;
+                                    createOneToOneChatRoom(user);
                                 }}
                             >
                                 <ProfileCard
@@ -112,8 +120,9 @@ export const TopMenuBar: React.FC<TopMenuBarProps> = ({
                         <p>Rooms</p>
                         {searchResult?.rooms?.map((room: ChatRoom) => (
                             <div
+                                key={room?.id}
                                 onClick={() => {
-                                    console.log(room);
+                                    joinChatRoom(room?.id);
                                 }}
                             >
                                 <ProfileCard

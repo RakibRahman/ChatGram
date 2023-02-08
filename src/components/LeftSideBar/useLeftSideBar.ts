@@ -50,5 +50,5 @@ export const useLeftSideBar = () => {
         return [...users, ...rooms];
     };
 
-    return { handleSearch };
+    return { handleSearch, currentUser };
 };
