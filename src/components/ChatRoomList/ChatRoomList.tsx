@@ -3,20 +3,23 @@ import { Loader } from '../common/Loader/Loader';
 import { ProfileCard } from '../common/ProfileCard/ProfileCard';
 import { ChatCard } from './ChatCard';
 import { useChatRoomList } from './useChatRoomList';
+import { useLocation, useParams } from 'react-router-dom';
 
 export const ChatRoomList = () => {
     const { currentUser, chatListData, usersChatRooms, handleSearch } =
         useChatRoomList();
-
-    const searchQuery = useRef<HTMLInputElement>(null);
-
+    let location = useLocation();
+    const [currentActiveChat, setActiveChat] = useState('');
+    console.log(currentActiveChat);
     useEffect(() => {
-        console.log('mounting chat room list');
+        if (location.pathname) {
+            setActiveChat(location.pathname.replace(/^\/|\/$/g, ''));
+        }
 
         return () => {
-            console.log('remounting chat room list');
+            setActiveChat('');
         };
-    }, []);
+    }, [location]);
 
     if (!currentUser) {
         return <h1>Log in to see chat rooms</h1>;
@@ -30,45 +33,10 @@ export const ChatRoomList = () => {
         console.log(chatListData.chatRoomListError);
         return <h2>Error loading chat room list</h2>;
     }
-    console.log(chatListData.list);
+    // console.log(chatListData.list);
     return (
-        <div>
-            <div className="flex">
-                {/* 
-                <div className="form-control  ">
-                    <div className="input-group ">
-                        <form onSubmit={searchUsers}>
-                            <div className="flex gap-1">
-                                <input
-                                    name="searchQuery"
-                                    type="text"
-                                    ref={searchQuery}
-                                    placeholder="Search…"
-                                    className="input input-bordered input-sm w-full max-w-xs "
-                                />
-                                <button className="btn btn-sm" type="submit">
-                                    <svg
-                                        xmlns="http://www.w3.org/2000/svg"
-                                        className="h-6 w-6"
-                                        fill="none"
-                                        viewBox="0 0 24 24"
-                                        stroke="currentColor"
-                                    >
-                                        <path
-                                            strokeLinecap="round"
-                                            strokeLinejoin="round"
-                                            strokeWidth="2"
-                                            d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"
-                                        />
-                                    </svg>
-                                </button>
-                            </div>
-                        </form>
-                    </div>
-                </div> */}
-            </div>
-
-            <div className=" flex flex-col space-y-4">
+        <div className="bg-white h-96">
+            <div className=" flex flex-col">
                 {usersChatRooms?.length === 0 ? (
                     <p className="p-4">No chat yet</p>
                 ) : null}
@@ -83,9 +51,11 @@ export const ChatRoomList = () => {
                                     logo={chatRoom.logo!}
                                     id={chatRoom.id!}
                                     key={chatRoom.id}
+                                    isActive={currentActiveChat}
                                 />
                             ) : (
                                 <ChatCard
+                                    isActive={currentActiveChat}
                                     name={
                                         chatRoom['members'][0] !==
                                         currentUser?.uid

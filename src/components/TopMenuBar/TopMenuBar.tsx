@@ -21,7 +21,8 @@ export const TopMenuBar: React.FC<TopMenuBarProps> = ({
     });
 
     const { handleSearch, currentUser } = useLeftSideBar();
-    const { createOneToOneChatRoom, joinChatRoom } = useTopMenuBar();
+    const { createOneToOneChatRoom, joinChatRoom } =
+        useTopMenuBar(setSearchActive);
     const searchUsers = async (e: React.FormEvent) => {
         e.preventDefault();
 

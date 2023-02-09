@@ -14,7 +14,7 @@ import { createUser, updateUserOnlineStatus } from '../apiOperations';
 
 export const useChatRoomList = (userName?: string) => {
     const { currentUser, signOut } = useChatRoomContext();
-    console.log(currentUser);
+    // console.log(currentUser);
     const usersRef = doc(db, 'users', currentUser?.uid!);
 
     const [userInfo, userInfoError, userInfoLoading] = useDocument(usersRef, {
@@ -22,7 +22,7 @@ export const useChatRoomList = (userName?: string) => {
     });
 
     const usersChatRooms: string[] = userInfo?.data()?.['chatRooms'] ?? [''];
-    console.log(usersChatRooms);
+    // console.log(usersChatRooms);
     const userStatus = {
         userInfoError,
         usersChatRooms,
@@ -66,7 +66,7 @@ export const useChatRoomList = (userName?: string) => {
     };
 
     const handleLogin = async () => {
-        console.log('ddd');
+        console.log('optimize this function');
         if (!currentUser) return;
         console.log('ddd v3w');
         // userId.current = currentUser.uid;

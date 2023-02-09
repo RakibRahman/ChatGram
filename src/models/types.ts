@@ -70,4 +70,5 @@ export interface ChatCardProps {
     name: string;
     logo: string;
     recentMessage: ChatRoom['recentMessage'];
+    isActive: string;
 }

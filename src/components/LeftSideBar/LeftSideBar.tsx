@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import { useState } from 'react';
 import { ChatRoomList } from '../ChatRoomList/ChatRoomList';
 import { TopMenuBar } from '../TopMenuBar/TopMenuBar';
 import { LeftMainMenu } from './LeftMainMenu';

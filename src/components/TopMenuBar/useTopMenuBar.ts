@@ -1,11 +1,15 @@
 import { arrayUnion, doc, getDoc, setDoc, updateDoc } from 'firebase/firestore';
 import { nanoid } from 'nanoid';
+import { Dispatch, SetStateAction } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useChatRoomContext } from '../../context/context';
 import { db, timeStamp } from '../../firebase';
 import { ChatUserInfo, CreateChatRoom, UserInfo } from '../../models/types';
+import { joinChatRoom as joinRoom } from '../apiOperations';
 
-export const useTopMenuBar = () => {
+export const useTopMenuBar = (
+    setSearchActive: Dispatch<SetStateAction<boolean>>
+) => {
     const { currentUser } = useChatRoomContext();
     const navigate = useNavigate();
     const createOneToOneChatRoom = async (receiver: UserInfo) => {
@@ -25,9 +29,10 @@ export const useTopMenuBar = () => {
         const isAlreadyJoined = docSnap
             .data()
             ?.['members'].some((member: string) => member === currentUser?.uid);
-        console.log(isAlreadyJoined);
+
         if (isAlreadyJoined) {
             navigate(`/${docSnap.data()?.['id']}`);
+            setSearchActive(false);
             return;
         }
         if (!isAlreadyJoined) {
@@ -66,7 +71,10 @@ export const useTopMenuBar = () => {
 
             try {
                 Promise.all([createNewChatRoom, updateUserInfo()]).then(
-                    (values) => {}
+                    (values) => {
+                        navigate(`/${docSnap.data()?.['id']}`);
+                        setSearchActive(false);
+                    }
                 );
             } catch {
                 alert('Error creating chat room');
@@ -86,6 +94,19 @@ export const useTopMenuBar = () => {
 
         if (isAlreadyJoined) {
             navigate(`/${chatRoomId}`);
+            setSearchActive(false);
+            return;
+        }
+
+        if (!isAlreadyJoined) {
+            joinRoom(chatRoomId, currentUser?.uid!)
+                .then(() => {
+                    setSearchActive(false);
+                    navigate(`/${chatRoomId}`);
+                })
+                .catch((err) => {
+                    console.log(err);
+                });
         }
     };
     return { createOneToOneChatRoom, joinChatRoom };
