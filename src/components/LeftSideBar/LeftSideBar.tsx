@@ -7,7 +7,7 @@ export const LeftSideBar = () => {
     const [isSearchActive, setSearchActive] = useState(false);
 
     return (
-        <div>
+        <div className=" h-96">
             <div className="flex">
                 <LeftMainMenu />
                 <TopMenuBar

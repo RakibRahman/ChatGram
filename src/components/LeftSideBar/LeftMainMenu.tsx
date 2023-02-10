@@ -34,7 +34,7 @@ export const LeftMainMenu = () => {
             </button>
             <Drawer isOpen={isOpen} setIsOpen={setIsOpen}>
                 <div className="flex flex-col items-start justify-between  h-full px-4">
-                    <div className="text-black space-y-1">
+                    <div className=" space-y-1">
                         <Avatar
                             name={currentUser?.displayName!}
                             img={currentUser?.photoURL!}

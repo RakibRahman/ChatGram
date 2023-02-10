@@ -17,7 +17,7 @@ function App() {
     const { currentUser, loading, userError, signOut } = useChatRoomContext();
 
     return (
-        <div data-theme="aqua">
+        <div data-theme="dracula">
             <Router>
                 {currentUser ? (
                     <div className=" flex max-w-7xl  mx-auto px-4 border border-green-500 h-screen py-16 items-start gap-6">

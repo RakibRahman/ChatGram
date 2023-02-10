@@ -35,7 +35,7 @@ export const ChatRoomList = () => {
     }
     // console.log(chatListData.list);
     return (
-        <div className="bg-white h-96">
+        <div>
             <div className=" flex flex-col">
                 {usersChatRooms?.length === 0 ? (
                     <p className="p-4">No chat yet</p>
@@ -58,14 +58,14 @@ export const ChatRoomList = () => {
                                     isActive={currentActiveChat}
                                     name={
                                         chatRoom['members'][0] !==
-                                        currentUser?.uid
+                                            currentUser?.uid
                                             ? chatRoom?.userOne?.name
                                             : chatRoom?.userTwo?.name
                                     }
                                     recentMessage={chatRoom.recentMessage!}
                                     logo={
                                         chatRoom?.userOne.id !==
-                                        currentUser?.uid
+                                            currentUser?.uid
                                             ? chatRoom?.userOne?.photoURL
                                             : chatRoom?.userTwo?.photoURL
                                     }

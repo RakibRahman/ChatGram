@@ -15,7 +15,7 @@ export const Drawer: React.FC<DrawerProps> = ({
     return (
         <main
             className={
-                ' fixed overflow-hidden z-10 bg-black  bg-opacity-50 inset-0 transform ease-in-out ' +
+                ' fixed overflow-hidden z-10 bg-black  bg-opacity-70 inset-0 transform ease-in-out ' +
                 (isOpen
                     ? ' transition-opacity opacity-100 duration-500 translate-y-0  '
                     : ' transition-all delay-500 opacity-0 translate-y-full  ')
@@ -23,7 +23,7 @@ export const Drawer: React.FC<DrawerProps> = ({
         >
             <section
                 className={
-                    ` w-screen max-w-lg ${side}-0 absolute bg-white h-full shadow-xl delay-400 duration-500 ease-in-out transition-all transform ` +
+                    ` w-screen max-w-lg ${side}-0 absolute  h-full shadow-xl delay-400 duration-500 ease-in-out transition-all transform ` +
                     (isOpen ? ' translate-y-0 ' : ' translate-y-full ')
                 }
             >
