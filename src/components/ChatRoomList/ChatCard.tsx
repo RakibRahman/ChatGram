@@ -13,10 +13,14 @@ export const ChatCard: React.FC<ChatCardProps> = ({
 }) => {
     return (
         <div
-            className={`overflow-hidden max-w-sm space-y-6 hover:opacity-90 ${id === isActive
-                ? 'text-white bg-blue-400 hover:bg-blue-300'
-                : 'hover:bg-gray-100'
-                }  py-2`}
+            className={`overflow-hidden max-w-sm space-y-6 hover:opacity-90 ${
+                id === isActive
+                    ? 'text-white bg-blue-400 hover:bg-blue-300'
+                    : 'hover:bg-gray-400'
+            }  py-2`}
+            onClick={() => {
+                localStorage.setItem('activeChat', isActive);
+            }}
         >
             <Link to={`/${id}`}>
                 <div className=" gap-3  flex w-full px-2">
@@ -30,10 +34,9 @@ export const ChatCard: React.FC<ChatCardProps> = ({
                             </p>
                         </div>
                         <p
-                            className={` ${id === isActive
-                                ? ' '
-                                : ''
-                                } text-sm font-normal`}
+                            className={` ${
+                                id === isActive ? ' ' : ''
+                            } text-sm font-normal`}
                         >
                             {recentMessage?.message ?? '...'}
                         </p>

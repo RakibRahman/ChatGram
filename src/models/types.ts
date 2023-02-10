@@ -1,12 +1,6 @@
-import firebase from 'firebase/compat/app';
-import {
-    ActionCodeSettings,
-    AuthError,
-    CustomParameters,
-    UserCredential,
-    User,
-} from 'firebase/auth';
+import { User, UserCredential } from 'firebase/auth';
 import { Timestamp } from 'firebase/firestore';
+import { SetStateAction } from 'react';
 
 export type CurrentUser = UserCredential | undefined;
 
@@ -16,6 +10,8 @@ export interface UserContext {
     userError: Error | undefined;
     signInWithGoogle: () => void;
     signOut: () => void;
+    themeName: string;
+    setThemeName: React.Dispatch<SetStateAction<string>>;
 }
 interface SentMessageType {
     message: string;

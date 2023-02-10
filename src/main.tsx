@@ -8,7 +8,6 @@ ReactDOM.createRoot(document.getElementById('root') as HTMLElement).render(
     <React.StrictMode>
         <>
             <ChatRoomData>
-                {' '}
                 <App />
             </ChatRoomData>
         </>

@@ -25,6 +25,9 @@ export const ChatRoomData: FC<ChatRoomDataProp> = ({ children }) => {
     const [signInWithGoogle] = useSignInWithGoogle(auth);
     const [signOut] = useSignOut(auth);
     const [user, loading, error] = useAuthState(auth);
+    const [themeName, setThemeName] = useState(
+        localStorage.getItem('theme') ?? 'dark'
+    );
 
     return (
         <context.Provider
@@ -34,6 +37,8 @@ export const ChatRoomData: FC<ChatRoomDataProp> = ({ children }) => {
                 userError: error,
                 signInWithGoogle,
                 signOut,
+                themeName,
+                setThemeName,
             }}
         >
             {children}

@@ -1,25 +1,13 @@
-import { useEffect, useRef, useState } from 'react';
+import { useLocation } from 'react-router-dom';
 import { Loader } from '../common/Loader/Loader';
-import { ProfileCard } from '../common/ProfileCard/ProfileCard';
 import { ChatCard } from './ChatCard';
 import { useChatRoomList } from './useChatRoomList';
-import { useLocation, useParams } from 'react-router-dom';
 
 export const ChatRoomList = () => {
     const { currentUser, chatListData, usersChatRooms, handleSearch } =
         useChatRoomList();
     let location = useLocation();
-    const [currentActiveChat, setActiveChat] = useState('');
-    console.log(currentActiveChat);
-    useEffect(() => {
-        if (location.pathname) {
-            setActiveChat(location.pathname.replace(/^\/|\/$/g, ''));
-        }
-
-        return () => {
-            setActiveChat('');
-        };
-    }, [location]);
+    const activeChat = location.pathname.replace(/^\/|\/$/g, '') ?? '';
 
     if (!currentUser) {
         return <h1>Log in to see chat rooms</h1>;
@@ -51,21 +39,21 @@ export const ChatRoomList = () => {
                                     logo={chatRoom.logo!}
                                     id={chatRoom.id!}
                                     key={chatRoom.id}
-                                    isActive={currentActiveChat}
+                                    isActive={activeChat}
                                 />
                             ) : (
                                 <ChatCard
-                                    isActive={currentActiveChat}
+                                    isActive={activeChat}
                                     name={
                                         chatRoom['members'][0] !==
-                                            currentUser?.uid
+                                        currentUser?.uid
                                             ? chatRoom?.userOne?.name
                                             : chatRoom?.userTwo?.name
                                     }
                                     recentMessage={chatRoom.recentMessage!}
                                     logo={
                                         chatRoom?.userOne.id !==
-                                            currentUser?.uid
+                                        currentUser?.uid
                                             ? chatRoom?.userOne?.photoURL
                                             : chatRoom?.userTwo?.photoURL
                                     }

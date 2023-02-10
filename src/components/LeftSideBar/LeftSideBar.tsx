@@ -7,7 +7,7 @@ export const LeftSideBar = () => {
     const [isSearchActive, setSearchActive] = useState(false);
 
     return (
-        <div className=" h-96">
+        <div className=" h-full w-2/5">
             <div className="flex">
                 <LeftMainMenu />
                 <TopMenuBar
@@ -15,7 +15,10 @@ export const LeftSideBar = () => {
                     setSearchActive={setSearchActive}
                 />
             </div>
-            {isSearchActive ? null : <ChatRoomList />}
+            <div className={`${isSearchActive ? 'hidden' : 'block'}`}>
+                {' '}
+                <ChatRoomList />
+            </div>
         </div>
     );
 };

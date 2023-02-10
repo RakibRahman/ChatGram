@@ -4,11 +4,12 @@ import { updateUserOnlineStatus } from '../apiOperations';
 import { Avatar } from '../common/Avatar/Avatar';
 import { Drawer } from '../common/Drawer';
 import { CreateChatRoom } from '../CreateChatRoom/CreateChatRoom';
+import { ThemeSelector } from '../ThemeSelector';
 
 export const LeftMainMenu = () => {
     const { currentUser, signOut } = useChatRoomContext();
     const userId = useRef(currentUser?.uid);
-
+    console.log({ userId });
     const [isOpen, setIsOpen] = useState(false);
     const [isOpenModal, setIsOpenModal] = useState(false);
     return (
@@ -52,6 +53,7 @@ export const LeftMainMenu = () => {
                             </button>
                         ) : null}
                     </div>
+                    <ThemeSelector />
                     <div>
                         {currentUser ? (
                             <button
@@ -62,6 +64,7 @@ export const LeftMainMenu = () => {
                                         'offline'
                                     );
                                     signOut();
+                                    localStorage.removeItem('activeChat');
                                 }}
                             >
                                 Sign Out

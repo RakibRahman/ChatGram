@@ -1,6 +1,5 @@
 import React, { SetStateAction, useRef, useState } from 'react';
-import { UserInfo, ChatRoom } from '../../models/types';
-import { createUser } from '../apiOperations';
+import { ChatRoom, UserInfo } from '../../models/types';
 import { ProfileCard } from '../common/ProfileCard/ProfileCard';
 import { useLeftSideBar } from '../LeftSideBar/useLeftSideBar';
 import { useTopMenuBar } from './useTopMenuBar';
