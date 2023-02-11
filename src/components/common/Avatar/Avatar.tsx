@@ -18,11 +18,7 @@ export const Avatar: React.FC<AvatarProps> = ({ name, img }) => {
                     {avatarName}
                 </div>
             ) : (
-                <img
-                    src={img}
-                    className="w-12 h-12 object-cover rounded-full"
-                    alt={name}
-                />
+                <img src={img} className="w-12 h-12 object-cover rounded-full" alt={name} />
             )}
         </>
     );

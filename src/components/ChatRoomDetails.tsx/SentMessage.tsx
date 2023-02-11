@@ -3,14 +3,8 @@ import { useChatRoomDetails } from './useChatRoomDetails';
 
 export const SentMessage = () => {
     const messageRef = useRef<HTMLInputElement>(null);
-    const {
-        lastMessage,
-        currentUser,
-        sendMessage,
-        messageData,
-        isValidUser,
-        chatRoomInfo,
-    } = useChatRoomDetails();
+    const { lastMessage, currentUser, sendMessage, messageData, isValidUser, chatRoomInfo } =
+        useChatRoomDetails();
     return (
         <div>
             <input

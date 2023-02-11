@@ -4,7 +4,7 @@ import { getTime } from '../../utilities/getTime';
 import { useChatRoomDetails } from './useChatRoomDetails';
 export const GroupMessages = () => {
     const messageContainerRef = useRef<HTMLDivElement>(null);
-    const { messageData, isValidUser, chatRoomInfo } = useChatRoomDetails();
+    const { messageData, isValidUser, chatRoomInfo, currentUser } = useChatRoomDetails();
 
     useScrollIntoView(messageContainerRef, messageData?.groupMessages);
 
@@ -23,18 +23,20 @@ export const GroupMessages = () => {
     return (
         <>
             <div ref={messageContainerRef}>
-                <h1>Messages</h1>
                 <div className="md:container md:mx-auto ">
                     {messageData.groupMessages?.map((m) => (
-                        <div className="chat chat-start">
+                        <div
+                            className={`chat chat-${
+                                (m.chatRoomId.length > 20 && m.sentBy.id) === currentUser?.uid
+                                    ? 'end'
+                                    : 'start'
+                            }`}
+                        >
                             <div className="chat-image avatar">
                                 <div className="w-10 rounded-full">
                                     <img
                                         referrerPolicy="no-referrer"
-                                        src={
-                                            m.sentBy.pic ??
-                                            'https://placeimg.com/192/192/people'
-                                        }
+                                        src={m.sentBy.pic ?? 'https://placeimg.com/192/192/people'}
                                     />
                                 </div>
                             </div>

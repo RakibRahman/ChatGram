@@ -10,10 +10,7 @@ export const LeftSideBar = () => {
         <div className=" h-full w-2/5">
             <div className="flex">
                 <LeftMainMenu />
-                <TopMenuBar
-                    isSearchActive={isSearchActive}
-                    setSearchActive={setSearchActive}
-                />
+                <TopMenuBar isSearchActive={isSearchActive} setSearchActive={setSearchActive} />
             </div>
             <div className={`${isSearchActive ? 'hidden' : 'block'}`}>
                 {' '}

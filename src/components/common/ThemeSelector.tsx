@@ -1,12 +1,12 @@
 import React, { useRef, useState } from 'react';
-import { useChatRoomContext } from '../context/context';
-import { themes } from '../utilities/data';
+import { useChatRoomContext } from '../../context/context';
+import { themes } from '../../utilities/data';
 export const ThemeSelector = () => {
     // const themeName = useRef<HTMLSelectElement>(null)
     //selected={themeName === localStorage.getItem('theme')}
     const { themeName, setThemeName } = useChatRoomContext();
     const [toggle, setToggle] = useState(false);
-    console.log(themeName === localStorage.getItem('theme'));
+
     return (
         <div>
             <p className="text-sm font-medium text-white">Theme</p>
@@ -60,7 +60,6 @@ export const ThemeSelector = () => {
                                     {' '}
                                     {theme}
                                 </span>
-                                {themeName === theme ? <p></p> : null}
                             </li>
                         ))}
                     </ul>

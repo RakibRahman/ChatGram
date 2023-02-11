@@ -1,23 +1,21 @@
-import React, { useRef, useState } from 'react';
+import { useRef, useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 import { useChatRoomContext } from '../../context/context';
 import { updateUserOnlineStatus } from '../apiOperations';
 import { Avatar } from '../common/Avatar/Avatar';
 import { Drawer } from '../common/Drawer';
+import { ThemeSelector } from '../common/ThemeSelector';
 import { CreateChatRoom } from '../CreateChatRoom/CreateChatRoom';
-import { ThemeSelector } from '../ThemeSelector';
 
 export const LeftMainMenu = () => {
     const { currentUser, signOut } = useChatRoomContext();
     const userId = useRef(currentUser?.uid);
-    console.log({ userId });
+    const navigate = useNavigate();
     const [isOpen, setIsOpen] = useState(false);
     const [isOpenModal, setIsOpenModal] = useState(false);
     return (
         <div>
-            <button
-                className="btn btn-sm bg-transparent border-0"
-                onClick={() => setIsOpen(true)}
-            >
+            <button className="btn btn-sm bg-transparent border-0" onClick={() => setIsOpen(true)}>
                 <svg
                     xmlns="http://www.w3.org/2000/svg"
                     fill="none"
@@ -36,10 +34,7 @@ export const LeftMainMenu = () => {
             <Drawer isOpen={isOpen} setIsOpen={setIsOpen}>
                 <div className="flex flex-col items-start justify-between  h-full px-4">
                     <div className=" space-y-1">
-                        <Avatar
-                            name={currentUser?.displayName!}
-                            img={currentUser?.photoURL!}
-                        />
+                        <Avatar name={currentUser?.displayName!} img={currentUser?.photoURL!} />
                         <h2>{currentUser?.displayName}</h2>
                     </div>
                     <div>
@@ -59,12 +54,10 @@ export const LeftMainMenu = () => {
                             <button
                                 className="btn"
                                 onClick={async () => {
-                                    await updateUserOnlineStatus(
-                                        userId.current!,
-                                        'offline'
-                                    );
+                                    await updateUserOnlineStatus(userId.current!, 'offline');
                                     signOut();
                                     localStorage.removeItem('activeChat');
+                                    navigate('/');
                                 }}
                             >
                                 Sign Out
@@ -72,10 +65,7 @@ export const LeftMainMenu = () => {
                         ) : null}
                     </div>
                 </div>
-                <CreateChatRoom
-                    isOpen={isOpenModal}
-                    onClose={() => setIsOpenModal(false)}
-                />
+                <CreateChatRoom isOpen={isOpenModal} onClose={() => setIsOpenModal(false)} />
             </Drawer>
         </div>
     );

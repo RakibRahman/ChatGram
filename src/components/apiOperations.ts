@@ -2,6 +2,7 @@ import { doc, getDoc, setDoc, updateDoc, arrayUnion } from 'firebase/firestore';
 import { db, timeStamp } from '../firebase';
 import { handleResults } from '../utilities/handleResults';
 import { CurrentUser, ChatUserInfo } from '../models/types';
+import { async } from '@firebase/util';
 
 export const joinChatRoom = async (chatRoomId: string, userId: string) => {
     const chatRoomRef = doc(db, 'chatRooms', chatRoomId);
@@ -45,7 +46,7 @@ export const updateUserOnlineStatus = async (
         });
 };
 
-export const createUser = async (currentUser: ChatUserInfo) => {
+export const createUser = async (currentUser: CurrentUser) => {
     if (!currentUser) return;
     const { uid, displayName, email, photoURL } = currentUser;
     const docRef = doc(db, 'users', uid);
@@ -57,7 +58,14 @@ export const createUser = async (currentUser: ChatUserInfo) => {
             name: displayName?.toLowerCase(),
             email,
             photoURL,
+            lastLogin: currentUser?.metadata?.lastSignInTime,
         },
         { merge: true }
     );
+};
+
+export const checkUserStatus = async (id: string): Promise<string> => {
+    const docRef = doc(db, 'users', id);
+    const docSnap = await getDoc(docRef);
+    return docSnap?.data()?.status ?? '';
 };

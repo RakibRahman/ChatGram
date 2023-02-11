@@ -6,12 +6,7 @@ interface DrawerProps {
     setIsOpen: React.Dispatch<React.SetStateAction<boolean>>;
     side?: 'left' | 'right';
 }
-export const Drawer: React.FC<DrawerProps> = ({
-    children,
-    isOpen,
-    setIsOpen,
-    side = 'left',
-}) => {
+export const Drawer: React.FC<DrawerProps> = ({ children, isOpen, setIsOpen, side = 'left' }) => {
     return (
         <main
             className={

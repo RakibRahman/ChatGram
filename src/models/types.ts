@@ -2,10 +2,10 @@ import { User, UserCredential } from 'firebase/auth';
 import { Timestamp } from 'firebase/firestore';
 import { SetStateAction } from 'react';
 
-export type CurrentUser = UserCredential | undefined;
+export type CurrentUser = User | null | undefined;
 
 export interface UserContext {
-    currentUser: User | null | undefined;
+    currentUser: CurrentUser;
     loading: boolean;
     userError: Error | undefined;
     signInWithGoogle: () => void;
@@ -17,10 +17,16 @@ interface SentMessageType {
     message: string;
     uid: string;
 }
-export type ChatUserInfo = Pick<
-    User,
-    'displayName' | 'email' | 'photoURL' | 'uid'
->;
+export type ChatUserInfo = Pick<User, 'displayName' | 'email' | 'photoURL' | 'uid'>;
+
+type ChatRoomType = 'single' | 'room';
+
+interface ChatRoomSingleUserInfo {
+    email: string;
+    name: string;
+    id: string;
+    photoURL: string;
+}
 export interface ChatRoom {
     name: string;
     createdBy: Partial<UserCredential['user']>;
@@ -32,7 +38,14 @@ export interface ChatRoom {
         message: string;
         sentBy: string;
         timestamp: Timestamp;
+        type: string;
     };
+    type: ChatRoomType;
+}
+
+export interface SingleChatRoom extends ChatRoom {
+    userOne: ChatRoomSingleUserInfo;
+    userTwo: ChatRoomSingleUserInfo;
 }
 export interface CreateChatRoom {
     createNewChatRoom: () => Promise<void>;

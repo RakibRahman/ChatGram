@@ -7,10 +7,7 @@ interface CreateChatRoomProps {
     onClose: () => void;
 }
 
-export const CreateChatRoom: React.FC<CreateChatRoomProps> = ({
-    isOpen,
-    onClose,
-}) => {
+export const CreateChatRoom: React.FC<CreateChatRoomProps> = ({ isOpen, onClose }) => {
     const chatRoomName = useRef<HTMLInputElement>(null);
     const { createNewChatRoom, currentUser } = useCreateChatRoom();
 

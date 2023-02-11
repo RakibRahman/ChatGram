@@ -1,25 +1,8 @@
-import React, { useEffect } from 'react';
-import { useNavigate } from 'react-router-dom';
-import { useChatRoomContext } from '../../context/context';
 import BG from '../../assets/login_bg.svg';
-import {
-    joinChatRoom,
-    updateUserOnlineStatus,
-    createUser,
-} from '../apiOperations';
+import { useChatRoomContext } from '../../context/context';
 
 export const Login = () => {
-    const navigate = useNavigate();
-    const { signInWithGoogle, currentUser, loading, userError, signOut } =
-        useChatRoomContext();
-
-    // useEffect(() => {
-    //     if (currentUser) {
-    //         navigate('/');
-    //     }
-    // }, [currentUser]);
-
-    console.log(currentUser);
+    const { signInWithGoogle } = useChatRoomContext();
 
     return (
         <div className="hero" style={{ backgroundImage: `url(${BG})` }}>

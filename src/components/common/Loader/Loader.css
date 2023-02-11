@@ -1,6 +1,6 @@
 :root {
-    --blue: #1e90ff;
-    --primary: #ffffff;
+    --blue: #ffb600;
+    --primary: #73a942;
 }
 
 .chase {
@@ -14,7 +14,7 @@
     display: block;
     -webkit-animation: out 0.5s backwards, spin 1.25s 0.5s infinite ease;
     animation: out 0.5s backwards, spin 1.25s 0.5s infinite ease;
-    border: 5px solid var(--primary);
+    border: 5px solid var(--blue);
     border-radius: 100%;
     -webkit-box-shadow: 0 -40px 0 -5px var(--primary);
     box-shadow: 0 -40px 0 -5px var(--primary);

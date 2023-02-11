@@ -7,9 +7,7 @@ import { db, timeStamp } from '../../firebase';
 import { ChatUserInfo, CreateChatRoom, UserInfo } from '../../models/types';
 import { joinChatRoom as joinRoom } from '../apiOperations';
 
-export const useTopMenuBar = (
-    setSearchActive: Dispatch<SetStateAction<boolean>>
-) => {
+export const useTopMenuBar = (setSearchActive: Dispatch<SetStateAction<boolean>>) => {
     const { currentUser } = useChatRoomContext();
     const navigate = useNavigate();
     const createOneToOneChatRoom = async (receiver: UserInfo) => {
@@ -70,12 +68,10 @@ export const useTopMenuBar = (
             };
 
             try {
-                Promise.all([createNewChatRoom, updateUserInfo()]).then(
-                    (values) => {
-                        navigate(`/${docSnap.data()?.['id']}`);
-                        setSearchActive(false);
-                    }
-                );
+                Promise.all([createNewChatRoom, updateUserInfo()]).then((values) => {
+                    navigate(`/${docSnap.data()?.['id']}`);
+                    setSearchActive(false);
+                });
             } catch {
                 alert('Error creating chat room');
             }

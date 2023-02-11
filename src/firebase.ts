@@ -17,7 +17,5 @@ export const db = getFirestore(app);
 export const auth = getAuth(app);
 export const timeStamp = serverTimestamp();
 
-export const accessCollection = (
-    collectionName: string,
-    secCollectionName?: string
-) => collection(db, collectionName, secCollectionName ?? '');
+export const accessCollection = (collectionName: string, secCollectionName?: string) =>
+    collection(db, collectionName, secCollectionName ?? '');

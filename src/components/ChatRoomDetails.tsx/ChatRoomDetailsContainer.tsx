@@ -7,8 +7,8 @@ export const ChatRoomDetailsContainer = () => {
         <div className="grow ">
             {/* <ChatRoomDetails /> */}
             <DetailsTopCard />
+            <div className="divider"></div>
             <div className="h-[32rem] overflow-hidden overflow-y-scroll">
-                {' www'}
                 <GroupMessages />
             </div>
             <SentMessage />

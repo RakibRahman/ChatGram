@@ -8,10 +8,7 @@ interface TopMenuBarProps {
     isSearchActive: boolean;
     setSearchActive: React.Dispatch<SetStateAction<boolean>>;
 }
-export const TopMenuBar: React.FC<TopMenuBarProps> = ({
-    isSearchActive,
-    setSearchActive,
-}) => {
+export const TopMenuBar: React.FC<TopMenuBarProps> = ({ isSearchActive, setSearchActive }) => {
     const searchQuery = useRef<HTMLInputElement>(null);
 
     const [searchResult, setSearchResult] = useState<any>({
@@ -20,8 +17,7 @@ export const TopMenuBar: React.FC<TopMenuBarProps> = ({
     });
 
     const { handleSearch, currentUser } = useLeftSideBar();
-    const { createOneToOneChatRoom, joinChatRoom } =
-        useTopMenuBar(setSearchActive);
+    const { createOneToOneChatRoom, joinChatRoom } = useTopMenuBar(setSearchActive);
     const searchUsers = async (e: React.FormEvent) => {
         e.preventDefault();
 
@@ -43,7 +39,7 @@ export const TopMenuBar: React.FC<TopMenuBarProps> = ({
         }
     };
     return (
-        <div className="form-control  ">
+        <div className="form-control ">
             <div className="input-group ">
                 <form onSubmit={searchUsers}>
                     <div className="flex gap-1 relative">
@@ -102,15 +98,11 @@ export const TopMenuBar: React.FC<TopMenuBarProps> = ({
                                 key={user?.uid}
                                 onClick={() => {
                                     console.log(user.uid + currentUser?.uid);
-                                    const chatRoomId =
-                                        user.uid + currentUser?.uid;
+                                    const chatRoomId = user.uid + currentUser?.uid;
                                     createOneToOneChatRoom(user);
                                 }}
                             >
-                                <ProfileCard
-                                    name={user?.name!}
-                                    pic={user?.photoURL!}
-                                />
+                                <ProfileCard name={user?.name!} pic={user?.photoURL!} />
                             </div>
                         ))}
                     </div>
@@ -125,10 +117,7 @@ export const TopMenuBar: React.FC<TopMenuBarProps> = ({
                                     joinChatRoom(room?.id);
                                 }}
                             >
-                                <ProfileCard
-                                    name={room?.name!}
-                                    pic={room?.logo!}
-                                />
+                                <ProfileCard name={room?.name!} pic={room?.logo!} />
                             </div>
                         ))}
                     </div>

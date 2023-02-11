@@ -2,7 +2,7 @@ import { doc, getDoc, setDoc } from 'firebase/firestore';
 import { nanoid } from 'nanoid';
 import { useChatRoomContext } from '../../context/context';
 import { db, timeStamp } from '../../firebase';
-import { ChatUserInfo, CreateChatRoom } from '../../models/types';
+import { ChatUserInfo } from '../../models/types';
 
 export const useCreateChatRoom = () => {
     const { currentUser } = useChatRoomContext();
@@ -13,38 +13,28 @@ export const useCreateChatRoom = () => {
         if (!currentUser) return;
         const currentUserInfo: ChatUserInfo = currentUser;
         const { uid, displayName, email, photoURL } = currentUserInfo;
-        const createNewChatRoom = await setDoc(
-            doc(db, 'chatRooms', chatRoomId),
-            {
-                name: chatRoomName?.toLowerCase(),
-                id: chatRoomId,
-                createdAt: timeStamp,
-                logo: '',
-                createdBy: {
-                    name: displayName?.toLowerCase(),
-                    email,
-                    photoURL,
-                    id: uid,
-                },
-                members: [uid],
-                lastActivity: timeStamp,
-                type: 'room',
-            }
-        );
+        const createNewChatRoom = await setDoc(doc(db, 'chatRooms', chatRoomId), {
+            name: chatRoomName?.toLowerCase(),
+            id: chatRoomId,
+            createdAt: timeStamp,
+            logo: '',
+            createdBy: {
+                name: displayName?.toLowerCase(),
+                email,
+                photoURL,
+                id: uid,
+            },
+            members: [uid],
+            lastActivity: timeStamp,
+            type: 'room',
+        });
 
         const createUserInfo = async () => {
             const docRef = doc(db, 'users', uid);
             const docSnap = await getDoc(docRef);
             if (docSnap.exists()) {
-                const updateChatRooms = [
-                    ...docSnap.data().chatRooms,
-                    chatRoomId,
-                ];
-                setDoc(
-                    docRef,
-                    { ...docSnap.data(), chatRooms: updateChatRooms },
-                    { merge: true }
-                );
+                const updateChatRooms = [...docSnap.data().chatRooms, chatRoomId];
+                setDoc(docRef, { ...docSnap.data(), chatRooms: updateChatRooms }, { merge: true });
             } else {
                 setDoc(
                     docRef,
@@ -61,9 +51,7 @@ export const useCreateChatRoom = () => {
         };
 
         try {
-            Promise.all([createNewChatRoom, createUserInfo()]).then(
-                (values) => {}
-            );
+            Promise.all([createNewChatRoom, createUserInfo()]).then((values) => {});
         } catch {
             alert('Error creating chat room');
         }

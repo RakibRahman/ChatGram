@@ -1,11 +1,4 @@
-import {
-    collection,
-    doc,
-    getDocs,
-    orderBy,
-    query,
-    where,
-} from 'firebase/firestore';
+import { collection, doc, getDocs, orderBy, query, where } from 'firebase/firestore';
 import { useLayoutEffect } from 'react';
 import { useCollection, useDocument } from 'react-firebase-hooks/firestore';
 import { useChatRoomContext } from '../../context/context';
@@ -34,30 +27,9 @@ export const useChatRoomList = (userName?: string) => {
         where('id', 'in', usersChatRooms?.length === 0 ? [''] : usersChatRooms),
         orderBy('lastActivity', 'desc')
     );
-    const [chatRoomList, chatRoomListLoading, chatRoomListError] =
-        useCollection(q, {
-            snapshotListenOptions: { includeMetadataChanges: true },
-        });
-
-    // const usersSearchRef = collection(db, 'users');
-    // const nameQuery = query(usersSearchRef, where("name", "==", userName ?? ''));
-
-    // const [searchResult, searchResultLoading, searchResultError] =
-    //     useCollection(nameQuery, {
-    //         snapshotListenOptions: { includeMetadataChanges: true },
-    //     });
-    // console.log('searchResult', searchResult?.docs.map((doc) => doc.data()))
-    const handleSearch = async (userName: string) => {
-        console.log('first');
-        const usersSearchRef = collection(db, 'users');
-        const nameQuery = query(
-            usersSearchRef,
-            where('name', '>=', userName.toLowerCase())
-        );
-        const querySnapshot = await getDocs(nameQuery);
-        console.log('isEmpty', querySnapshot.empty);
-        return querySnapshot.docs.map((doc) => doc.data());
-    };
+    const [chatRoomList, chatRoomListLoading, chatRoomListError] = useCollection(q, {
+        snapshotListenOptions: { includeMetadataChanges: true },
+    });
 
     const chatListData = {
         list: chatRoomList?.docs.map((chat) => chat.data()) ?? [],
@@ -83,6 +55,5 @@ export const useChatRoomList = (userName?: string) => {
         chatListData,
         usersChatRooms,
         signOut,
-        handleSearch,
     } as const;
 };
