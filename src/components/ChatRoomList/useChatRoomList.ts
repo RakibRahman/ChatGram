@@ -1,9 +1,7 @@
-import { collection, doc, getDocs, orderBy, query, where } from 'firebase/firestore';
-import { useLayoutEffect } from 'react';
+import { collection, doc, orderBy, query, where } from 'firebase/firestore';
 import { useCollection, useDocument } from 'react-firebase-hooks/firestore';
 import { useChatRoomContext } from '../../context/context';
 import { db } from '../../firebase';
-import { createUser, updateUserOnlineStatus } from '../apiOperations';
 
 export const useChatRoomList = (userName?: string) => {
     const { currentUser, signOut } = useChatRoomContext();
@@ -36,19 +34,6 @@ export const useChatRoomList = (userName?: string) => {
         chatRoomListError,
         chatRoomListLoading,
     };
-
-    const handleLogin = async () => {
-        console.log('optimize this function');
-        if (!currentUser) return;
-        console.log('ddd v3w');
-        // userId.current = currentUser.uid;
-        await createUser(currentUser);
-        await updateUserOnlineStatus(currentUser?.uid);
-    };
-
-    useLayoutEffect(() => {
-        handleLogin();
-    }, []);
 
     return {
         currentUser,

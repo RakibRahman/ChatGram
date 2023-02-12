@@ -54,10 +54,17 @@ export const LeftMainMenu = () => {
                             <button
                                 className="btn"
                                 onClick={async () => {
-                                    await updateUserOnlineStatus(userId.current!, 'offline');
-                                    signOut();
-                                    localStorage.removeItem('activeChat');
-                                    navigate('/');
+                                    signOut()
+                                        .then(() => {
+                                            updateUserOnlineStatus(userId.current!, 'offline');
+                                            localStorage.removeItem('activeChat');
+                                        })
+                                        .catch((error) => {
+                                            console.log(error);
+                                        })
+                                        .finally(() => {
+                                            navigate('/');
+                                        });
                                 }}
                             >
                                 Sign Out

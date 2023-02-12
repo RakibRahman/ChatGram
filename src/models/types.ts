@@ -8,8 +8,8 @@ export interface UserContext {
     currentUser: CurrentUser;
     loading: boolean;
     userError: Error | undefined;
-    signInWithGoogle: () => void;
-    signOut: () => void;
+    signInWithGoogle: () => Promise<UserCredential | undefined>;
+    signOut: () => Promise<boolean>;
     themeName: string;
     setThemeName: React.Dispatch<SetStateAction<string>>;
 }

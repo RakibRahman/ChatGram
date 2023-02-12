@@ -1,8 +1,7 @@
-import { doc, getDoc, setDoc, updateDoc, arrayUnion } from 'firebase/firestore';
-import { db, timeStamp } from '../firebase';
+import { arrayUnion, doc, getDoc, setDoc, updateDoc } from 'firebase/firestore';
+import { db } from '../firebase';
+import { CurrentUser } from '../models/types';
 import { handleResults } from '../utilities/handleResults';
-import { CurrentUser, ChatUserInfo } from '../models/types';
-import { async } from '@firebase/util';
 
 export const joinChatRoom = async (chatRoomId: string, userId: string) => {
     const chatRoomRef = doc(db, 'chatRooms', chatRoomId);
@@ -59,6 +58,7 @@ export const createUser = async (currentUser: CurrentUser) => {
             email,
             photoURL,
             lastLogin: currentUser?.metadata?.lastSignInTime,
+            status: 'online',
         },
         { merge: true }
     );

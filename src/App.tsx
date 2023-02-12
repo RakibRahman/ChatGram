@@ -14,11 +14,11 @@ function App() {
     const location = useLocation();
 
     useEffect(() => {
-        console.log('loc', location);
         if (location.pathname === '/') {
             localStorage.removeItem('activeChat');
         }
     }, [location]);
+
     return (
         <div data-theme={themeName}>
             {currentUser ? (

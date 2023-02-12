@@ -1,8 +1,10 @@
 import BG from '../../assets/login_bg.svg';
 import { useChatRoomContext } from '../../context/context';
+import { createUser } from '../apiOperations';
 
 export const Login = () => {
     const { signInWithGoogle } = useChatRoomContext();
+    // createUser
 
     return (
         <div className="hero" style={{ backgroundImage: `url(${BG})` }}>
@@ -10,7 +12,9 @@ export const Login = () => {
                 <button
                     className="btn"
                     onClick={() => {
-                        signInWithGoogle();
+                        signInWithGoogle().then((user) => {
+                            createUser(user?.user);
+                        });
                     }}
                 >
                     Log in with google
