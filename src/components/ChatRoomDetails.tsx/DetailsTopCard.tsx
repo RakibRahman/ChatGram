@@ -1,33 +1,17 @@
-import React from 'react';
-import { useChatRoomContext } from '../../context/context';
-import { checkUserStatus } from '../apiOperations';
 import { ProfileCard } from '../common/ProfileCard/ProfileCard';
-import { useChatRoomDetails } from './useChatRoomDetails';
+import { useTopCardDetails } from './useTopCardDetails';
 
 export const DetailsTopCard = () => {
-    const { lastMessage, currentUser, sendMessage, messageData, isValidUser, chatRoomInfo } =
-        useChatRoomDetails();
-
-    console.log(
-        'online status',
-        checkUserStatus(currentUser?.uid!).then((r) => r)
-    );
+    const { userInfo, getUserInfo, chatRoomInfo } = useTopCardDetails();
 
     if (chatRoomInfo?.type === 'single') {
         return (
             <div>
                 <ProfileCard
-                    name={
-                        chatRoomInfo['members'][0] !== currentUser?.uid
-                            ? chatRoomInfo?.userOne?.name
-                            : chatRoomInfo?.userTwo?.name
-                    }
-                    pic={
-                        chatRoomInfo?.userOne.id !== currentUser?.uid
-                            ? chatRoomInfo?.userOne?.photoURL
-                            : chatRoomInfo?.userTwo?.photoURL
-                    }
-                    // isOnline
+                    name={getUserInfo('name')}
+                    pic={getUserInfo('photoURL')}
+                    isOnline={userInfo?.data()?.['status']}
+                    // lastActive={getUserInfo('lastLogin')}
                 />
             </div>
         );

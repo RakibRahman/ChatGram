@@ -3,15 +3,14 @@ import { useChatRoomDetails } from './useChatRoomDetails';
 
 export const SentMessage = () => {
     const messageRef = useRef<HTMLInputElement>(null);
-    const { lastMessage, currentUser, sendMessage, messageData, isValidUser, chatRoomInfo } =
-        useChatRoomDetails();
+    const { lastMessage, currentUser, sendMessage } = useChatRoomDetails();
     return (
-        <div>
+        <div className="flex items-center gap-3 my-1">
             <input
                 ref={messageRef}
                 type="text"
                 placeholder="Type here"
-                className="input w-full max-w-lg"
+                className="input input-bordered w-full input-md grow"
             />
             <button
                 onClick={() => {

@@ -23,7 +23,7 @@ export const GroupMessages = () => {
     return (
         <>
             <div ref={messageContainerRef}>
-                <div className="md:container md:mx-auto ">
+                <div className="md:container md:mx-auto px-2">
                     {messageData.groupMessages?.map((m) => (
                         <div
                             className={`chat chat-${
@@ -46,7 +46,7 @@ export const GroupMessages = () => {
                                     {getTime(m?.sentTime?.seconds)}
                                 </time>
                             </div>
-                            <div className="chat-bubble">{m?.message}</div>
+                            <div className="chat-bubble chat-bubble-primary">{m?.message}</div>
                         </div>
                     ))}
                 </div>

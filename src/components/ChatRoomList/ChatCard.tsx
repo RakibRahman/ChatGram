@@ -20,7 +20,7 @@ export const ChatCard: React.FC<ChatCardProps> = ({ name, recentMessage, logo, i
                     <Avatar name={name} img={logo} />
                     <div className="grow">
                         <div className="flex justify-between   items-center ">
-                            <p className="text-base  font-semibold">{name}</p>
+                            <p className="font-semibold text-sm">{name}</p>
                             <p className=" text-xs ">
                                 {getTime(recentMessage?.timestamp?.seconds) ?? '...'}
                             </p>

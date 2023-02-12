@@ -39,66 +39,63 @@ export const TopMenuBar: React.FC<TopMenuBarProps> = ({ isSearchActive, setSearc
         }
     };
     return (
-        <div className="form-control ">
-            <div className="input-group ">
-                <form onSubmit={searchUsers}>
-                    <div className="flex gap-1 relative">
-                        <input
-                            name="searchQuery"
-                            type="text"
-                            ref={searchQuery}
-                            placeholder="Search…"
-                            className="input input-bordered input-sm w-full max-w-xs "
-                        />
-                        <div className="absolute right-14 top-1">
-                            {isSearchActive ? (
-                                <button
-                                    className="btn btn-xs bg-transparent border-none"
-                                    onClick={() => {
-                                        setSearchActive(false);
-                                        if (searchQuery?.current?.value) {
-                                            searchQuery.current.value = '';
-                                            setSearchResult([]);
-                                        }
-                                    }}
-                                >
-                                    X{' '}
-                                </button>
-                            ) : null}
-                        </div>
-                        <button className="btn btn-sm" type="submit">
-                            <svg
-                                xmlns="http://www.w3.org/2000/svg"
-                                className="h-6 w-6"
-                                fill="none"
-                                viewBox="0 0 24 24"
-                                stroke="currentColor"
+        <div>
+            <form onSubmit={searchUsers}>
+                <div className="flex gap-1 relative">
+                    <input
+                        name="searchQuery"
+                        type="text"
+                        ref={searchQuery}
+                        placeholder="Search…"
+                        className="input input-bordered w-full max-w-xs input-sm"
+                    />
+                    <div className="absolute right-14 top-1">
+                        {isSearchActive ? (
+                            <button
+                                className="btn btn-xs bg-transparent border-none"
+                                onClick={() => {
+                                    setSearchActive(false);
+                                    if (searchQuery?.current?.value) {
+                                        searchQuery.current.value = '';
+                                        setSearchResult([]);
+                                    }
+                                }}
                             >
-                                <path
-                                    strokeLinecap="round"
-                                    strokeLinejoin="round"
-                                    strokeWidth="2"
-                                    d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"
-                                />
-                            </svg>
-                        </button>
+                                X{' '}
+                            </button>
+                        ) : null}
                     </div>
-                </form>
-            </div>
+                    <button className="btn btn-sm  rounded-md ml-2" type="submit">
+                        <svg
+                            xmlns="http://www.w3.org/2000/svg"
+                            className="h-6 w-6"
+                            fill="none"
+                            viewBox="0 0 24 24"
+                            stroke="currentColor"
+                        >
+                            <path
+                                strokeLinecap="round"
+                                strokeLinejoin="round"
+                                strokeWidth="2"
+                                d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"
+                            />
+                        </svg>
+                    </button>
+                </div>
+            </form>
+
             <div>
                 {isSearchActive && searchResult.length === 0 ? (
                     <p>No results found, please be more specific</p>
                 ) : null}
                 {isSearchActive && (
-                    <div>
+                    <div className="my-1">
                         <p>Users</p>
 
                         {searchResult?.users?.map((user: UserInfo) => (
                             <div
                                 key={user?.uid}
                                 onClick={() => {
-                                    console.log(user.uid + currentUser?.uid);
-                                    const chatRoomId = user.uid + currentUser?.uid;
                                     createOneToOneChatRoom(user);
                                 }}
                             >

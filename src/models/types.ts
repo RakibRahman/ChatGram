@@ -13,10 +13,7 @@ export interface UserContext {
     themeName: string;
     setThemeName: React.Dispatch<SetStateAction<string>>;
 }
-interface SentMessageType {
-    message: string;
-    uid: string;
-}
+
 export type ChatUserInfo = Pick<User, 'displayName' | 'email' | 'photoURL' | 'uid'>;
 
 type ChatRoomType = 'single' | 'room';
@@ -72,6 +69,8 @@ export interface UserInfo {
     email: string;
     photoURL: string;
     chatRooms: string[];
+    lastLogin: string;
+    status: string;
 }
 
 export interface ChatCardProps {

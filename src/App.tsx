@@ -6,6 +6,7 @@ import { LeftSideBar } from './components/LeftSideBar/LeftSideBar';
 import { Login } from './components/Login/Login';
 import { SelectChatRoom } from './components/common/SelectChatRoom';
 import { useChatRoomContext } from './context/context';
+import { themeChange } from 'theme-change';
 
 function App() {
     const { currentUser, themeName } = useChatRoomContext();
@@ -20,9 +21,9 @@ function App() {
     }, [location]);
 
     return (
-        <div data-theme={themeName}>
+        <div>
             {currentUser ? (
-                <div className=" flex max-w-7xl  mx-auto px-4 border border-green-500 h-screen py-16 items-start gap-6">
+                <div className=" flex w-screen overflow-hidden  mx-auto px-4 border border-green-500 h-screen py-16 items-start gap-6">
                     {currentUser ? <LeftSideBar /> : null}
 
                     <Routes>

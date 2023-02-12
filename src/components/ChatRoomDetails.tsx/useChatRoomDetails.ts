@@ -1,23 +1,12 @@
-import React from 'react';
-import { useChatRoomContext } from '../../context/context';
-import {
-    doc,
-    getDoc,
-    setDoc,
-    query,
-    collection,
-    where,
-    orderBy,
-    limit,
-    limitToLast,
-} from 'firebase/firestore';
+import { collection, doc, limitToLast, orderBy, query, setDoc, where } from 'firebase/firestore';
 import { nanoid } from 'nanoid';
-import { db, timeStamp } from '../../firebase';
+import { useCollection, useDocument } from 'react-firebase-hooks/firestore';
 import { useParams } from 'react-router-dom';
-import { useCollection } from 'react-firebase-hooks/firestore';
-import { ChatRoom, GroupMessage } from '../../models/types';
+import { useChatRoomContext } from '../../context/context';
+import { db, timeStamp } from '../../firebase';
+import { GroupMessage } from '../../models/types';
 
-export const useChatRoomDetails = () => {
+export const useChatRoomDetails = (userId?: string) => {
     const { chatRoomId } = useParams()!;
     const { currentUser } = useChatRoomContext();
 

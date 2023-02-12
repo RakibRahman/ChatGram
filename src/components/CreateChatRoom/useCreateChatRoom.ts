@@ -51,7 +51,7 @@ export const useCreateChatRoom = () => {
         };
 
         try {
-            Promise.all([createNewChatRoom, createUserInfo()]).then((values) => {});
+            Promise.all([createNewChatRoom, createUserInfo()]).then(() => {});
         } catch {
             alert('Error creating chat room');
         }

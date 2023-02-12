@@ -27,7 +27,7 @@ export const ChatRoomList = () => {
     }
     // console.log(chatListData.list);
     return (
-        <div className=" flex flex-col">
+        <div className=" flex flex-col overflow-hidden">
             {usersChatRooms?.length === 0 ? <p className="p-4">No chat yet</p> : null}
 
             {chatListData.list &&

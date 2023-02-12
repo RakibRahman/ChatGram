@@ -15,7 +15,7 @@ export const LeftMainMenu = () => {
     const [isOpenModal, setIsOpenModal] = useState(false);
     return (
         <div>
-            <button className="btn btn-sm bg-transparent border-0" onClick={() => setIsOpen(true)}>
+            <button className="btn btn-sm rounded-md mr-2" onClick={() => setIsOpen(true)}>
                 <svg
                     xmlns="http://www.w3.org/2000/svg"
                     fill="none"
@@ -25,26 +25,22 @@ export const LeftMainMenu = () => {
                     className="w-8 h-8"
                 >
                     <path
-                        strokeLinecap="round"
+                        strokeLinecap="square"
                         strokeLinejoin="round"
                         d="M3.75 5.25h16.5m-16.5 4.5h16.5m-16.5 4.5h16.5m-16.5 4.5h16.5"
                     />
                 </svg>
             </button>
             <Drawer isOpen={isOpen} setIsOpen={setIsOpen}>
-                <div className="flex flex-col items-start justify-between  h-full px-4">
+                <div className="flex flex-col items-start justify-between   h-full px-4">
                     <div className=" space-y-1">
                         <Avatar name={currentUser?.displayName!} img={currentUser?.photoURL!} />
                         <h2>{currentUser?.displayName}</h2>
                     </div>
                     <div>
                         {currentUser ? (
-                            <button
-                                onClick={() => setIsOpenModal(true)}
-                                className="btn outline-dotted"
-                            >
-                                {' '}
-                                Create chat room
+                            <button onClick={() => setIsOpenModal(true)} className="btn btn-sm">
+                                New chat room
                             </button>
                         ) : null}
                     </div>

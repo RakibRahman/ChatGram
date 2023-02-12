@@ -1,6 +1,6 @@
 import { arrayUnion, doc, getDoc, setDoc, updateDoc } from 'firebase/firestore';
 import { db } from '../firebase';
-import { CurrentUser } from '../models/types';
+import { CurrentUser, UserInfo } from '../models/types';
 import { handleResults } from '../utilities/handleResults';
 
 export const joinChatRoom = async (chatRoomId: string, userId: string) => {
@@ -64,8 +64,31 @@ export const createUser = async (currentUser: CurrentUser) => {
     );
 };
 
-export const checkUserStatus = async (id: string): Promise<string> => {
+export const checkUserStatus = async (id: string): Promise<UserInfo | null> => {
     const docRef = doc(db, 'users', id);
     const docSnap = await getDoc(docRef);
-    return docSnap?.data()?.status ?? '';
+    if (docSnap.exists()) {
+        // console.log("Document data:", docSnap.data());
+        return docSnap.data() as UserInfo;
+    } else {
+        // doc.data() will be undefined in this case
+        console.log('No such user!');
+    }
+    return null;
+};
+
+export const getUserData = (id: string): UserInfo | null => {
+    let userInfo = {} as UserInfo;
+    if (!id) return null;
+    checkUserStatus(id)
+        .then((d) => {
+            if (d) {
+                console.log(d);
+                userInfo = d;
+            }
+        })
+        .catch((e) => {
+            console.log(e);
+        });
+    return userInfo ?? null;
 };
