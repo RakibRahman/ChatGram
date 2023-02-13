@@ -4,11 +4,11 @@ import { SentMessage } from './SentMessage';
 
 export const ChatRoomDetailsContainer = () => {
     return (
-        <div className="grow ">
+        <div className="flex-grow">
             {/* <ChatRoomDetails /> */}
             <DetailsTopCard />
             <div className="divider"></div>
-            <div className="h-[30rem] overflow-hidden overflow-y-scroll" id="messageContainer">
+            <div className="h-[75vh] overflow-hidden overflow-y-scroll pr-4" id="messageContainer">
                 <GroupMessages />
             </div>
             <SentMessage />

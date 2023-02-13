@@ -22,7 +22,7 @@ export const Drawer: React.FC<DrawerProps> = ({ children, isOpen, setIsOpen, sid
                     (isOpen ? ' translate-y-0 ' : ' translate-y-full ')
                 }
             >
-                <div className="relative w-screen max-w-lg pb-10 flex flex-col space-y-6 overflow-hidden  h-full">
+                <div className="relative w-screen max-w-lg bg-white flex flex-col space-y-6 overflow-hidden  h-full">
                     {/* <header className="p-4 font-bold text-lg">Header</header> */}
                     {children}
                 </div>

@@ -1,6 +1,7 @@
 import { useRef } from 'react';
 import { useScrollIntoView } from '../../hooks/useScrollIntoView';
 import { getTime } from '../../utilities/getTime';
+import { Loader } from '../common/Loader/Loader';
 import { useChatRoomDetails } from './useChatRoomDetails';
 export const GroupMessages = () => {
     const messageContainerRef = useRef<HTMLDivElement>(null);
@@ -21,57 +22,39 @@ export const GroupMessages = () => {
     }
 
     return (
-
-
         <div ref={messageContainerRef}>
-
-            {/* {messageData.groupMessages?.map((m) => (
+            {messageData?.loadingMessage ? (
+                <div className="grid place-items-center mt-20">
+                    <Loader />
+                </div>
+            ) : null}
+            {messageData?.groupMessages?.map((message) => (
                 <div
-                    className={`chat chat-${(m.chatRoomId.length > 20 && m.sentBy.id === currentUser?.uid)
-                        ? 'end'
-                        : 'start'
-                        }`}
+                    className={`chat ${
+                        message.chatRoomId.length > 20 && message.sentBy.id === currentUser?.uid
+                            ? 'chat-end'
+                            : 'chat-start'
+                    }`}
                 >
                     <div className="chat-image avatar">
                         <div className="w-10 rounded-full">
                             <img
                                 referrerPolicy="no-referrer"
-                                src={m.sentBy.pic ?? 'https://placeimg.com/192/192/people'}
+                                src={message.sentBy.pic ?? 'https://placeimg.com/192/192/people'}
                             />
                         </div>
                     </div>
                     <div className="chat-header">
-                        {m?.sentBy?.name}
-                        <time className="text-xs opacity-50 ml-1">
-                            {getTime(m?.sentTime?.seconds)}
+                        {message?.sentBy?.name}
+                        <time className="text-xs opacity-50">
+                            {' '}
+                            {getTime(message?.sentTime?.seconds)}
                         </time>
                     </div>
-                    <div className="chat-bubble chat-bubble-primary">{m?.message}</div>
-                </div>
-            ))} */}
-
-            {messageData?.groupMessages?.map((message) => (
-                <div className={`chat ${(message.chatRoomId.length > 20 && message.sentBy.id === currentUser?.uid)
-                    ? 'chat-end'
-                    : 'chat-start'
-                    }`}>
-                    <div className="chat-image avatar">
-                        <div className="w-10 rounded-full">
-                            <img referrerPolicy="no-referrer"
-                                src={message.sentBy.pic ?? 'https://placeimg.com/192/192/people'} />
-                        </div>
-                    </div>
-                    <div className="chat-header">
-                        {message?.sentBy?.name}
-                        <time className="text-xs opacity-50">   {getTime(message?.sentTime?.seconds)}</time>
-                    </div>
                     <div className="chat-bubble">{message?.message}</div>
-                    <div className="chat-footer opacity-50">
-                        Delivered
-                    </div>
+                    <div className="chat-footer opacity-50">{/* Delivered */}</div>
                 </div>
             ))}
         </div>
-
     );
 };

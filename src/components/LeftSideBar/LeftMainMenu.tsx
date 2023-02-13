@@ -6,6 +6,8 @@ import { Avatar } from '../common/Avatar/Avatar';
 import { Drawer } from '../common/Drawer';
 import { ThemeSelector } from '../common/ThemeSelector';
 import { CreateChatRoom } from '../CreateChatRoom/CreateChatRoom';
+import GroupIcon from '../../assets/group.png';
+import ThemeIcon from '../../assets/theme.png';
 
 export const LeftMainMenu = () => {
     const { currentUser, signOut } = useChatRoomContext();
@@ -15,7 +17,7 @@ export const LeftMainMenu = () => {
     const [isOpenModal, setIsOpenModal] = useState(false);
     return (
         <div>
-            <button className="btn btn-sm rounded-md mr-2" onClick={() => setIsOpen(true)}>
+            <button className="btn btn-sm rounded-md " onClick={() => setIsOpen(true)}>
                 <svg
                     xmlns="http://www.w3.org/2000/svg"
                     fill="none"
@@ -32,20 +34,31 @@ export const LeftMainMenu = () => {
                 </svg>
             </button>
             <Drawer isOpen={isOpen} setIsOpen={setIsOpen}>
-                <div className="flex flex-col items-start justify-between   h-full px-4">
-                    <div className=" space-y-1">
+                <div className="flex flex-col items-start gap-2  h-full">
+                    <div className=" space-y-1 my-10 px-4">
                         <Avatar name={currentUser?.displayName!} img={currentUser?.photoURL!} />
-                        <h2>{currentUser?.displayName}</h2>
+                        <h2 className="text-md font-medium">{currentUser?.displayName}</h2>
                     </div>
-                    <div>
+                    <div className="hover:bg-slate-100  w-full p-4">
                         {currentUser ? (
-                            <button onClick={() => setIsOpenModal(true)} className="btn btn-sm">
-                                New chat room
+                            <button
+                                onClick={() => setIsOpenModal(true)}
+                                className=" bg-transparent border-0 flex  items-center gap-3 hover:bg-transparent"
+                            >
+                                <img src={GroupIcon} alt="group" className="w-8 h-8 object-cover" />{' '}
+                                <p className="text-sm font-medium"> New chat room</p>
                             </button>
                         ) : null}
                     </div>
-                    <ThemeSelector />
-                    <div>
+                    <div className="flex gap-3 items-center p-4 hover:bg-slate-100 w-full">
+                        <img src={ThemeIcon} alt="group" className="w-8 h-8 object-cover" />
+                        <div className="flex items-center gap-2">
+                            <p className="text-sm font-medium">Theme</p>
+
+                            <ThemeSelector />
+                        </div>
+                    </div>
+                    <div className="mt-auto pl-4">
                         {currentUser ? (
                             <button
                                 className="btn"

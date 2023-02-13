@@ -1,12 +1,11 @@
-import { useEffect, useLayoutEffect } from 'react';
-import { BrowserRouter as Router, Route, Routes, useLocation, useNavigate } from 'react-router-dom';
+import { useEffect } from 'react';
+import { Route, Routes, useLocation } from 'react-router-dom';
 import './App.css';
 import { ChatRoomDetailsContainer } from './components/ChatRoomDetails.tsx/ChatRoomDetailsContainer';
+import { SelectChatRoom } from './components/common/SelectChatRoom';
 import { LeftSideBar } from './components/LeftSideBar/LeftSideBar';
 import { Login } from './components/Login/Login';
-import { SelectChatRoom } from './components/common/SelectChatRoom';
 import { useChatRoomContext } from './context/context';
-import { themeChange } from 'theme-change';
 
 function App() {
     const { currentUser, themeName } = useChatRoomContext();
@@ -23,9 +22,9 @@ function App() {
     return (
         <div>
             {currentUser ? (
-                <div className=" flex w-screen overflow-hidden  mx-auto px-4 border border-green-500 h-screen py-16 items-start gap-6">
+                <div className=" flex w-screen overflow-hidden  mx-auto p-10  h-screen items-start">
                     {currentUser ? <LeftSideBar /> : null}
-
+                    <div className="divider divider-horizontal"></div>
                     <Routes>
                         {/* <Route path="/login" element={<Login />}></Route> */}
                         {/* <Route path="/" element={<ChatRoom />} /> */}
