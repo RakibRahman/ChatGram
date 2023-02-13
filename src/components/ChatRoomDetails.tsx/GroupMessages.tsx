@@ -51,9 +51,9 @@ export const GroupMessages = () => {
             ))} */}
 
             {messageData?.groupMessages?.map((message) => (
-                <div className={`chat chat-${(message.chatRoomId.length > 20 && message.sentBy.id === currentUser?.uid)
-                    ? 'end'
-                    : 'start'
+                <div className={`chat ${(message.chatRoomId.length > 20 && message.sentBy.id === currentUser?.uid)
+                    ? 'chat-end'
+                    : 'chat-start'
                     }`}>
                     <div className="chat-image avatar">
                         <div className="w-10 rounded-full">
