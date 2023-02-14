@@ -1,5 +1,4 @@
 import { doc } from 'firebase/firestore';
-import React from 'react';
 import { useDocument } from 'react-firebase-hooks/firestore';
 import { db } from '../../firebase';
 import { useChatRoomDetails } from './useChatRoomDetails';
@@ -16,7 +15,7 @@ export const useTopCardDetails = () => {
     };
     const usersRef = doc(db, 'users', getUserInfo('id') ?? 'aa');
 
-    const [userInfo, userInfoError, userInfoLoading] = useDocument(usersRef, {
+    const [userInfo, userInfoLoading, userInfoError] = useDocument(usersRef, {
         snapshotListenOptions: { includeMetadataChanges: true },
     });
     return { userInfo, chatRoomInfo, getUserInfo };

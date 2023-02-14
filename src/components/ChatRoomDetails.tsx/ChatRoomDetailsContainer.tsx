@@ -4,12 +4,14 @@ import { SentMessage } from './SentMessage';
 
 export const ChatRoomDetailsContainer = () => {
     return (
-        <div className="flex-grow">
+        <div className="flex-grow flex flex-col  h-4/5  justify-between">
             {/* <ChatRoomDetails /> */}
-            <DetailsTopCard />
-            <div className="divider"></div>
-            <div className="h-[75vh] overflow-hidden overflow-y-scroll pr-4" id="messageContainer">
-                <GroupMessages />
+            <div>
+                <DetailsTopCard />
+                <div className="divider"></div>
+                <div className=" overflow-hidden overflow-y-scroll pr-4 flex-grow h-5/6" id="messageContainer">
+                    <GroupMessages />
+                </div>
             </div>
             <SentMessage />
         </div>

@@ -6,19 +6,19 @@ export const DetailsTopCard = () => {
 
     if (chatRoomInfo?.type === 'single') {
         return (
-            <div>
+            <div className="p-1">
                 <ProfileCard
                     name={getUserInfo('name')}
                     pic={getUserInfo('photoURL')}
                     isOnline={userInfo?.data()?.['status']}
-                    // lastActive={getUserInfo('lastLogin')}
+                // lastActive={getUserInfo('lastLogin')}
                 />
             </div>
         );
     }
 
     return (
-        <div className="h-8 w-full">
+        <div className=" p-1 w-full">
             <div className="flex flex-col gap-2">
                 <p className="font-bold">{chatRoomInfo?.name}</p>
                 <p>{chatRoomInfo?.members?.length} members</p>
