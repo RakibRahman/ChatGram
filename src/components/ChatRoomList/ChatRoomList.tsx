@@ -28,7 +28,13 @@ export const ChatRoomList = () => {
     // console.log(chatListData.list);
     return (
         <div className=" flex flex-col overflow-hidden">
-            {usersChatRooms?.length === 0 ? <p className="p-4">No chat yet</p> : null}
+            {usersChatRooms?.length === 1 && usersChatRooms[0] === '' ? (
+                <Alert
+                    title="No chat yet"
+                    type="info"
+                    description=" Search for users or chat rooms"
+                />
+            ) : null}
 
             {chatListData.list &&
                 chatListData?.list?.map((chatRoom) => (

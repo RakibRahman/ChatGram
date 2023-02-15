@@ -9,7 +9,10 @@ export const ChatRoomDetailsContainer = () => {
             <div>
                 <DetailsTopCard />
                 <div className="divider"></div>
-                <div className=" overflow-hidden overflow-y-scroll pr-4 flex-grow h-5/6" id="messageContainer">
+                <div
+                    className=" overflow-hidden overflow-y-scroll pr-4 flex-grow h-5/6"
+                    id="messageContainer"
+                >
                     <GroupMessages />
                 </div>
             </div>

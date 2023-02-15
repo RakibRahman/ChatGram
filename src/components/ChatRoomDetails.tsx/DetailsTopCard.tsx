@@ -11,7 +11,7 @@ export const DetailsTopCard = () => {
                     name={getUserInfo('name')}
                     pic={getUserInfo('photoURL')}
                     isOnline={userInfo?.data()?.['status']}
-                // lastActive={getUserInfo('lastLogin')}
+                    // lastActive={getUserInfo('lastLogin')}
                 />
             </div>
         );

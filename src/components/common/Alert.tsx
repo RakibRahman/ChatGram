@@ -4,9 +4,10 @@ interface AlertProps {
     type?: 'warning' | 'error' | 'info' | 'success';
     size?: string | number;
     title: string;
+    description?: string;
 }
 
-export const Alert: React.FC<AlertProps> = ({ type = 'error', size = 40, title }) => {
+export const Alert: React.FC<AlertProps> = ({ type = 'error', size = 40, title, description }) => {
     const icons = {
         warning: (
             <svg
@@ -73,7 +74,10 @@ export const Alert: React.FC<AlertProps> = ({ type = 'error', size = 40, title }
         <div className={`alert alert-${type} shadow-lg`}>
             <div className={`h-${size}`}>
                 {icons[type]}
-                <span>{title}</span>
+                <div>
+                    <h3 className="font-bold">{title}</h3>
+                    {description ? <div className="text-xs">{description}</div> : null}
+                </div>
             </div>
         </div>
     );

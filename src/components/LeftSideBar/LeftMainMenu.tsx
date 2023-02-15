@@ -39,7 +39,7 @@ export const LeftMainMenu = () => {
                         <Avatar name={currentUser?.displayName!} img={currentUser?.photoURL!} />
                         <h2 className="text-md font-medium">{currentUser?.displayName}</h2>
                     </div>
-                    <div className="hover:bg-slate-100  w-full p-4">
+                    <div className=" w-full p-4 hover:opacity-80">
                         {currentUser ? (
                             <button
                                 onClick={() => setIsOpenModal(true)}
@@ -50,7 +50,7 @@ export const LeftMainMenu = () => {
                             </button>
                         ) : null}
                     </div>
-                    <div className="flex gap-3 items-center p-4 hover:bg-slate-100 w-full">
+                    <div className="flex gap-3 items-center p-4  w-full hover:opacity-80 cursor-pointer">
                         <img src={ThemeIcon} alt="group" className="w-8 h-8 object-cover" />
                         <div className="flex items-center gap-2">
                             <p className="text-sm font-medium">Theme</p>
@@ -58,6 +58,7 @@ export const LeftMainMenu = () => {
                             <ThemeSelector />
                         </div>
                     </div>
+
                     <div className="mt-auto pl-4">
                         {currentUser ? (
                             <button

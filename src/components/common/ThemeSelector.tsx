@@ -47,7 +47,7 @@ export const ThemeSelector = () => {
                     >
                         {themes.map((theme) => (
                             <li
-                                className="text-gray-900 relative cursor-pointer select-none flex justify-between items-center  hover:bg-gray-200 "
+                                className=" relative cursor-pointer select-none  "
                                 id="listbox-option-0"
                                 role="option"
                                 value={theme}
@@ -61,11 +61,10 @@ export const ThemeSelector = () => {
                                 <span
                                     className={`${
                                         themeName === theme
-                                            ? 'bg-gray-400 w-full px-2 py-2 capitalize'
+                                            ? 'bg-red-100 text-black w-full px-2 py-2 capitalize'
                                             : 'px-2 py-2 capitalize'
                                     }`}
                                 >
-                                    {' '}
                                     {theme}
                                 </span>
                             </li>
