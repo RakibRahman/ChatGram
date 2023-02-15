@@ -25,7 +25,7 @@ export const ChatRoomList = () => {
     if (chatListData.chatRoomListError) {
         return <Alert title={chatListData.chatRoomListError.message} type="error" />;
     }
-    // console.log(chatListData.list);
+    console.log(chatListData.list);
     return (
         <div className=" flex flex-col overflow-hidden">
             {usersChatRooms?.length === 1 && usersChatRooms[0] === '' ? (

@@ -1,4 +1,4 @@
-import { doc, getDoc, setDoc } from 'firebase/firestore';
+import { arrayUnion, doc, setDoc, updateDoc } from 'firebase/firestore';
 import { nanoid } from 'nanoid';
 import { useChatRoomContext } from '../../context/context';
 import { db, timeStamp } from '../../firebase';
@@ -29,29 +29,33 @@ export const useCreateChatRoom = () => {
             type: 'room',
         });
 
-        const createUserInfo = async () => {
+        const updateUserInfo = async () => {
             const docRef = doc(db, 'users', uid);
-            const docSnap = await getDoc(docRef);
-            if (docSnap.exists()) {
-                const updateChatRooms = [...docSnap.data().chatRooms, chatRoomId];
-                setDoc(docRef, { ...docSnap.data(), chatRooms: updateChatRooms }, { merge: true });
-            } else {
-                setDoc(
-                    docRef,
-                    {
-                        chatRooms: [chatRoomId],
-                        id: uid,
-                        name: displayName?.toLowerCase(),
-                        email,
-                        photoURL,
-                    },
-                    { merge: true }
-                );
-            }
+            await updateDoc(docRef, {
+                chatRooms: arrayUnion(chatRoomId),
+            });
+            // if (docSnap.exists()) {
+            //     const updateChatRooms = [...docSnap.data().chatRooms, chatRoomId];
+            //     setDoc(docRef, { ...docSnap.data(), chatRooms: updateChatRooms }, { merge: true });
+            // } else {
+            //     setDoc(
+            //         docRef,
+            //         {
+            //             chatRooms: [chatRoomId],
+            //             id: uid,
+            //             name: displayName?.toLowerCase(),
+            //             email,
+            //             photoURL,
+            //         },
+            //         { merge: true }
+            //     );
+            // }
         };
 
         try {
-            Promise.all([createNewChatRoom, createUserInfo()]).then(() => {});
+            Promise.all([createNewChatRoom, updateUserInfo()]).then((values) => {
+                console.log(values);
+            });
         } catch {
             alert('Error creating chat room');
         }

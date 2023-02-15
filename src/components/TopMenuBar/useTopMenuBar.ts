@@ -68,8 +68,10 @@ export const useTopMenuBar = (setSearchActive: Dispatch<SetStateAction<boolean>>
             };
 
             try {
-                Promise.all([createNewChatRoom, updateUserInfo()]).then((values) => {
-                    navigate(`/${docSnap.data()?.['id']}`);
+                Promise.allSettled([createNewChatRoom, updateUserInfo()]).then((values) => {
+                    navigate(`/${chatRoomId}`);
+                    console.log(docSnap.data()?.['id'], 'id');
+                    console.log(values);
                     setSearchActive(false);
                 });
             } catch {

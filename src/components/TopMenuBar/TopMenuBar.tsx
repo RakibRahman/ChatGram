@@ -9,12 +9,17 @@ interface TopMenuBarProps {
     isSearchActive: boolean;
     setSearchActive: React.Dispatch<SetStateAction<boolean>>;
 }
+
+interface SearchResult {
+    users: UserInfo[] | null;
+    rooms: ChatRoom[] | null;
+}
 export const TopMenuBar: React.FC<TopMenuBarProps> = ({ isSearchActive, setSearchActive }) => {
     const searchQuery = useRef<HTMLInputElement>(null);
 
-    const [searchResult, setSearchResult] = useState<any>({
+    const [searchResult, setSearchResult] = useState<SearchResult>({
         users: [],
-        groups: [],
+        rooms: [],
     });
     const [loading, setLoading] = useState(false);
     const { handleSearch, currentUser } = useLeftSideBar();
@@ -31,8 +36,9 @@ export const TopMenuBar: React.FC<TopMenuBarProps> = ({ isSearchActive, setSearc
                 .then((result) => {
                     // console.log('search by result', result);
                     if (result.length > 0) {
-                        const users = result.filter((user) => user.type === 'user');
-                        const rooms = result.filter((room) => room.type === 'room');
+                        const users = result.filter((user) => user.type === 'user') as UserInfo[];
+                        const rooms = result.filter((room) => room.type === 'room') as ChatRoom[];
+                        console.log(rooms);
                         setSearchResult({
                             users,
                             rooms,
@@ -49,8 +55,13 @@ export const TopMenuBar: React.FC<TopMenuBarProps> = ({ isSearchActive, setSearc
     };
 
     const noResultFound =
-        (!loading && isSearchActive && searchResult?.users.length === 0) ||
-        searchResult?.rooms?.length === 0;
+        !loading &&
+        isSearchActive &&
+        (searchResult?.users?.length === 0 || searchResult?.rooms?.length === 0);
+
+    const roomSearchCondition = isSearchActive && searchResult?.rooms?.length !== 0 && !loading;
+    const userSearchCondition = isSearchActive && searchResult?.users?.length !== 0 && !loading;
+
     return (
         <div>
             <form onSubmit={searchUsers}>
@@ -62,19 +73,22 @@ export const TopMenuBar: React.FC<TopMenuBarProps> = ({ isSearchActive, setSearc
                         placeholder="Search…"
                         className="input input-bordered w-60 input-sm flex-grow"
                     />
-                    <div className="absolute right-14 top-1">
+                    <div className="absolute right-16 top-1">
                         {isSearchActive ? (
                             <button
-                                className="btn btn-xs bg-transparent border-none"
+                                className="btn btn-xs  bg-base-100 text-base-content border-none"
                                 onClick={() => {
                                     setSearchActive(false);
                                     if (searchQuery?.current?.value) {
                                         searchQuery.current.value = '';
-                                        setSearchResult([]);
+                                        setSearchResult({
+                                            users: [],
+                                            rooms: [],
+                                        });
                                     }
                                 }}
                             >
-                                X{' '}
+                                X
                             </button>
                         ) : null}
                     </div>
@@ -98,14 +112,16 @@ export const TopMenuBar: React.FC<TopMenuBarProps> = ({ isSearchActive, setSearc
             </form>
 
             <div>
-                {noResultFound ? <p>No results found, please be more specific</p> : null}
+                {noResultFound ? (
+                    <p className="text-sm mt-4">No results found, please be more specific</p>
+                ) : null}
                 {loading ? (
                     <div className="w-10 h-10 mt-10 grid place-items-center ml-5">
                         {' '}
                         <Loader />{' '}
                     </div>
                 ) : null}
-                {isSearchActive && !loading ? (
+                {userSearchCondition ? (
                     <div className="my-1">
                         <p>Users</p>
 
@@ -121,7 +137,7 @@ export const TopMenuBar: React.FC<TopMenuBarProps> = ({ isSearchActive, setSearc
                         ))}
                     </div>
                 ) : null}
-                {isSearchActive && !loading ? (
+                {roomSearchCondition ? (
                     <div>
                         <p>Rooms</p>
                         {searchResult?.rooms?.map((room: ChatRoom) => (
