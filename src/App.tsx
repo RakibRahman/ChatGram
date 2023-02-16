@@ -8,7 +8,7 @@ import { Login } from './components/Login/Login';
 import { useChatRoomContext } from './context/context';
 
 function App() {
-    const { currentUser, themeName } = useChatRoomContext();
+    const { currentUser, } = useChatRoomContext();
     const isAnyChatActive = localStorage.getItem('activeChat');
 
     const location = useLocation();
