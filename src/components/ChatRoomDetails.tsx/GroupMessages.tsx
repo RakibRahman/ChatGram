@@ -24,17 +24,16 @@ export const GroupMessages = () => {
     return (
         <div ref={messageContainerRef} className="">
             {messageData?.loadingMessage ? (
-                <div className="grid place-items-center mt-20">
+                <div className="grid place-items-center mt-1">
                     <Loader />
                 </div>
             ) : null}
             {messageData?.groupMessages?.map((message) => (
                 <div
-                    className={`chat ${
-                        message.chatRoomId.length > 20 && message.sentBy.id === currentUser?.uid
-                            ? 'chat-end'
-                            : 'chat-start'
-                    }`}
+                    className={`chat ${message.chatRoomId.length > 20 && message.sentBy.id === currentUser?.uid
+                        ? 'chat-end'
+                        : 'chat-start'
+                        }`}
                 >
                     <div className="chat-image avatar">
                         <div className="w-10 rounded-full">

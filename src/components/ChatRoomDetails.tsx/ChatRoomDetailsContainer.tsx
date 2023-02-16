@@ -4,7 +4,7 @@ import { SentMessage } from './SentMessage';
 
 export const ChatRoomDetailsContainer = () => {
     return (
-        <div className="flex-grow flex flex-col  h-screen  justify-between">
+        <div className="flex-grow flex flex-col  h-screen   justify-between">
             {/* <ChatRoomDetails /> */}
             <div>
                 <DetailsTopCard />
