@@ -27,7 +27,7 @@ export const ChatRoomList = () => {
     }
     console.log(chatListData.list);
     return (
-        <div className=" flex flex-col overflow-hidden border">
+        <div className=" flex flex-col overflow-hidden">
             {usersChatRooms?.length === 1 && usersChatRooms[0] === '' ? (
                 <Alert
                     title="No chat yet"

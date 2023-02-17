@@ -8,6 +8,7 @@ import { ThemeSelector } from '../common/ThemeSelector';
 import { CreateChatRoom } from '../CreateChatRoom/CreateChatRoom';
 import GroupIcon from '../../assets/group.png';
 import ThemeIcon from '../../assets/theme.png';
+import { useMediaQuery } from '../../hooks/useMediaQuery';
 
 export const LeftMainMenu = () => {
     const { currentUser, signOut } = useChatRoomContext();
@@ -15,6 +16,8 @@ export const LeftMainMenu = () => {
     const navigate = useNavigate();
     const [isOpen, setIsOpen] = useState(false);
     const [isOpenModal, setIsOpenModal] = useState(false);
+    const isTab = useMediaQuery('(max-width: 768px)');
+
     return (
         <div>
             <button className="btn btn-sm rounded-md " onClick={() => setIsOpen(true)}>
@@ -62,7 +65,7 @@ export const LeftMainMenu = () => {
                     <div className="mt-auto pl-4">
                         {currentUser ? (
                             <button
-                                className="btn"
+                                className="btn mb-2"
                                 onClick={async () => {
                                     signOut()
                                         .then(() => {
@@ -73,7 +76,11 @@ export const LeftMainMenu = () => {
                                             console.log(error);
                                         })
                                         .finally(() => {
-                                            navigate('/');
+                                            if (isTab) {
+                                                navigate('/login');
+                                            } else {
+                                                navigate('/');
+                                            }
                                         });
                                 }}
                             >

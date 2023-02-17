@@ -11,8 +11,11 @@ export const ChatCard: React.FC<ChatCardProps> = ({ name, recentMessage, logo, i
 
     return (
         <div
-            className={` overflow-hidden ${isTab ? 'w-auto' : 'max-w-sm'} space-y-6 hover:opacity-60 ${id === isActive ? 'text-white bg-blue-400' : ''
-                }  py-2 rounded - md`}
+            className={` overflow-hidden ${
+                isTab ? 'w-auto' : 'max-w-sm'
+            } space-y-6 hover:opacity-60 ${
+                id === isActive ? 'text-white bg-blue-400' : ''
+            }  py-2 rounded - md`}
             onClick={() => {
                 localStorage.setItem('activeChat', isActive);
             }}

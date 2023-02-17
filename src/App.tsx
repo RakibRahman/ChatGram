@@ -6,9 +6,9 @@ import { SelectChatRoom } from './components/common/SelectChatRoom';
 import { LeftSideBar } from './components/LeftSideBar/LeftSideBar';
 import { Login } from './components/Login/Login';
 import { useChatRoomContext } from './context/context';
-import { useMediaQuery } from './hooks/useMediaQuery'
+import { useMediaQuery } from './hooks/useMediaQuery';
 function App() {
-    const { currentUser, } = useChatRoomContext();
+    const { currentUser } = useChatRoomContext();
     const isAnyChatActive = localStorage.getItem('activeChat');
     const isTab = useMediaQuery('(max-width: 768px)');
     const location = useLocation();
@@ -19,19 +19,19 @@ function App() {
         }
     }, [location]);
 
-
-
     if (isTab) {
         return (
-
             <div className="grid place-items-stretch max-w-full mt-10 px-4">
                 <Routes>
-                    {currentUser ? <Route path="/" element={<LeftSideBar />} /> : <Route path="/login" element={<Login />}></Route>}
+                    {currentUser ? (
+                        <Route path="/" element={<LeftSideBar />} />
+                    ) : (
+                        <Route path="/login" element={<Login />}></Route>
+                    )}
                     <Route path=":chatRoomId" element={<ChatRoomDetailsContainer />} />
                 </Routes>
-
-
-            </div>)
+            </div>
+        );
     }
 
     return (
@@ -53,7 +53,6 @@ function App() {
                 </Routes>
             )}
         </div>
-
     );
 }
 
