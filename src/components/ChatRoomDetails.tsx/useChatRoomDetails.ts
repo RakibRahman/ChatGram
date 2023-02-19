@@ -29,50 +29,14 @@ export const useChatRoomDetails = (userId?: string) => {
         (member: string) => member === currentUser?.uid
     );
 
-    const lastMessage = async (message: string, type = 'text') => {
-        if (!message) return;
-        if (!chatRoomId) return;
 
-        await setDoc(
-            doc(db, 'chatRooms', chatRoomId),
-            {
-                lastActivity: timeStamp,
-                recentMessage: {
-                    message,
-                    sentBy: currentUser?.displayName,
-                    timestamp: timeStamp,
-                    type,
-                },
-            },
-            { merge: true }
-        );
-    };
-
-    const sendMessage = async (message: string, type = 'text') => {
-        if (!message) return;
-        if (!chatRoomId) return;
-        const messageId = `message-${nanoid(8)}`;
-        await setDoc(doc(db, 'chatRooms', chatRoomId, 'messages', messageId), {
-            sentBy: {
-                name: currentUser?.displayName,
-                id: currentUser?.uid,
-                pic: currentUser?.photoURL,
-            },
-            chatRoomId,
-            message,
-            sentTime: timeStamp,
-            type: type,
-            messageId: messageId,
-        });
-    };
 
     return {
-        lastMessage,
+
         currentUser,
         loading,
         error,
         chatRoomInfo,
-        sendMessage,
         messageData: {
             loadingMessage,
             errorMessage,
