@@ -23,26 +23,31 @@ export const GroupMessages = () => {
     }
 
     return (
-        <div className='flex flex-col justify-between w-full h-full  ' >
-            <div className="  max-h-[500px] border border-red-600   overflow-y-scroll" id="messageContainer">
-                <div ref={messageContainerRef} >
+        <div className="flex flex-col justify-between w-full h-full ">
+            <div className=" h-[30rem]  overflow-y-scroll pr-2" id="messageContainer">
+                <div ref={messageContainerRef}>
                     {messageData?.loadingMessage ? (
-                        <div className="grid place-items-center mt-1">
+                        <div className="grid place-items-center mt-20">
                             <Loader />
                         </div>
                     ) : null}
                     {messageData?.groupMessages?.map((message) => (
                         <div
-                            className={`chat ${message.chatRoomId.length > 20 && message.sentBy.id === currentUser?.uid
-                                ? 'chat-end'
-                                : 'chat-start'
-                                }`}
+                            className={`chat ${
+                                message.chatRoomId.length > 20 &&
+                                message.sentBy.id === currentUser?.uid
+                                    ? 'chat-end'
+                                    : 'chat-start'
+                            }`}
                         >
                             <div className="chat-image avatar">
                                 <div className="w-10 rounded-full">
                                     <img
                                         referrerPolicy="no-referrer"
-                                        src={message.sentBy.pic ?? 'https://placeimg.com/192/192/people'}
+                                        src={
+                                            message.sentBy.pic ??
+                                            'https://placeimg.com/192/192/people'
+                                        }
                                     />
                                 </div>
                             </div>
@@ -57,12 +62,11 @@ export const GroupMessages = () => {
                             <div className="chat-footer opacity-50">{/* Delivered */}</div>
                         </div>
                     ))}
-                </div >
+                </div>
             </div>
-            <div className=" w-full ">
-
+            <div className=" w-full h-20 ">
                 <SentMessage />
-            </div >
+            </div>
         </div>
     );
 };

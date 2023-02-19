@@ -20,7 +20,7 @@ export const ChatCard: React.FC<ChatCardProps> = ({ name, recentMessage, logo, i
                 localStorage.setItem('activeChat', isActive);
             }}
         >
-            <Link to={`/${id} `}>
+            <Link to={`/chat/${id} `}>
                 <div className=" gap-3  flex w-full px-2">
                     <Avatar name={name} img={logo} />
                     <div className="grow">
@@ -31,7 +31,7 @@ export const ChatCard: React.FC<ChatCardProps> = ({ name, recentMessage, logo, i
                             </p>
                         </div>
                         <p className={` ${id === isActive ? ' ' : ''} text - sm font - normal`}>
-                            {truncateText(recentMessage?.message ?? '...', 20)}
+                            {truncateText(recentMessage?.message ?? '', 20)}
                         </p>
                     </div>
                 </div>

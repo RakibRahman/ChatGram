@@ -29,10 +29,7 @@ export const useChatRoomDetails = (userId?: string) => {
         (member: string) => member === currentUser?.uid
     );
 
-
-
     return {
-
         currentUser,
         loading,
         error,

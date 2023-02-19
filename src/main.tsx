@@ -1,16 +1,15 @@
 import React from 'react';
 import ReactDOM from 'react-dom/client';
+import { BrowserRouter as Router } from 'react-router-dom';
 import App from './App';
+import { ChatRoomData } from './context/context';
 import './index.css';
-import { ChatRoomData, useChatRoomContext } from './context/context';
-import { BrowserRouter as Router, Route, Routes, useNavigate } from 'react-router-dom';
 
 ReactDOM.createRoot(document.getElementById('root') as HTMLElement).render(
     <React.StrictMode>
         <div>
             <ChatRoomData>
                 <Router>
-                    {' '}
                     <App />
                 </Router>
             </ChatRoomData>

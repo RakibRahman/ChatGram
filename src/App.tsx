@@ -2,6 +2,7 @@ import { useEffect } from 'react';
 import { Route, Routes, useLocation } from 'react-router-dom';
 import './App.css';
 import { ChatRoomDetailsContainer } from './components/ChatRoomDetails.tsx/ChatRoomDetailsContainer';
+import { Error404 } from './components/common/Error404';
 import { SelectChatRoom } from './components/common/SelectChatRoom';
 import { LeftSideBar } from './components/LeftSideBar/LeftSideBar';
 import { Login } from './components/Login/Login';
@@ -17,8 +18,8 @@ function App() {
         if (location.pathname === '/') {
             localStorage.removeItem('activeChat');
         }
-    }, [location]);
-
+    }, [location, currentUser]);
+    console.log(currentUser, isTab);
     if (isTab) {
         return (
             <div className="grid place-items-stretch max-w-full mt-10 px-4">
@@ -28,7 +29,9 @@ function App() {
                     ) : (
                         <Route path="/login" element={<Login />}></Route>
                     )}
-                    <Route path=":chatRoomId" element={<ChatRoomDetailsContainer />} />
+                    <Route path="/chat/:chatRoomId" element={<ChatRoomDetailsContainer />} />
+
+                    <Route path="*" element={<Error404 />} />
                 </Routes>
             </div>
         );
@@ -42,9 +45,11 @@ function App() {
                     <div className="divider divider-horizontal"></div>
                     <Routes>
                         {/* <Route path="/login" element={<Login />}></Route> */}
-                        {/* <Route path="/" element={<ChatRoom />} /> */}
+                        {/* <Route path="/" element={<p>hello</p>} /> */}
                         {!!isAnyChatActive ? null : <Route path="/" element={<SelectChatRoom />} />}
-                        <Route path=":chatRoomId" element={<ChatRoomDetailsContainer />} />
+                        <Route path="/chat/:chatRoomId" element={<ChatRoomDetailsContainer />} />
+
+                        <Route path="*" element={<Error404 />} />
                     </Routes>
                 </div>
             ) : (

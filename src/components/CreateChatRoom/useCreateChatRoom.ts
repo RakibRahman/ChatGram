@@ -1,12 +1,13 @@
 import { arrayUnion, doc, setDoc, updateDoc } from 'firebase/firestore';
 import { nanoid } from 'nanoid';
+import { useNavigate } from 'react-router-dom';
 import { useChatRoomContext } from '../../context/context';
 import { db, timeStamp } from '../../firebase';
 import { ChatUserInfo } from '../../models/types';
 
 export const useCreateChatRoom = () => {
     const { currentUser } = useChatRoomContext();
-
+    const navigate = useNavigate();
     const createNewChatRoom = async (chatRoomName: string) => {
         const chatRoomId = `chatRoom-${nanoid(8)}`;
 
@@ -55,6 +56,7 @@ export const useCreateChatRoom = () => {
         try {
             Promise.all([createNewChatRoom, updateUserInfo()]).then((values) => {
                 console.log(values);
+                navigate(`/${chatRoomId}`);
             });
         } catch {
             alert('Error creating chat room');

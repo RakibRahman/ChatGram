@@ -29,7 +29,7 @@ export const useTopMenuBar = (setSearchActive: Dispatch<SetStateAction<boolean>>
             ?.['members'].some((member: string) => member === currentUser?.uid);
 
         if (isAlreadyJoined) {
-            navigate(`/${docSnap.data()?.['id']}`);
+            navigate(`/chat/${docSnap.data()?.['id']}`);
             setSearchActive(false);
             return;
         }
@@ -69,7 +69,7 @@ export const useTopMenuBar = (setSearchActive: Dispatch<SetStateAction<boolean>>
 
             try {
                 Promise.allSettled([createNewChatRoom, updateUserInfo()]).then((values) => {
-                    navigate(`/${chatRoomId}`);
+                    navigate(`/chat/${chatRoomId}`);
                     console.log(docSnap.data()?.['id'], 'id');
                     console.log(values);
                     setSearchActive(false);
