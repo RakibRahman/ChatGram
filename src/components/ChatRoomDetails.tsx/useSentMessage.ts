@@ -30,15 +30,11 @@ export const useSentMessage = (selectedFile?: File) => {
         );
     };
 
-    const sendMessage = async (
-        message: string = '',
-        type = 'text',
-        fileId?: string,
-        fileLink?: string
-    ) => {
+    const sendMessage = async (message: string = '', type = 'text', fileId?: string, fileLink?: string) => {
         if (!chatRoomId) return;
         const messageId = `message-${nanoid(8)}`;
-        await setDoc(doc(db, 'chatRooms', chatRoomId, 'messages', fileId ?? messageId), {
+        console.log(messageId)
+        await setDoc(doc(db, 'chatRooms', chatRoomId, 'messages', messageId), {
             sentBy: {
                 name: currentUser?.displayName,
                 id: currentUser?.uid,
@@ -48,8 +44,10 @@ export const useSentMessage = (selectedFile?: File) => {
             message,
             sentTime: timeStamp,
             type: type,
-            messageId: fileId ?? messageId,
+            messageId: messageId,
             ...(fileLink && { fileLink: fileLink }),
+            ...(fileId && { fileId: fileId }),
+
         });
     };
 

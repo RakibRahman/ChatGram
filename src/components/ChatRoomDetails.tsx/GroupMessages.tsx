@@ -2,6 +2,8 @@ import { useRef } from 'react';
 import { useScrollIntoView } from '../../hooks/useScrollIntoView';
 import { getTime } from '../../utilities/getTime';
 import { Loader } from '../common/Loader/Loader';
+import { ImagePreview } from '../FilePreview/ImagePreview';
+import VideoPreview from '../FilePreview/VideoPreview';
 import { SentMessage } from './SentMessage';
 import { useChatRoomDetails } from './useChatRoomDetails';
 export const GroupMessages = () => {
@@ -33,12 +35,11 @@ export const GroupMessages = () => {
                     ) : null}
                     {messageData?.groupMessages?.map((message) => (
                         <div
-                            className={`chat ${
-                                message.chatRoomId.length > 20 &&
+                            className={`chat ${message.chatRoomId.length > 20 &&
                                 message.sentBy.id === currentUser?.uid
-                                    ? 'chat-end'
-                                    : 'chat-start'
-                            }`}
+                                ? 'chat-end'
+                                : 'chat-start'
+                                }`}
                         >
                             <div className="chat-image avatar">
                                 <div className="w-10 rounded-full">
@@ -58,7 +59,14 @@ export const GroupMessages = () => {
                                     {getTime(message?.sentTime?.seconds)}
                                 </time>
                             </div>
-                            <div className="chat-bubble">{message?.message}</div>
+                            <div className="chat-bubble">
+
+                                {message?.type.includes('video') ? <VideoPreview videoLink={message?.fileLink!} showControl autoPlay={false} height='300px' /> : null}
+
+                                {message?.type.includes('image') ? <ImagePreview src={message?.fileLink!} width='full' height='96' /> : null}
+
+                                {message?.message}
+                            </div>
                             <div className="chat-footer opacity-50">{/* Delivered */}</div>
                         </div>
                     ))}

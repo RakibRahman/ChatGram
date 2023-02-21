@@ -18,7 +18,7 @@ export const FileUpload = () => {
     const allowedImgExtensions = /(\.jpg|\.jpeg|\.png|\.gif)$/i;
     const allowedVidExtensions = /(\.mp4|\.webm)$/i;
 
-    console.log(selectedFile && allowedImgExtensions.exec(selectedFile?.name));
+
     const { progress, uploading, downloadURL, file } = state;
 
     console.log(selectedFile);

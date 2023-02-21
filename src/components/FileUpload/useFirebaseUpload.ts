@@ -112,20 +112,20 @@ export default function useFireBaseUpload(
                     // toast({
                     //   title: 'Uploading Completed',
                     // });
-                    console.log({ message });
+                    // console.log({ message });
                     console.log('Upload completed successfully');
                     lastMessage(message, file.type);
-                    sendMessage(message, file.type, uploadTask.snapshot.ref.fullPath, downloadURL);
+                    sendMessage(message, file.type, uploadTask.snapshot.ref.fullPath!, downloadURL);
                     dispatch({ type: 'isUploading', payload: false });
                     dispatch({
                         type: 'getFullPath',
                         payload: uploadTask.snapshot.ref.fullPath,
                     });
 
-                    setTimeout(() => {
-                        setIsOpen(false);
-                    }, 2000);
-
+                    // setTimeout(() => {
+                    //     setIsOpen(false);
+                    // }, 2000);
+                    setIsOpen(false);
                     console.log('full DL', uploadTask.snapshot.ref.fullPath);
                 });
             }

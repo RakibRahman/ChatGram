@@ -61,6 +61,10 @@ export interface GroupMessage {
     };
     type: string;
     chatRoomId: string;
+    messageId: string;
+    fileLink?: string;
+    fileId?: string;
+
 }
 
 export interface UserInfo {

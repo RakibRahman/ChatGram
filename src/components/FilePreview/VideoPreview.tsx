@@ -24,8 +24,12 @@ const VideoPreview: React.FC<VideoPlayerProps> = ({
     return (
         <>
             <video
-                width={width}
-                height={height}
+
+                style={{
+                    height: height,
+                    width: width
+
+                }}
                 playsInline
                 controls={showControl ? true : false}
                 autoPlay={autoPlay ? true : false}
