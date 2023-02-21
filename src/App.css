@@ -16,3 +16,7 @@
 #messageContainer ::-webkit-scrollbar-thumb:hover {
     background: #bdbdbd;
 }
+
+html {
+    height: 100%;
+}

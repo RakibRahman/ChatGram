@@ -115,7 +115,7 @@ export default function useFireBaseUpload(
                     console.log({ message });
                     console.log('Upload completed successfully');
                     lastMessage(message, file.type);
-                    sendMessage(message, file.type, downloadURL);
+                    sendMessage(message, file.type, uploadTask.snapshot.ref.fullPath, downloadURL);
                     dispatch({ type: 'isUploading', payload: false });
                     dispatch({
                         type: 'getFullPath',

@@ -1,6 +1,8 @@
 import React, { useCallback, useEffect, useRef, useState } from 'react';
 import { useSentMessage } from '../ChatRoomDetails.tsx/useSentMessage';
 import { Modal } from '../common/modal/Modal';
+import { ImagePreview } from '../FilePreview/ImagePreview';
+import VideoPreview from '../FilePreview/VideoPreview';
 import useFireBaseUpload from './useFirebaseUpload';
 
 export const FileUpload = () => {
@@ -14,10 +16,12 @@ export const FileUpload = () => {
     );
 
     const allowedImgExtensions = /(\.jpg|\.jpeg|\.png|\.gif)$/i;
+    const allowedVidExtensions = /(\.mp4|\.webm)$/i;
+
     console.log(selectedFile && allowedImgExtensions.exec(selectedFile?.name));
     const { progress, uploading, downloadURL, file } = state;
 
-    console.log(file);
+    console.log(selectedFile);
     return (
         <>
             <label htmlFor="fileUpload" className="btn btn-square btn-md">
@@ -40,6 +44,7 @@ export const FileUpload = () => {
                 type="file"
                 className="invisible w-0"
                 id="fileUpload"
+                accept="image/*,video/mp4,video/webm"
                 onChange={(e) => {
                     const file = e.target.files ? e.target.files[0] : undefined;
                     setSelectedFile(file);
@@ -51,7 +56,10 @@ export const FileUpload = () => {
 
             <Modal
                 isOpen={isOpen}
-                onClose={() => setIsOpen(false)}
+                onClose={() => {
+                    setIsOpen(false);
+                    setSelectedFile(undefined);
+                }}
                 title="Send File"
                 yesText={uploading ? 'Sending...' : 'Send'}
                 onConfirm={() => {
@@ -60,13 +68,15 @@ export const FileUpload = () => {
                     }
                 }}
             >
-                <div className="p-5">
-                    {selectedFile?.name}
+                <div className="p-2 overflow-hidden">
+                    <p className="break-words text-sm mb-1"> {selectedFile?.name}</p>
+
                     {selectedFile && allowedImgExtensions.exec(selectedFile?.name) ? (
-                        <img
-                            className="w-50 h-50 object-cover"
-                            src={URL.createObjectURL(selectedFile)}
-                        />
+                        <ImagePreview src={URL.createObjectURL(selectedFile)} height="50" />
+                    ) : null}
+
+                    {selectedFile && allowedVidExtensions.exec(selectedFile?.name) ? (
+                        <VideoPreview videoLink={URL.createObjectURL(selectedFile)} />
                     ) : null}
 
                     <input
@@ -76,7 +86,7 @@ export const FileUpload = () => {
                         }}
                         type="text"
                         placeholder="Caption here"
-                        className="input input-bordered focus:outline-none  w-full input-md"
+                        className="input input-bordered focus:outline-none  w-full input-md my-2"
                     />
                     {uploading ? (
                         <progress
