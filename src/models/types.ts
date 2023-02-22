@@ -64,7 +64,6 @@ export interface GroupMessage {
     messageId: string;
     fileLink?: string;
     fileId?: string;
-
 }
 
 export interface UserInfo {

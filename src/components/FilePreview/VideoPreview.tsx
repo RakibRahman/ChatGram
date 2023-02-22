@@ -24,11 +24,9 @@ const VideoPreview: React.FC<VideoPlayerProps> = ({
     return (
         <>
             <video
-
                 style={{
                     height: height,
-                    width: width
-
+                    width: width,
                 }}
                 playsInline
                 controls={showControl ? true : false}

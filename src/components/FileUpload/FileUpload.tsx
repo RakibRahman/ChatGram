@@ -1,5 +1,5 @@
 import React, { useCallback, useEffect, useRef, useState } from 'react';
-import { useSentMessage } from '../ChatRoomDetails.tsx/useSentMessage';
+import { useSentMessage } from '../SentMessage/useSentMessage';
 import { Modal } from '../common/modal/Modal';
 import { ImagePreview } from '../FilePreview/ImagePreview';
 import VideoPreview from '../FilePreview/VideoPreview';
@@ -17,7 +17,6 @@ export const FileUpload = () => {
 
     const allowedImgExtensions = /(\.jpg|\.jpeg|\.png|\.gif)$/i;
     const allowedVidExtensions = /(\.mp4|\.webm)$/i;
-
 
     const { progress, uploading, downloadURL, file } = state;
 

@@ -1,7 +1,5 @@
-import { useEffect, useRef, useState } from 'react';
+import { useEffect, useRef } from 'react';
 import { FileUpload } from '../FileUpload/FileUpload';
-import { useChatRoomDetails } from './useChatRoomDetails';
-import useFireBaseUpload from '../FileUpload/useFirebaseUpload';
 import { useSentMessage } from './useSentMessage';
 
 export const SentMessage = () => {

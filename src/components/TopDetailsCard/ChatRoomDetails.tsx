@@ -1,6 +1,7 @@
 import { getTime } from '../../utilities/getTime';
+import { Alert } from '../common/Alert';
 import { Loader } from '../common/Loader/Loader';
-import { useChatRoomDetails } from './useChatRoomDetails';
+import { useChatRoomDetails } from '../ChatRoomDetails.tsx/useChatRoomDetails';
 export const ChatRoomDetails = () => {
     const { chatRoomInfo, loading, error } = useChatRoomDetails();
 
@@ -9,16 +10,16 @@ export const ChatRoomDetails = () => {
     }
 
     if (!chatRoomInfo && !loading) {
-        return <h1>No such chat room exists</h1>;
+        return <Alert type="error" title="No such chat room exists" />;
     }
     const createDate = getTime(chatRoomInfo?.createdAt?.seconds, true);
 
     if (error) {
-        return <p>Failed to load chat </p>;
+        return <Alert type="error" title="Failed to load chat" />;
     }
 
     return (
-        <div className="h-60 bg-red-500">
+        <div className="h-60 ">
             <div className="hero" style={{ backgroundImage: `url(${chatRoomInfo?.logo!})` }}>
                 <div className="hero-overlay bg-opacity-60  py-10"></div>
                 <div className="hero-content text-center text-neutral-content">

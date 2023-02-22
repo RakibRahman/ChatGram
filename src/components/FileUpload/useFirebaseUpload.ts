@@ -4,7 +4,7 @@ import { useReducer } from 'react';
 import { useParams } from 'react-router-dom';
 import { storage } from '../../firebase';
 import { FileUploadStateProps, ACTIONTYPE } from '../../models/UploadType';
-import { useSentMessage } from '../ChatRoomDetails.tsx/useSentMessage';
+import { useSentMessage } from '../SentMessage/useSentMessage';
 
 export default function useFireBaseUpload(
     setIsOpen: React.Dispatch<React.SetStateAction<boolean>>,

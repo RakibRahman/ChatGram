@@ -4,9 +4,12 @@ import { getTime } from '../../utilities/getTime';
 import { Loader } from '../common/Loader/Loader';
 import { ImagePreview } from '../FilePreview/ImagePreview';
 import VideoPreview from '../FilePreview/VideoPreview';
-import { SentMessage } from './SentMessage';
+import { SentMessage } from '../SentMessage/SentMessage';
+import { RightClickMenu } from './RightClickMenu';
+
 import { useChatRoomDetails } from './useChatRoomDetails';
-export const GroupMessages = () => {
+
+export const Messages = () => {
     const messageContainerRef = useRef<HTMLDivElement>(null);
     const { messageData, isValidUser, chatRoomInfo, currentUser } = useChatRoomDetails();
 
@@ -33,7 +36,8 @@ export const GroupMessages = () => {
                             <Loader />
                         </div>
                     ) : null}
-                    {messageData?.groupMessages?.map((message) => (
+
+                    {/* {messageData?.groupMessages?.map((message) => (
                         <div
                             className={`chat ${message.chatRoomId.length > 20 &&
                                 message.sentBy.id === currentUser?.uid
@@ -67,9 +71,10 @@ export const GroupMessages = () => {
 
                                 {message?.message}
                             </div>
-                            <div className="chat-footer opacity-50">{/* Delivered */}</div>
+
                         </div>
-                    ))}
+                    ))} */}
+                    <RightClickMenu />
                 </div>
             </div>
             <div className=" w-full h-20 ">
