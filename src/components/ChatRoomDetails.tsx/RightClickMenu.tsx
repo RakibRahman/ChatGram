@@ -1,13 +1,9 @@
-import React, { useEffect, useState } from 'react';
-import { useRef } from 'react';
+import { useEffect, useState } from 'react';
 import useCopyToClipboard from '../../hooks/useCopyToClipBoard';
-import { useScrollIntoView } from '../../hooks/useScrollIntoView';
 import { GroupMessage } from '../../models/types';
 import { getTime } from '../../utilities/getTime';
-import { Loader } from '../common/Loader/Loader';
 import { ImagePreview } from '../FilePreview/ImagePreview';
 import VideoPreview from '../FilePreview/VideoPreview';
-import { SentMessage } from '../SentMessage/SentMessage';
 import { useChatRoomDetails } from './useChatRoomDetails';
 
 export const RightClickMenu = () => {
@@ -23,26 +19,23 @@ export const RightClickMenu = () => {
     }, []);
 
     return (
-        <div className="">
+        <div className="relative">
             <>
                 {messageData?.groupMessages?.map((message) => (
                     <div
                         onContextMenu={(e) => {
-                            console.log('Context Menu Opened');
+
                             e.preventDefault();
                             setShow(true);
-                            console.log(e.pageX);
-                            console.log(e.pageY);
                             setSelectedMessage(message);
                             setPoints({ x: e.pageX, y: e.pageY });
                         }}
-                        className={`chat ${
-                            message.chatRoomId.length > 20 && message.sentBy.id === currentUser?.uid
-                                ? 'chat-end'
-                                : 'chat-start'
-                        } `}
+                        className={`chat ${message.chatRoomId.length > 20 && message.sentBy.id === currentUser?.uid
+                            ? 'chat-end'
+                            : 'chat-start'
+                            } relative border`}
                     >
-                        <div className="chat-image avatar">
+                        <div className="chat-image avatar relative">
                             <div className="w-10 rounded-full">
                                 <img
                                     referrerPolicy="no-referrer"
@@ -82,9 +75,9 @@ export const RightClickMenu = () => {
             {show && (
                 <div
                     style={{
-                        position: 'absolute',
+                        position: 'fixed',
                         top: points.y,
-                        left: points.x - 250,
+                        left: 10,
                         zIndex: 10,
                     }}
                 >
