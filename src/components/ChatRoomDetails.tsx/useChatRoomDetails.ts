@@ -1,5 +1,6 @@
 import { collection, doc, limitToLast, orderBy, query, setDoc, where } from 'firebase/firestore';
 import { nanoid } from 'nanoid';
+import { useEffect } from 'react';
 import { useCollection, useDocument } from 'react-firebase-hooks/firestore';
 import { useParams } from 'react-router-dom';
 import { useChatRoomContext } from '../../context/context';
@@ -28,7 +29,7 @@ export const useChatRoomDetails = (userId?: string) => {
     const isValidUser: boolean = chatRoomInfo?.['members'].some(
         (member: string) => member === currentUser?.uid
     );
-
+    useEffect(() => { }, [chatRoomId])
     return {
         currentUser,
         loading,

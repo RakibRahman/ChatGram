@@ -37,3 +37,7 @@
     color: #fff;
     background: #009688;
 }
+html,
+body {
+    overflow: hidden;
+}

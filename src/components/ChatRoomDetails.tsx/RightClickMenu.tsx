@@ -19,21 +19,15 @@ export const RightClickMenu = () => {
     }, []);
 
     return (
-        <div className="relative">
+        <div className="overflow-hidden">
             <>
                 {messageData?.groupMessages?.map((message) => (
                     <div
-                        onContextMenu={(e) => {
 
-                            e.preventDefault();
-                            setShow(true);
-                            setSelectedMessage(message);
-                            setPoints({ x: e.pageX, y: e.pageY });
-                        }}
                         className={`chat ${message.chatRoomId.length > 20 && message.sentBy.id === currentUser?.uid
                             ? 'chat-end'
                             : 'chat-start'
-                            } relative border`}
+                            } `}
                     >
                         <div className="chat-image avatar relative">
                             <div className="w-10 rounded-full">
@@ -52,7 +46,14 @@ export const RightClickMenu = () => {
                                 {getTime(message?.sentTime?.seconds)}
                             </time>
                         </div>
-                        <div className="chat-bubble">
+                        <div className="chat-bubble " onContextMenu={(e) => {
+
+                            e.preventDefault();
+                            setShow(true);
+                            setSelectedMessage(message);
+                            setPoints({ x: e.pageX, y: e.pageY });
+                            console.log(points)
+                        }}>
                             {message?.type.includes('video') ? (
                                 <VideoPreview
                                     videoLink={message?.fileLink!}
@@ -75,9 +76,9 @@ export const RightClickMenu = () => {
             {show && (
                 <div
                     style={{
-                        position: 'fixed',
-                        top: points.y,
-                        left: 10,
+                        position: 'absolute',
+                        top: `${points.y}px`,
+                        left: `${points.x}px`,
                         zIndex: 10,
                     }}
                 >
