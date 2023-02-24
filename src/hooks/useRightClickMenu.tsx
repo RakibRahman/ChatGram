@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react'
+import React, { useEffect, useState } from 'react';
 import useCopyToClipboard from './useCopyToClipBoard';
 
 export const useRightClickMenu = (triggeredBy?: unknown) => {
@@ -10,13 +10,13 @@ export const useRightClickMenu = (triggeredBy?: unknown) => {
     useEffect(() => {
         const handleClick = () => setClicked(false);
         if (triggeredBy) {
-            console.log(triggeredBy)
-            console.log('sss')
+            console.log(triggeredBy);
+            console.log('sss');
 
-            window.document.addEventListener("click", handleClick);
+            window.document.addEventListener('click', handleClick);
             return () => {
-                console.log('ds')
-                window.document.removeEventListener("click", handleClick);
+                console.log('ds');
+                window.document.removeEventListener('click', handleClick);
             };
         }
     }, [triggeredBy]);
@@ -26,4 +26,4 @@ export const useRightClickMenu = (triggeredBy?: unknown) => {
         points,
         setPoints,
     };
-}
+};

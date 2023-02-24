@@ -29,7 +29,7 @@ export const useChatRoomDetails = (userId?: string) => {
     const isValidUser: boolean = chatRoomInfo?.['members'].some(
         (member: string) => member === currentUser?.uid
     );
-    useEffect(() => { }, [chatRoomId])
+    useEffect(() => {}, [chatRoomId]);
     return {
         currentUser,
         loading,
