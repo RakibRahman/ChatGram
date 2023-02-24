@@ -1,7 +1,5 @@
-import { useEffect, useRef, useState } from 'react';
+import { useEffect, useRef } from 'react';
 import { FileUpload } from '../FileUpload/FileUpload';
-import { useChatRoomDetails } from './useChatRoomDetails';
-import useFireBaseUpload from '../FileUpload/useFirebaseUpload';
 import { useSentMessage } from './useSentMessage';
 
 export const SentMessage = () => {
@@ -10,7 +8,7 @@ export const SentMessage = () => {
     const { lastMessage, currentUser, sendMessage } = useSentMessage();
 
     useEffect(() => {
-        messageRef.current?.focus();
+        // messageRef.current?.focus();
     }, []);
 
     return (

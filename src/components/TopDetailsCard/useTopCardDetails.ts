@@ -1,7 +1,7 @@
 import { doc } from 'firebase/firestore';
 import { useDocument } from 'react-firebase-hooks/firestore';
 import { db } from '../../firebase';
-import { useChatRoomDetails } from './useChatRoomDetails';
+import { useChatRoomDetails } from '../ChatRoomDetails.tsx/useChatRoomDetails';
 
 export const useTopCardDetails = () => {
     const { currentUser, chatRoomInfo } = useChatRoomDetails();
