@@ -7,11 +7,12 @@ export const useSentMessage = () => {
     const { chatRoomId } = useParams()!;
     const { currentUser } = useChatRoomContext();
 
-    const lastMessage = async (message: string = '', type = 'text') => {
-        if (!chatRoomId) return;
-
+    const lastMessage = async (message: string = '', type = 'text', forwardChatRoomId?: string) => {
+        console.log('first', forwardChatRoomId);
+        if (!chatRoomId || !forwardChatRoomId) return;
+        const chatId = forwardChatRoomId ? forwardChatRoomId : chatRoomId;
         await setDoc(
-            doc(db, 'chatRooms', chatRoomId),
+            doc(db, 'chatRooms', chatId),
             {
                 lastActivity: timeStamp,
                 recentMessage: {
@@ -30,12 +31,15 @@ export const useSentMessage = () => {
         message: string = '',
         type = 'text',
         fileId?: string,
-        fileLink?: string
+        fileLink?: string,
+        forwardChatRoomId?: string
     ) => {
-        if (!chatRoomId) return;
+        if (!chatRoomId || !forwardChatRoomId) return;
+        const chatId = forwardChatRoomId ? forwardChatRoomId : chatRoomId;
+
         const messageId = `message-${nanoid(8)}`;
-        console.log(messageId);
-        await setDoc(doc(db, 'chatRooms', chatRoomId, 'messages', messageId), {
+
+        await setDoc(doc(db, 'chatRooms', chatId, 'messages', messageId), {
             sentBy: {
                 name: currentUser?.displayName,
                 id: currentUser?.uid,

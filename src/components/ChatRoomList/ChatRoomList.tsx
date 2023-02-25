@@ -52,12 +52,12 @@ export const ChatRoomList = () => {
                                         ? chatRoom?.userOne?.name
                                         : chatRoom?.userTwo?.name
                                 }
-                                recentMessage={chatRoom.recentMessage!}
                                 logo={
                                     chatRoom?.userOne.id !== currentUser?.uid
                                         ? chatRoom?.userOne?.photoURL
                                         : chatRoom?.userTwo?.photoURL
                                 }
+                                recentMessage={chatRoom.recentMessage!}
                                 id={chatRoom.id!}
                                 currentUserId={currentUser?.uid!}
                             />

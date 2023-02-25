@@ -14,7 +14,7 @@ export const useDeleteMessage = (selectedMessage: GroupMessage) => {
                 console.log('Successfully deleted from storage');
             })
             .catch((error) => {
-                console.log(' Uh-oh, an error occurred!');
+                console.log(' Uh-oh, an error occurred!', error);
             });
     };
     const handleDeleteMessage = async () => {

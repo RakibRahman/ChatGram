@@ -5,12 +5,15 @@ import { getTime } from '../../utilities/getTime';
 import { DeleteMessage } from '../DeleteMessage/DeleteMessage';
 import { ImagePreview } from '../FilePreview/ImagePreview';
 import VideoPreview from '../FilePreview/VideoPreview';
+import { ForwardMessage } from '../ForwardMessage/ForwardMessage';
 import { ContextMenuItem } from './ContextMenu/ContextMenuItem';
 import { ContextMenuList } from './ContextMenu/ContextMenuList';
 import { useChatRoomDetails } from './useChatRoomDetails';
 
 export const RightClickMenu = () => {
     const [isDeleteOpen, setDeleteOpen] = useState(false);
+    const [isForwardOpen, setForwardOpen] = useState(false);
+
     const [show, setShow] = useState(false);
     const [points, setPoints] = useState({ x: 0, y: 0 });
     const [selectedMessage, setSelectedMessage] = useState({} as GroupMessage);
@@ -91,15 +94,17 @@ export const RightClickMenu = () => {
                     }}
                 >
                     <ContextMenuList>
-                        <ContextMenuItem
-                            icon="copy-text"
-                            title="Copy Text"
-                            action={() => {
-                                if (selectedMessage) {
-                                    copy(selectedMessage?.message);
-                                }
-                            }}
-                        />
+                        {selectedMessage.message ? (
+                            <ContextMenuItem
+                                icon="copy-text"
+                                title="Copy Text"
+                                action={() => {
+                                    if (selectedMessage) {
+                                        copy(selectedMessage?.message);
+                                    }
+                                }}
+                            />
+                        ) : null}
 
                         {isFile ? (
                             <ContextMenuItem
@@ -121,6 +126,18 @@ export const RightClickMenu = () => {
                                 action={() => {}}
                             />
                         ) : null}
+
+                        <ContextMenuItem
+                            icon="forward"
+                            title="Forward Message"
+                            action={() => {
+                                if (selectedMessage) {
+                                    // copy(selectedMessage?.message);
+                                    setForwardOpen(true);
+                                }
+                            }}
+                        />
+
                         <ContextMenuItem
                             icon="delete"
                             title="Delete Message"
@@ -138,6 +155,11 @@ export const RightClickMenu = () => {
                 selectedMessage={selectedMessage}
                 isOpen={isDeleteOpen}
                 onClose={() => setDeleteOpen(false)}
+            />
+            <ForwardMessage
+                selectedMessage={selectedMessage}
+                isOpen={isForwardOpen}
+                onClose={() => setForwardOpen(false)}
             />
         </div>
     );
