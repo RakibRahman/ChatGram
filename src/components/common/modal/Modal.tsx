@@ -11,6 +11,7 @@ interface ModalProps {
     noText?: string;
     yesText?: string;
     hideTitleClose?: boolean;
+    hideYesBtn?: boolean;
 }
 
 export const Modal: FC<ModalProps> = ({
@@ -22,6 +23,7 @@ export const Modal: FC<ModalProps> = ({
     onConfirm,
     title,
     hideTitleClose = false,
+    hideYesBtn = false,
 }) => {
     if (!isOpen) return null;
 
@@ -66,12 +68,14 @@ export const Modal: FC<ModalProps> = ({
                     >
                         {noText ?? 'Cancel'}
                     </button>
-                    <button
-                        className="text-center btn btn-outline btn-success text-sm cursor-pointer btn-sm"
-                        onClick={onConfirm}
-                    >
-                        {yesText ?? 'Continue'}
-                    </button>
+                    {hideYesBtn ? null : (
+                        <button
+                            className="text-center btn btn-outline btn-success text-sm cursor-pointer btn-sm"
+                            onClick={onConfirm}
+                        >
+                            {yesText ?? 'Continue'}
+                        </button>
+                    )}
                 </div>
             </div>
         </div>,
