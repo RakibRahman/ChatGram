@@ -8,9 +8,9 @@ export const useSentMessage = () => {
     const { currentUser } = useChatRoomContext();
 
     const lastMessage = async (message: string = '', type = 'text', forwardChatRoomId?: string) => {
-        console.log('first', forwardChatRoomId);
-        if (!chatRoomId || !forwardChatRoomId) return;
         const chatId = forwardChatRoomId ? forwardChatRoomId : chatRoomId;
+        console.log('chatId', chatId);
+        if (!chatId) return;
         await setDoc(
             doc(db, 'chatRooms', chatId),
             {
@@ -34,10 +34,11 @@ export const useSentMessage = () => {
         fileLink?: string,
         forwardChatRoomId?: string
     ) => {
-        if (!chatRoomId || !forwardChatRoomId) return;
+
         const chatId = forwardChatRoomId ? forwardChatRoomId : chatRoomId;
 
         const messageId = `message-${nanoid(8)}`;
+        if (!chatId) return;
 
         await setDoc(doc(db, 'chatRooms', chatId, 'messages', messageId), {
             sentBy: {
