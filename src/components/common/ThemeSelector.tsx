@@ -8,7 +8,7 @@ export const ThemeSelector = () => {
     const { themeName, setThemeName } = useChatRoomContext();
     const [toggle, setToggle] = useState(false);
     const [isThemeChange, setThemeChange] = useState(false);
-
+    console.log(themes.length)
     useLayoutEffect(() => {
         themeChange(false);
     }, [isThemeChange]);
@@ -59,11 +59,10 @@ export const ThemeSelector = () => {
                                 }}
                             >
                                 <span
-                                    className={`${
-                                        themeName === theme
+                                    className={`${themeName === theme
                                             ? 'bg-red-100 text-black w-full px-2 py-2 capitalize'
                                             : 'px-2 py-2 capitalize'
-                                    }`}
+                                        }`}
                                 >
                                     {theme}
                                 </span>
