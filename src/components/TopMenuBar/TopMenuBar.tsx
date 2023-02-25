@@ -63,7 +63,7 @@ export const TopMenuBar: React.FC<TopMenuBarProps> = ({ isSearchActive, setSearc
     const userSearchCondition = isSearchActive && searchResult?.users?.length !== 0 && !loading;
 
     return (
-        <div>
+        <div className="flex-grow">
             <form onSubmit={searchUsers}>
                 <div className="flex gap-1 relative">
                     <input
@@ -71,7 +71,7 @@ export const TopMenuBar: React.FC<TopMenuBarProps> = ({ isSearchActive, setSearc
                         type="text"
                         ref={searchQuery}
                         placeholder="Search…"
-                        className="mx-2 input input-bordered w-60 input-sm flex-grow"
+                        className=" input input-bordered w-full input-sm "
                     />
                     <div className="absolute right-16 top-1">
                         {isSearchActive ? (

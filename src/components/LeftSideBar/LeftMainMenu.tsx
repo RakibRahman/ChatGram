@@ -89,7 +89,13 @@ export const LeftMainMenu = () => {
                         ) : null}
                     </div>
                 </div>
-                <CreateChatRoom isOpen={isOpenModal} onClose={() => setIsOpenModal(false)} />
+                <CreateChatRoom
+                    isOpen={isOpenModal}
+                    onClose={() => {
+                        setIsOpenModal(false);
+                        setIsOpen(false);
+                    }}
+                />
             </Drawer>
         </div>
     );

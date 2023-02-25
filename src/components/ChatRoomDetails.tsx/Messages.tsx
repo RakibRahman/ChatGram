@@ -1,10 +1,8 @@
 import { useRef } from 'react';
 import { useScrollIntoView } from '../../hooks/useScrollIntoView';
-import { getTime } from '../../utilities/getTime';
+import { Alert } from '../common/Alert';
 import { Loader } from '../common/Loader/Loader';
-import { ImagePreview } from '../FilePreview/ImagePreview';
-import VideoPreview from '../FilePreview/VideoPreview';
-import { SentMessage } from '../SentMessage/SentMessage';
+import { NoMessage } from './NoMessage';
 import { RightClickMenu } from './RightClickMenu';
 
 import { useChatRoomDetails } from './useChatRoomDetails';
@@ -20,23 +18,19 @@ export const Messages = () => {
     }
 
     if (!isValidUser) {
-        return (
-            <h1 className=" bg-red-800 font-black text-center text-2xl leading-tight p-20">
-                You are not a member of this group.
-            </h1>
-        );
+        return <Alert title="  You are not a member of this group." />;
     }
 
     return (
-        <div className="flex flex-col justify-between w-full h-full ">
-            <div className=" h-[30rem]  overflow-y-scroll pr-2" id="messageContainer">
+        <>
+            <div className=" h-full  overflow-y-scroll pr-2" id="messageContainer">
                 <div ref={messageContainerRef}>
                     {messageData?.loadingMessage ? (
                         <div className="grid place-items-center mt-20">
                             <Loader />
                         </div>
                     ) : null}
-
+                    {messageData?.groupMessages?.length === 0 ? <NoMessage /> : null}
                     {/* {messageData?.groupMessages?.map((message) => (
                         <div
                             className={`chat ${message.chatRoomId.length > 20 &&
@@ -77,9 +71,6 @@ export const Messages = () => {
                     <RightClickMenu />
                 </div>
             </div>
-            <div className=" w-full h-20 ">
-                <SentMessage />
-            </div>
-        </div>
+        </>
     );
 };

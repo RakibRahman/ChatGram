@@ -22,6 +22,7 @@ function App() {
             navigate('/');
         }
         if (!!isAnyChatActive) {
+            console.log({ isAnyChatActive });
             navigate(`/${isAnyChatActive}`);
         }
     }, []);
@@ -68,11 +69,10 @@ function App() {
         <div className="App">
             {currentUser ? (
                 <>
-                    <div className="flex w-screen overflow-hidden  mx-auto p-10  h-screen items-start">
-                        {currentUser ? <LeftSideBar /> : null}
+                    <div className="flex w-screen overflow-hidden  mx-auto px-10 pt-4  h-screen items-start gap-4">
+                        {/* {currentUser ? <LeftSideBar /> : null} */}
 
-                        <div className="divider divider-horizontal"></div>
-                        <Routes>
+                        {/* <Routes>
                             {!!isAnyChatActive ? null : (
                                 <Route path="/" element={<SelectChatRoom />} />
                             )}
@@ -80,7 +80,20 @@ function App() {
                                 path="/chat/:chatRoomId"
                                 element={<ChatRoomDetailsContainer />}
                             />
-                        </Routes>
+                        </Routes> */}
+                        <div className="w-1/4 h-full">{currentUser ? <LeftSideBar /> : null}</div>
+
+                        <div className="flex-1  h-full">
+                            <Routes>
+                                {!!isAnyChatActive ? null : (
+                                    <Route path="/" element={<SelectChatRoom />} />
+                                )}
+                                <Route
+                                    path="/chat/:chatRoomId"
+                                    element={<ChatRoomDetailsContainer />}
+                                />
+                            </Routes>
+                        </div>
                     </div>
                 </>
             ) : (

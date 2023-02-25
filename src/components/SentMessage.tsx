@@ -2,7 +2,7 @@ import React from 'react';
 
 export const SentMessage = () => {
     return (
-        <div>
+        <div className="flex-1 w-full border">
             <form className="flex items-center space-x-6">
                 <div className="shrink-0">
                     <img

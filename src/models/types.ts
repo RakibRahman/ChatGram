@@ -36,6 +36,7 @@ export interface ChatRoom {
         sentBy: string;
         timestamp: Timestamp;
         type: string;
+        sentId: string;
     };
     type: ChatRoomType;
 }
@@ -82,4 +83,5 @@ export interface ChatCardProps {
     logo: string;
     recentMessage: ChatRoom['recentMessage'];
     isActive: string;
+    currentUserId: string;
 }

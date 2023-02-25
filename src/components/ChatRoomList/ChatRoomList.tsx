@@ -10,10 +10,6 @@ export const ChatRoomList = () => {
     let location = useLocation();
     const activeChat = location.pathname.replace(/^\/|\/$/g, '') ?? '';
 
-    if (!currentUser) {
-        return <h1>Log in to see chat rooms</h1>;
-    }
-
     if (chatListData.chatRoomListLoading) {
         return (
             <div className="w-96 h-96  grid place-items-center">
@@ -46,6 +42,7 @@ export const ChatRoomList = () => {
                                 logo={chatRoom.logo!}
                                 id={chatRoom.id!}
                                 isActive={activeChat}
+                                currentUserId={currentUser?.uid!}
                             />
                         ) : (
                             <ChatCard
@@ -62,6 +59,7 @@ export const ChatRoomList = () => {
                                         : chatRoom?.userTwo?.photoURL
                                 }
                                 id={chatRoom.id!}
+                                currentUserId={currentUser?.uid!}
                             />
                         )}
                     </Fragment>

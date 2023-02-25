@@ -12,7 +12,7 @@ export const SentMessage = () => {
     }, []);
 
     return (
-        <div className="">
+        <div className="flex-1">
             <form
                 onSubmit={(e) => {
                     e.preventDefault();

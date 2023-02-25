@@ -10,6 +10,7 @@ interface ModalProps {
     title?: string;
     noText?: string;
     yesText?: string;
+    hideTitleClose?: boolean;
 }
 
 export const Modal: FC<ModalProps> = ({
@@ -20,6 +21,7 @@ export const Modal: FC<ModalProps> = ({
     onClose,
     onConfirm,
     title,
+    hideTitleClose = false,
 }) => {
     if (!isOpen) return null;
 
@@ -30,14 +32,29 @@ export const Modal: FC<ModalProps> = ({
                 backgroundColor: 'rgba(0,0,0,0.8)',
             }}
         >
-            <div className="fixed bg-white rounded-lg flex flex-col   -translate-y-2/4 -translate-x-2/4 left-2/4 top-2/4 z-50 py-2 px-4">
+            <div className="fixed bg-base-200 rounded-lg flex flex-col   -translate-y-2/4 -translate-x-2/4 left-2/4 top-2/4 z-50 py-2 px-4">
                 <div className="flex justify-between items-center">
                     <h3 className="text-xl font-bold tracking-widest mb-2">
                         {title ?? 'Are You Sure You Want to Continue?'}
                     </h3>
-                    <button className="titleCloseBtn" onClick={onClose}>
-                        X
-                    </button>
+                    {hideTitleClose ? null : (
+                        <button className="btn btn-sm btn-circle" onClick={onClose}>
+                            <svg
+                                xmlns="http://www.w3.org/2000/svg"
+                                fill="none"
+                                viewBox="0 0 24 24"
+                                strokeWidth={1.5}
+                                stroke="currentColor"
+                                className="w-6 h-6"
+                            >
+                                <path
+                                    strokeLinecap="round"
+                                    strokeLinejoin="round"
+                                    d="M6 18L18 6M6 6l12 12"
+                                />
+                            </svg>
+                        </button>
+                    )}
                 </div>
 
                 <div className="w-80 min-w-full my-2">{children}</div>
@@ -45,12 +62,12 @@ export const Modal: FC<ModalProps> = ({
                 <div className="flex justify-end gap-4 mt-2">
                     <button
                         onClick={onClose}
-                        className="text-center bg-red-600 text-white rounded text-sm cursor-pointer border-none px-4 py-2"
+                        className="text-center btn btn-outline btn-error rounded text-sm cursor-pointer btn-sm hover:text-white"
                     >
                         {noText ?? 'Cancel'}
                     </button>
                     <button
-                        className="text-center bg-blue-500 text-white rounded text-sm cursor-pointer border-none px-4 py-2"
+                        className="text-center btn btn-outline btn-success text-sm cursor-pointer btn-sm"
                         onClick={onConfirm}
                     >
                         {yesText ?? 'Continue'}

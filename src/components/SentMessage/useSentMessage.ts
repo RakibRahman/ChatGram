@@ -17,6 +17,7 @@ export const useSentMessage = () => {
                 recentMessage: {
                     message,
                     sentBy: currentUser?.displayName,
+                    sentId: currentUser?.uid,
                     timestamp: timeStamp,
                     type,
                 },

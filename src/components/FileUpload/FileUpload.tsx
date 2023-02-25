@@ -1,6 +1,6 @@
-import React, { useCallback, useEffect, useRef, useState } from 'react';
-import { useSentMessage } from '../SentMessage/useSentMessage';
+import { useState } from 'react';
 import { Modal } from '../common/modal/Modal';
+import { ProgressBar } from '../common/ProgressBar/ProgressBar';
 import { ImagePreview } from '../FilePreview/ImagePreview';
 import VideoPreview from '../FilePreview/VideoPreview';
 import useFireBaseUpload from './useFirebaseUpload';
@@ -20,7 +20,23 @@ export const FileUpload = () => {
 
     const { progress, uploading, downloadURL, file } = state;
 
-    console.log(selectedFile);
+    const getFileType = (): string => {
+        if (selectedFile === undefined) {
+            return 'Send File';
+        }
+
+        const { type } = selectedFile;
+        const fileType = type.replace(/[^/]*$/, '').replace(/[/]/, '');
+
+        if (fileType === 'image') {
+            return 'Send an image';
+        }
+        if (fileType === 'video') {
+            return 'Send a video file';
+        }
+        return 'Send File';
+    };
+
     return (
         <>
             <label htmlFor="fileUpload" className="btn btn-square btn-md">
@@ -58,16 +74,20 @@ export const FileUpload = () => {
                 onClose={() => {
                     setIsOpen(false);
                     setSelectedFile(undefined);
+                    if (state.uploading) {
+                        cancelUpload();
+                    }
                 }}
-                title="Send File"
+                title={getFileType()}
                 yesText={uploading ? 'Sending...' : 'Send'}
                 onConfirm={() => {
                     if (selectedFile) {
                         handleUpload(selectedFile);
                     }
+                    setMessage('');
                 }}
             >
-                <div className="p-2 overflow-hidden">
+                <div className="p-2 overflow-hidden max-h-96">
                     <p className="break-words text-sm mb-1"> {selectedFile?.name}</p>
 
                     {selectedFile && allowedImgExtensions.exec(selectedFile?.name) ? (
@@ -87,13 +107,7 @@ export const FileUpload = () => {
                         placeholder="Caption here"
                         className="input input-bordered focus:outline-none  w-full input-md my-2"
                     />
-                    {uploading ? (
-                        <progress
-                            className="progress w-full"
-                            value={state.progress}
-                            max="100"
-                        ></progress>
-                    ) : null}
+                    {uploading ? <ProgressBar value={state.progress} /> : null}
                 </div>
             </Modal>
         </>

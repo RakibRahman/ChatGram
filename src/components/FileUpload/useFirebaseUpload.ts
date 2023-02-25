@@ -12,6 +12,8 @@ export default function useFireBaseUpload(
 ) {
     const { chatRoomId } = useParams()!;
     const { lastMessage, currentUser, sendMessage } = useSentMessage();
+    const allowedImgExtensions = /(\.jpg|\.jpeg|\.png|\.gif)$/i;
+    const allowedVidExtensions = /(\.mp4|\.webm)$/i;
 
     const FileUploadState: FileUploadStateProps = {
         uploading: false,
@@ -47,7 +49,7 @@ export default function useFireBaseUpload(
     }
 
     const [state, dispatch] = useReducer(reducer, FileUploadState);
-
+    // console.log(allowedImgExtensions.exec(state?.file?.name), 'dd')
     const handleUpload = (file: File) => {
         const storageRef = ref(storage, `${chatRoomId}/${nanoid(10)}`);
         const uploadTask = uploadBytesResumable(storageRef, file);
@@ -114,8 +116,9 @@ export default function useFireBaseUpload(
                     // });
                     // console.log({ message });
                     console.log('Upload completed successfully');
-                    lastMessage(message, file.type);
-                    sendMessage(message, file.type, uploadTask.snapshot.ref.fullPath!, downloadURL);
+                    const fileType = file.type.replace(/[^/]*$/, '').replace(/[/]/, '');
+                    lastMessage(message, fileType);
+                    sendMessage(message, fileType, uploadTask.snapshot.ref.fullPath!, downloadURL);
                     dispatch({ type: 'isUploading', payload: false });
                     dispatch({
                         type: 'getFullPath',
@@ -137,6 +140,7 @@ export default function useFireBaseUpload(
             dispatch({ type: 'cancelUpload' });
             await state.uploadTask.cancel();
         }
+        console.log('cancel');
     };
 
     const discardUpload = async () => {
