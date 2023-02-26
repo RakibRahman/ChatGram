@@ -1,12 +1,21 @@
-import React from 'react';
 import { useParams } from 'react-router-dom';
 import { useChatRoomList } from '../ChatRoomList/useChatRoomList';
-import { useSentMessage } from '../SentMessage/useSentMessage';
 
-export const useForwardMessage = () => {
+export const useForwardMessage = (query: string) => {
     const { chatRoomId } = useParams();
-    const { currentUser, chatListData, usersChatRooms } = useChatRoomList();
-    const { lastMessage, sendMessage } = useSentMessage();
+    const { currentUser, chatListData } = useChatRoomList();
 
-    return { list: chatListData.list.filter((c) => c.id !== chatRoomId), currentUser };
+    const chatList = chatListData.list.filter((chatRoom) => {
+
+        const userName = chatRoom['members'][0] !== currentUser?.uid
+            ? chatRoom?.userOne?.name
+            : chatRoom?.userTwo?.name
+        if (userName) {
+            chatRoom.name = userName;
+        }
+
+        return chatRoom?.name?.includes(query ?? '')
+    })
+
+    return { chatList: chatList.filter((c) => c.id !== chatRoomId), currentUser };
 };

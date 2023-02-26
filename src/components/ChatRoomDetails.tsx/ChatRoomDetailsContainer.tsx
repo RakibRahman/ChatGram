@@ -3,6 +3,7 @@ import { DetailsTopCard } from '../TopDetailsCard/DetailsTopCard';
 import { Messages } from './Messages';
 
 export const ChatRoomDetailsContainer = () => {
+
     return (
         <div className="border-l-2 pl-1 h-screen">
             <DetailsTopCard />
