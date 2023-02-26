@@ -1,20 +1,42 @@
-#messageContainer::-webkit-scrollbar {
+/* #messageContainer::-webkit-scrollbar {
     width: 0.5em;
 }
 
 /* Track */
-#messageContainer::-webkit-scrollbar-track {
+/* #messageContainer::-webkit-scrollbar-track {
     box-shadow: inset 0 0 6px #5a5a66;
-}
+} */
 /* Handle */
-#messageContainer ::-webkit-scrollbar-thumb {
-    background-color: darkgrey;
-    outline: 1px solid slategrey;
-}
+/* #messageContainer::-webkit-scrollbar-thumb {
+    border-radius: 10px;
+    -webkit-box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.3);
+    background-color: #555;
+} */
 
 /* Handle on hover */
-#messageContainer ::-webkit-scrollbar-thumb:hover {
+/* #messageContainer ::-webkit-scrollbar-thumb:hover {
     background: #bdbdbd;
+} */
+
+* {
+    scrollbar-width: auto;
+    scrollbar-color: #116fd4 #fafafa;
+}
+
+/* Chrome, Edge, and Safari */
+*::-webkit-scrollbar {
+    width: 0.4em;
+}
+
+*::-webkit-scrollbar-track {
+    background: #fafafa;
+    box-shadow: inset 0 0 6px #5a5a66;
+}
+
+*::-webkit-scrollbar-thumb {
+    background-color: #116fd4;
+    border-radius: 10px;
+    /* border: 3px solid #ffffff; */
 }
 
 .contextContainer {

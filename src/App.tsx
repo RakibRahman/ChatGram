@@ -6,13 +6,14 @@ import { Error404 } from './components/common/Error404';
 import { SelectChatRoom } from './components/common/SelectChatRoom';
 import { LeftSideBar } from './components/LeftSideBar/LeftSideBar';
 import { Login } from './components/Login/Login';
+import { ChatRoomDetails } from './components/TopDetailsCard/ChatRoomDetails';
+import { UserProfile } from './components/UserProfile/UserProfile';
 import { useChatRoomContext } from './context/context';
 import { useMediaQuery } from './hooks/useMediaQuery';
 function App() {
     const { currentUser } = useChatRoomContext();
     const isAnyChatActive = localStorage.getItem('activeChat');
     const isTab = useMediaQuery('(max-width: 768px)');
-    const location = useLocation();
     const navigate = useNavigate();
 
     console.log(currentUser, isTab);
@@ -20,8 +21,10 @@ function App() {
     useEffect(() => {
         if (!isTab && !currentUser) {
             navigate('/');
+            localStorage.removeItem('activeChat');
         }
-        if (!!isAnyChatActive) {
+
+        if (!!isAnyChatActive && currentUser) {
             console.log({ isAnyChatActive });
             navigate(`/${isAnyChatActive}`);
         }
@@ -36,6 +39,8 @@ function App() {
                         <Route path="/login" element={<Login />}></Route>
                     )}
                     <Route path="/chat/:chatRoomId" element={<ChatRoomDetailsContainer />} />
+                    <Route path="/chatRoom/:chatRoomId" element={<ChatRoomDetails />} />
+                    <Route path="/profile/:chatRoomId" element={<UserProfile />} />
 
                     <Route path="*" element={<Error404 />} />
                 </Routes>
@@ -92,6 +97,10 @@ function App() {
                                     path="/chat/:chatRoomId"
                                     element={<ChatRoomDetailsContainer />}
                                 />
+                                <Route path="/chatRoom/:chatRoomId" element={<ChatRoomDetails />} />
+                                <Route path="/profile/:chatRoomId" element={<UserProfile />} />
+
+
                             </Routes>
                         </div>
                     </div>

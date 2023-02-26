@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useDeferredValue, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { GroupMessage } from '../../models/types';
 import { Modal } from '../common/modal/Modal';
@@ -13,9 +13,14 @@ interface FMessageProps {
 }
 
 export const ForwardMessage: React.FC<FMessageProps> = ({ isOpen, onClose, selectedMessage }) => {
-    const { list, currentUser } = useForwardMessage();
+    const [searchKey, setSearchKey] = useState('');
+    const query = useDeferredValue(searchKey);
+    const { chatList, currentUser } = useForwardMessage(query);
     const { lastMessage, sendMessage } = useSentMessage();
     const navigate = useNavigate();
+
+
+
 
     return (
         <div>
@@ -26,19 +31,27 @@ export const ForwardMessage: React.FC<FMessageProps> = ({ isOpen, onClose, selec
                 onClose={onClose}
                 title="Chose Recipient..."
                 yesText="Delete"
-                onConfirm={() => {}}
+                onConfirm={() => { }}
             >
                 <div>
                     <div className="py-2 mb-2">
                         <input
                             type="text"
+
                             className="input input-sm w-full"
                             placeholder="Search..."
+                            onChange={(e) => {
+
+
+                                setSearchKey(e.target.value);
+
+                            }}
                         />
                     </div>
 
-                    <div className="h-96 overflow-y-scroll space-y-3">
-                        {list.map((chatRoom) => (
+                    <div className="h-96 overflow-y-scroll space-y-3" id='messageContainer'>
+                        {chatList.length === 0 ? <p> No match found in your chat list!</p> : null}
+                        {chatList.map((chatRoom) => (
                             <div
                                 role="button"
                                 onClick={async () => {
