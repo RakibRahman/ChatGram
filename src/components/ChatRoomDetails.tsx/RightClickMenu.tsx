@@ -1,4 +1,5 @@
 import { useEffect, useState } from 'react';
+import { useParams } from 'react-router-dom';
 import useCopyToClipboard from '../../hooks/useCopyToClipBoard';
 import { GroupMessage } from '../../models/types';
 import { getTime } from '../../utilities/getTime';
@@ -13,17 +14,18 @@ import { useChatRoomDetails } from './useChatRoomDetails';
 export const RightClickMenu = () => {
     const [isDeleteOpen, setDeleteOpen] = useState(false);
     const [isForwardOpen, setForwardOpen] = useState(false);
-
+    const { chatRoomId } = useParams();
     const [show, setShow] = useState(false);
     const [points, setPoints] = useState({ x: 0, y: 0 });
     const [selectedMessage, setSelectedMessage] = useState({} as GroupMessage);
-    const { messageData, currentUser } = useChatRoomDetails();
+    const { messageData, currentUser, chatRoomInfo } = useChatRoomDetails();
     const [value, copy] = useCopyToClipboard();
     const isFile = selectedMessage.type !== 'text' && selectedMessage?.fileLink;
 
     useEffect(() => {
         const handleClick = () => setShow(false);
         window.addEventListener('click', handleClick);
+        localStorage.setItem('currentChat', chatRoomId!);
         return () => window.removeEventListener('click', handleClick);
     }, []);
 

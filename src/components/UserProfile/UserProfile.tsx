@@ -1,11 +1,30 @@
-import React from 'react'
+import React from 'react';
 import { useNavigate } from 'react-router-dom';
-import { useUserProfile } from './useUserProfile'
+import { GroupMessage } from '../../models/types';
+import { Accordion } from '../common/Accordion/Accordion';
+import { AccordionItem } from '../common/Accordion/AccordionItem';
+import { Alert } from '../common/Alert';
+import { Loader } from '../common/Loader/Loader';
+import { ImagePreview } from '../FilePreview/ImagePreview';
+import VideoPreview from '../FilePreview/VideoPreview';
+import { useUserProfile } from './useUserProfile';
 
 export const UserProfile = () => {
-    const { userInfo, loading, error } = useUserProfile();
+    const { userInfo, loading, error, photos, videos } = useUserProfile();
     const navigate = useNavigate();
+    console.log(photos);
+    if (loading) {
+        return (
+            <div className="mt-10">
+                {' '}
+                <Loader />
+            </div>
+        );
+    }
 
+    if (error) {
+        return <Alert title="Failed to load User Profile" />;
+    }
     return (
         <div className="h-96">
             <button
@@ -29,7 +48,7 @@ export const UserProfile = () => {
                     />
                 </svg>
             </button>
-            <div className="hero" >
+            <div className="hero">
                 <div className="hero-overlay bg-opacity-60  py-10"></div>
                 <div className="hero-content text-center text-neutral-content">
                     <div className="avatar">
@@ -41,12 +60,32 @@ export const UserProfile = () => {
                         <h1 className="mb-5 text-5xl font-bold capitalize">{userInfo?.name}</h1>
                         <p>Email: {userInfo?.email}</p>
                         <p>Last Login At: {userInfo?.lastLogin}</p>
-
-
-
                     </div>
                 </div>
             </div>
+            <Accordion>
+                <AccordionItem title="Photos">
+                    <div className="grid grid-cols-3 gap-4">
+                        {' '}
+                        {photos?.map((photo: GroupMessage) => (
+                            <ImagePreview src={photo?.fileLink!} width="72" height="72" />
+                        ))}
+                    </div>
+                </AccordionItem>
+                <AccordionItem title="Videos">
+                    <div className="grid grid-cols-3 gap-4">
+                        {' '}
+                        {videos?.map((vid: GroupMessage) => (
+                            <VideoPreview
+                                videoLink={vid?.fileLink!}
+                                showControl
+                                autoPlay={false}
+                                height="300px"
+                            />
+                        ))}
+                    </div>
+                </AccordionItem>
+            </Accordion>
         </div>
-    )
-}
+    );
+};

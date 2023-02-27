@@ -28,7 +28,7 @@ function App() {
             console.log({ isAnyChatActive });
             navigate(`/${isAnyChatActive}`);
         }
-    }, []);
+    }, [currentUser, isAnyChatActive]);
     if (isTab) {
         return (
             <div className="grid place-items-stretch max-w-full mt-10 px-4">
@@ -99,8 +99,6 @@ function App() {
                                 />
                                 <Route path="/chatRoom/:chatRoomId" element={<ChatRoomDetails />} />
                                 <Route path="/profile/:chatRoomId" element={<UserProfile />} />
-
-
                             </Routes>
                         </div>
                     </div>

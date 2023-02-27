@@ -34,7 +34,6 @@ export const useSentMessage = () => {
         fileLink?: string,
         forwardChatRoomId?: string
     ) => {
-
         const chatId = forwardChatRoomId ? forwardChatRoomId : chatRoomId;
 
         const messageId = `message-${nanoid(8)}`;
