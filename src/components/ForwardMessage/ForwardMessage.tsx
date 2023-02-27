@@ -19,9 +19,6 @@ export const ForwardMessage: React.FC<FMessageProps> = ({ isOpen, onClose, selec
     const { lastMessage, sendMessage } = useSentMessage();
     const navigate = useNavigate();
 
-
-
-
     return (
         <div>
             <Modal
@@ -31,25 +28,21 @@ export const ForwardMessage: React.FC<FMessageProps> = ({ isOpen, onClose, selec
                 onClose={onClose}
                 title="Chose Recipient..."
                 yesText="Delete"
-                onConfirm={() => { }}
+                onConfirm={() => {}}
             >
                 <div>
                     <div className="py-2 mb-2">
                         <input
                             type="text"
-
                             className="input input-sm w-full"
                             placeholder="Search..."
                             onChange={(e) => {
-
-
                                 setSearchKey(e.target.value);
-
                             }}
                         />
                     </div>
 
-                    <div className="h-96 overflow-y-scroll space-y-3" id='messageContainer'>
+                    <div className="h-96 overflow-y-scroll space-y-3" id="messageContainer">
                         {chatList.length === 0 ? <p> No match found in your chat list!</p> : null}
                         {chatList.map((chatRoom) => (
                             <div

@@ -14,7 +14,7 @@ export const ImagePreview: React.FC<ImagePreview> = ({ src, width = 'full', heig
                 alt="preview"
                 onError={({ currentTarget }) => {
                     currentTarget.onerror = null; // prevents looping
-                    currentTarget.src = "https://via.placeholder.com/400x400?text=Image not found";
+                    currentTarget.src = 'https://via.placeholder.com/400x400?text=Image not found';
                 }}
             />
         </>

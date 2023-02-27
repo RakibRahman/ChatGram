@@ -1,7 +1,7 @@
 import { useMediaQuery } from '../../hooks/useMediaQuery';
 import { ProfileCard } from '../common/ProfileCard/ProfileCard';
 import { useTopCardDetails } from './useTopCardDetails';
-import { useNavigate } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { TopMenuList } from './TopMenuList';
 
 export const DetailsTopCard = () => {
@@ -9,21 +9,23 @@ export const DetailsTopCard = () => {
 
     const isTab = useMediaQuery('(max-width: 768px)');
     const navigate = useNavigate();
-    const profileId = chatRoomInfo?.['members'][0] !== currentUser?.uid
-        ? chatRoomInfo?.userOne?.id
-        : chatRoomInfo?.userTwo?.id
+    const profileId =
+        chatRoomInfo?.['members'][0] !== currentUser?.uid
+            ? chatRoomInfo?.userOne?.id
+            : chatRoomInfo?.userTwo?.id;
     const menuListData = {
         chatRoomId: chatRoomInfo?.id,
         type: chatRoomInfo?.type,
-        profileId: profileId ? profileId : null
-    }
-    console.log(menuListData)
+        profileId: profileId ? profileId : null,
+    };
+    console.log(menuListData);
     if (chatRoomInfo?.type === 'single') {
         return (
             <div className="flex justify-between">
                 <div
-                    className={`p-1 w-full ${isTab ? 'flex gap-2 items-center' : 'block'
-                        } border-b-2`}
+                    className={`p-1 w-full ${
+                        isTab ? 'flex gap-2 items-center' : 'block'
+                    } border-b-2`}
                 >
                     {isTab ? (
                         <button
@@ -48,12 +50,20 @@ export const DetailsTopCard = () => {
                             </svg>
                         </button>
                     ) : null}
-                    <ProfileCard
-                        name={getUserInfo('name')}
-                        pic={getUserInfo('photoURL')}
-                        isOnline={userInfo?.data()?.['status']}
-                    // lastActive={getUserInfo('lastLogin')}
-                    />
+                    <Link
+                        to={`${
+                            menuListData.type === 'room'
+                                ? `/chatRoom/${menuListData.chatRoomId}`
+                                : `/profile/${menuListData.profileId}`
+                        }`}
+                    >
+                        <ProfileCard
+                            name={getUserInfo('name')}
+                            pic={getUserInfo('photoURL')}
+                            isOnline={userInfo?.data()?.['status']}
+                            // lastActive={getUserInfo('lastLogin')}
+                        />
+                    </Link>
                 </div>
 
                 <TopMenuList menuData={menuListData} />
@@ -90,10 +100,18 @@ export const DetailsTopCard = () => {
                     </button>
                 ) : null}
 
-                <div className="flex flex-col gap-2">
-                    <p className="font-bold">{chatRoomInfo?.name}</p>
-                    <p>{chatRoomInfo?.members?.length} members</p>
-                </div>
+                <Link
+                    to={`${
+                        menuListData.type === 'room'
+                            ? `/chatRoom/${menuListData.chatRoomId}`
+                            : `/profile/${menuListData.profileId}`
+                    }`}
+                >
+                    <div className="flex flex-col gap-2">
+                        <p className="font-bold">{chatRoomInfo?.name}</p>
+                        <p>{chatRoomInfo?.members?.length} members</p>
+                    </div>
+                </Link>
             </div>
             <TopMenuList menuData={menuListData} />
         </div>
