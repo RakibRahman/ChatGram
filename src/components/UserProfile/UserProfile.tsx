@@ -26,7 +26,7 @@ export const UserProfile = () => {
         return <Alert title="Failed to load User Profile" />;
     }
     return (
-        <div className="h-96">
+        <div className="l">
             <button
                 className="btn p-0 bg-transparent border-none"
                 onClick={() => {
@@ -82,6 +82,18 @@ export const UserProfile = () => {
                                 autoPlay={false}
                                 height="300px"
                             />
+                        ))}
+                        {photos?.map((photo: GroupMessage) => (
+                            <ImagePreview src={photo?.fileLink!} width="72" height="72" />
+                        ))}
+                        {photos?.map((photo: GroupMessage) => (
+                            <ImagePreview src={photo?.fileLink!} width="72" height="72" />
+                        ))}{' '}
+                        {photos?.map((photo: GroupMessage) => (
+                            <ImagePreview src={photo?.fileLink!} width="72" height="72" />
+                        ))}
+                        {photos?.map((photo: GroupMessage) => (
+                            <ImagePreview src={photo?.fileLink!} width="72" height="72" />
                         ))}
                     </div>
                 </AccordionItem>

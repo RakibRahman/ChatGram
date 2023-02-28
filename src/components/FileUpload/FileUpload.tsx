@@ -87,7 +87,7 @@ export const FileUpload = () => {
                     setMessage('');
                 }}
             >
-                <div className="p-2 overflow-hidden max-h-96">
+                <div className="p-2 overflow-y-scroll overflow-hidden max-h-96">
                     <p className="break-words text-sm mb-1"> {selectedFile?.name}</p>
 
                     {selectedFile && allowedImgExtensions.exec(selectedFile?.name) ? (
