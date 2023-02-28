@@ -70,8 +70,8 @@ export const ChatRoomDetails = () => {
             </div>
             <Accordion>
                 <AccordionItem title="Photos">
-                    <div className="grid grid-cols-3 gap-4  hero-overlay bg-opacity-60 p-4">
-                        {' '}
+                    <div className=" bg-opacity-60 p-4  grid-cols-4 grid gap-6">
+
                         {photos?.map((photo: GroupMessage) => (
                             <ImagePreview src={photo?.fileLink!} width="72" height="72" />
                         ))}
@@ -85,7 +85,7 @@ export const ChatRoomDetails = () => {
                                 videoLink={vid?.fileLink!}
                                 showControl
                                 autoPlay={false}
-                                height="300px"
+                                height="220px"
                             />
                         ))}
                     </div>
