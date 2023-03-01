@@ -12,7 +12,7 @@ export const ChatRoomList = () => {
 
     if (chatListData.chatRoomListLoading) {
         return (
-            <div className="w-96 h-96  grid place-items-center">
+            <div className="flex  justify-center items-center my-0 h-[40vh]">
                 <Loader />
             </div>
         );
@@ -34,7 +34,12 @@ export const ChatRoomList = () => {
 
             {chatListData.list &&
                 chatListData?.list?.map((chatRoom) => (
-                    <Fragment key={chatRoom.id}>
+                    <div
+                        key={chatRoom.id}
+                        onClick={() => {
+                            localStorage.setItem('activeChat', chatRoom.id);
+                        }}
+                    >
                         {chatRoom?.type === 'room' ? (
                             <ChatCard
                                 name={chatRoom.name!}
@@ -62,7 +67,7 @@ export const ChatRoomList = () => {
                                 currentUserId={currentUser?.uid!}
                             />
                         )}
-                    </Fragment>
+                    </div>
                 ))}
         </div>
     );

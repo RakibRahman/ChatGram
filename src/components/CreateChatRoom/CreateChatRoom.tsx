@@ -30,7 +30,7 @@ export const CreateChatRoom: React.FC<CreateChatRoomProps> = ({ isOpen, onClose 
                         ref={chatRoomName}
                         type="text"
                         placeholder="Chat room name"
-                        className="input w-full max-w-xs border border-blue-300 focus:outline-none"
+                        className="input input-md w-full max-w-xs border border-blue-300 focus:outline-none"
                     />
                 </div>
             </Modal>

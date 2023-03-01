@@ -26,5 +26,5 @@ export const useUserProfile = () => {
     const [userInfo, loading, error] = useDocument(doc(db, 'users', chatRoomId ?? ''), {
         snapshotListenOptions: { includeMetadataChanges: true },
     });
-    return { userInfo: userInfo?.data() as UserInfo, loading, error, videos, photos };
+    return { userInfo: userInfo?.data() as UserInfo, loading, error, videos, photos, errorMessage };
 };

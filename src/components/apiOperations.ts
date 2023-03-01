@@ -1,5 +1,5 @@
 import { arrayUnion, doc, getDoc, setDoc, updateDoc } from 'firebase/firestore';
-import { db } from '../firebase';
+import { db, timeStamp } from '../firebase';
 import { CurrentUser, UserInfo } from '../models/types';
 import { handleResults } from '../utilities/handleResults';
 
@@ -59,6 +59,7 @@ export const createUser = async (currentUser: CurrentUser) => {
             photoURL,
             lastLogin: currentUser?.metadata?.lastSignInTime,
             status: 'online',
+            createdAt: timeStamp,
         },
         { merge: true }
     );

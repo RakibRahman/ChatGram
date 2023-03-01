@@ -1,22 +1,16 @@
-import React from 'react';
 import { useNavigate } from 'react-router-dom';
-import { GroupMessage } from '../../models/types';
-import { Accordion } from '../common/Accordion/Accordion';
-import { AccordionItem } from '../common/Accordion/AccordionItem';
+import { getTime } from '../../utilities/getTime';
+import { ChatRoomMedia } from '../ChatRoomMedia/ChatRoomMedia';
 import { Alert } from '../common/Alert';
 import { Loader } from '../common/Loader/Loader';
-import { ImagePreview } from '../FilePreview/ImagePreview';
-import VideoPreview from '../FilePreview/VideoPreview';
 import { useUserProfile } from './useUserProfile';
 
 export const UserProfile = () => {
-    const { userInfo, loading, error, photos, videos } = useUserProfile();
+    const { userInfo, loading, error, photos, videos, errorMessage } = useUserProfile();
     const navigate = useNavigate();
-    console.log(photos);
     if (loading) {
         return (
             <div className="mt-10">
-                {' '}
                 <Loader />
             </div>
         );
@@ -25,6 +19,8 @@ export const UserProfile = () => {
     if (error) {
         return <Alert title="Failed to load User Profile" />;
     }
+    const createDate = getTime(userInfo?.createdAt?.seconds, true);
+
     return (
         <div className="l">
             <button
@@ -59,45 +55,16 @@ export const UserProfile = () => {
                     <div className="max-w-full">
                         <h1 className="mb-5 text-5xl font-bold capitalize">{userInfo?.name}</h1>
                         <p>Email: {userInfo?.email}</p>
+                        {createDate ? <p>Joined At: {createDate}</p> : null}
+
                         <p>Last Login At: {userInfo?.lastLogin}</p>
                     </div>
                 </div>
             </div>
-            <Accordion>
-                <AccordionItem title="Photos">
-                    <div className="grid grid-cols-3 gap-4">
-                        {' '}
-                        {photos?.map((photo: GroupMessage) => (
-                            <ImagePreview src={photo?.fileLink!} width="72" height="72" />
-                        ))}
-                    </div>
-                </AccordionItem>
-                <AccordionItem title="Videos">
-                    <div className="grid grid-cols-3 gap-4">
-                        {' '}
-                        {videos?.map((vid: GroupMessage) => (
-                            <VideoPreview
-                                videoLink={vid?.fileLink!}
-                                showControl
-                                autoPlay={false}
-                                height="300px"
-                            />
-                        ))}
-                        {photos?.map((photo: GroupMessage) => (
-                            <ImagePreview src={photo?.fileLink!} width="72" height="72" />
-                        ))}
-                        {photos?.map((photo: GroupMessage) => (
-                            <ImagePreview src={photo?.fileLink!} width="72" height="72" />
-                        ))}{' '}
-                        {photos?.map((photo: GroupMessage) => (
-                            <ImagePreview src={photo?.fileLink!} width="72" height="72" />
-                        ))}
-                        {photos?.map((photo: GroupMessage) => (
-                            <ImagePreview src={photo?.fileLink!} width="72" height="72" />
-                        ))}
-                    </div>
-                </AccordionItem>
-            </Accordion>
+            {errorMessage ? (
+                <Alert title="An error has occurred while fetching media files" type="error" />
+            ) : null}
+            <ChatRoomMedia photos={photos!} videos={videos!} />
         </div>
     );
 };

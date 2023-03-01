@@ -18,5 +18,5 @@ export const useTopCardDetails = () => {
     const [userInfo, userInfoLoading, userInfoError] = useDocument(usersRef, {
         snapshotListenOptions: { includeMetadataChanges: true },
     });
-    return { userInfo, chatRoomInfo, getUserInfo, currentUser };
+    return { userInfo, chatRoomInfo, getUserInfo, currentUser, userInfoLoading };
 };

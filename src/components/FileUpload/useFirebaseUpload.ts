@@ -12,8 +12,6 @@ export default function useFireBaseUpload(
 ) {
     const { chatRoomId } = useParams()!;
     const { lastMessage, currentUser, sendMessage } = useSentMessage();
-    const allowedImgExtensions = /(\.jpg|\.jpeg|\.png|\.gif)$/i;
-    const allowedVidExtensions = /(\.mp4|\.webm)$/i;
 
     const FileUploadState: FileUploadStateProps = {
         uploading: false,

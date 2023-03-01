@@ -1,14 +1,10 @@
+import { useNavigate } from 'react-router-dom';
 import { getTime } from '../../utilities/getTime';
+import { useChatRoomDetails } from '../ChatRoomDetails.tsx/useChatRoomDetails';
+import { ChatRoomMedia } from '../ChatRoomMedia/ChatRoomMedia';
 import { Alert } from '../common/Alert';
 import { Loader } from '../common/Loader/Loader';
-import { useChatRoomDetails } from '../ChatRoomDetails.tsx/useChatRoomDetails';
-import { useNavigate } from 'react-router-dom';
 import { useUserProfile } from '../UserProfile/useUserProfile';
-import { Accordion } from '../common/Accordion/Accordion';
-import { AccordionItem } from '../common/Accordion/AccordionItem';
-import { ImagePreview } from '../FilePreview/ImagePreview';
-import { GroupMessage } from '../../models/types';
-import VideoPreview from '../FilePreview/VideoPreview';
 export const ChatRoomDetails = () => {
     const { chatRoomInfo, loading, error } = useChatRoomDetails();
     const { photos, videos } = useUserProfile();
@@ -68,29 +64,7 @@ export const ChatRoomDetails = () => {
                     </div>
                 </div>
             </div>
-            <Accordion>
-                <AccordionItem title="Photos">
-                    <div className=" bg-opacity-60 p-4  grid-cols-4 grid gap-6">
-
-                        {photos?.map((photo: GroupMessage) => (
-                            <ImagePreview src={photo?.fileLink!} width="72" height="72" />
-                        ))}
-                    </div>
-                </AccordionItem>
-                <AccordionItem title="Videos">
-                    <div className="grid grid-cols-3 gap-4 hero-overlay bg-opacity-60  p-4">
-                        {' '}
-                        {videos?.map((vid: GroupMessage) => (
-                            <VideoPreview
-                                videoLink={vid?.fileLink!}
-                                showControl
-                                autoPlay={false}
-                                height="220px"
-                            />
-                        ))}
-                    </div>
-                </AccordionItem>
-            </Accordion>
+            <ChatRoomMedia photos={photos!} videos={videos!} />
         </div>
     );
 };

@@ -75,6 +75,7 @@ export interface UserInfo {
     chatRooms: string[];
     lastLogin: string;
     status: string;
+    createdAt: Timestamp;
 }
 
 export interface ChatCardProps {

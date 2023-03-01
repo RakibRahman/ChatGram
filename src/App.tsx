@@ -18,26 +18,28 @@ function App() {
     const isAnyChatActive = localStorage.getItem('activeChat');
     const isTab = useMediaQuery('(max-width: 768px)');
     const navigate = useNavigate();
+    console.log({ isAnyChatActive });
 
     useEffect(() => {
-        if (!isTab && !currentUser) {
-            navigate('/');
-        }
+        // if (!isTab && !currentUser) {
+        //     navigate('/');
+        // }
 
         if (!!isAnyChatActive && currentUser) {
-            console.log({ isAnyChatActive });
-            navigate(`/${isAnyChatActive}`);
+            navigate(`/chat/${isAnyChatActive}`);
         }
-    }, [currentUser, isAnyChatActive]);
+    }, []);
 
     if (loading) {
-        return <div>
-            <div className="hero" style={{ backgroundImage: `url(${BG})` }}>
-                <div className="grid place-items-center  py-10 h-screen">
-                    <Loader />
+        return (
+            <div>
+                <div className="hero" style={{ backgroundImage: `url(${BG})` }}>
+                    <div className="grid place-items-center  py-10 h-screen">
+                        <Loader />
+                    </div>
                 </div>
             </div>
-        </div>;
+        );
     }
     if (isTab) {
         return (
@@ -59,44 +61,13 @@ function App() {
     }
 
     return (
-        // <div>
-        //     {currentUser ? (
-        //         <div className=" flex w-screen overflow-hidden  mx-auto p-10  h-screen items-start">
-        //             {currentUser ? <div className='flex w-full '> <LeftSideBar />
-        //                 <SelectChatRoom />
-        //             </div> : null}
-        //             <div className="divider divider-horizontal"></div>
-        //             <Routes>
-        //                 {/* <Route path="/login" element={<Login />}></Route> */}
-        //                 {/* <Route path="/" element={<p>hello</p>} /> */}
-        //                 {/* {!!isAnyChatActive ? null : <Route path="/" element={<SelectChatRoom />} />} */}
-        //                 <Route path="/chat/:chatRoomId" element={<ChatRoomDetailsContainer />} />
-
-        //                 <Route path="*" element={<Error404 />} />
-        //             </Routes>
-        //         </div>
-        //     ) : (
-        //         <Routes>
-        //             <Route path="/" element={<Login />}></Route>
-        //         </Routes>
-        //     )}
-        // </div>
         <div className="App">
             {currentUser ? (
                 <>
-                    <div className="flex w-screen overflow-hidden  mx-auto px-10 pt-4  h-screen items-start gap-4">
-                        {/* {currentUser ? <LeftSideBar /> : null} */}
-
-                        {/* <Routes>
-                            {!!isAnyChatActive ? null : (
-                                <Route path="/" element={<SelectChatRoom />} />
-                            )}
-                            <Route
-                                path="/chat/:chatRoomId"
-                                element={<ChatRoomDetailsContainer />}
-                            />
-                        </Routes> */}
-                        <div className="w-1/4 h-full">{currentUser ? <LeftSideBar /> : null}</div>
+                    <div className="flex w-screen overflow-hidden  mx-auto px-10 pt-4  h-screen items-start">
+                        <div className="w-1/4 h-full border-r-2 pr-1">
+                            {currentUser ? <LeftSideBar /> : null}
+                        </div>
 
                         <div className="flex-1  h-full">
                             <Routes>

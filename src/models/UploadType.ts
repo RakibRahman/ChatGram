@@ -5,7 +5,7 @@ export type ACTIONTYPE =
     | { type: 'progress'; payload: number }
     | { type: 'file'; payload: File }
     | { type: 'downloadLink'; payload: string }
-    | { type: 'uploadTask'; payload: any }
+    | { type: 'uploadTask'; payload: UploadTask }
     | { type: 'cancelUpload' }
     | { type: 'getFullPath'; payload: string };
 

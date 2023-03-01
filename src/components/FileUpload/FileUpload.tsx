@@ -87,7 +87,7 @@ export const FileUpload = () => {
                     setMessage('');
                 }}
             >
-                <div className="p-2 overflow-y-scroll overflow-hidden max-h-96">
+                <div className="p-2  max-h-96">
                     <p className="break-words text-sm mb-1"> {selectedFile?.name}</p>
 
                     {selectedFile && allowedImgExtensions.exec(selectedFile?.name) ? (
@@ -105,7 +105,7 @@ export const FileUpload = () => {
                         }}
                         type="text"
                         placeholder="Caption here"
-                        className="input input-bordered focus:outline-none  w-full input-md my-2"
+                        className="input input-bordered focus:outline-none  w-full input-md my-2 "
                     />
                     {uploading ? <ProgressBar value={state.progress} /> : null}
                 </div>
