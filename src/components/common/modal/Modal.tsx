@@ -12,6 +12,7 @@ interface ModalProps {
     yesText?: string;
     hideTitleClose?: boolean;
     hideYesBtn?: boolean;
+    size?: string;
 }
 
 export const Modal: FC<ModalProps> = ({
@@ -24,6 +25,7 @@ export const Modal: FC<ModalProps> = ({
     title,
     hideTitleClose = false,
     hideYesBtn = false,
+    size,
 }) => {
     if (!isOpen) return null;
 
@@ -35,7 +37,7 @@ export const Modal: FC<ModalProps> = ({
             }}
         >
             <div className="fixed bg-base-200 rounded-lg flex flex-col   -translate-y-2/4 -translate-x-2/4 left-2/4 top-2/4 z-50 py-2 px-4">
-                <div className="flex justify-between items-center">
+                <div className="flex justify-between items-center min-w-96">
                     <h3 className="text-xl font-bold tracking-widest mb-2">
                         {title ?? 'Are You Sure You Want to Continue?'}
                     </h3>

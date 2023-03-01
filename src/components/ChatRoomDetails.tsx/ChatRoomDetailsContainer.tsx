@@ -4,9 +4,9 @@ import { Messages } from './Messages';
 
 export const ChatRoomDetailsContainer = () => {
     return (
-        <div className="border-l-2 pl-1 h-screen">
+        <div className="h-screen overflow-hidden">
             <DetailsTopCard />
-            <div className="h-[80%] overflow-hidden">
+            <div className="h-[80%] overflow-hidden p-1">
                 <Messages />
             </div>
 

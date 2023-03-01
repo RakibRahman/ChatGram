@@ -5,7 +5,8 @@ import { Link, useNavigate } from 'react-router-dom';
 import { TopMenuList } from './TopMenuList';
 
 export const DetailsTopCard = () => {
-    const { userInfo, getUserInfo, chatRoomInfo, currentUser } = useTopCardDetails();
+    const { userInfo, getUserInfo, chatRoomInfo, currentUser, userInfoLoading } =
+        useTopCardDetails();
 
     const isTab = useMediaQuery('(max-width: 768px)');
     const navigate = useNavigate();
@@ -18,15 +19,15 @@ export const DetailsTopCard = () => {
         type: chatRoomInfo?.type,
         profileId: profileId ? profileId : null,
     };
-    console.log(menuListData);
+
+    if (userInfoLoading) {
+        return <></>;
+    }
+
     if (chatRoomInfo?.type === 'single') {
         return (
-            <div className="flex justify-between">
-                <div
-                    className={`p-1 w-full ${
-                        isTab ? 'flex gap-2 items-center' : 'block'
-                    } border-b-2`}
-                >
+            <div className="flex justify-between bg-base-300 p-1 border-b-2">
+                <div className={` w-full ${isTab ? 'flex gap-2 items-center' : 'block'} `}>
                     {isTab ? (
                         <button
                             className="btn p-0 bg-transparent border-none"
@@ -72,10 +73,8 @@ export const DetailsTopCard = () => {
     }
 
     return (
-        <div className="flex justify-between">
-            <div
-                className={`p-1 w-full ${isTab ? 'flex gap-2 items-center' : 'block'}  border-b-2`}
-            >
+        <div className="flex justify-between bg-base-300 p-1 border-b-2">
+            <div className={`w-full ${isTab ? 'flex gap-2 items-center' : 'block'}`}>
                 {isTab ? (
                     <button
                         className="btn p-0 bg-transparent border-none"

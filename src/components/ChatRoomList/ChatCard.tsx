@@ -65,56 +65,59 @@ export const ChatCard: React.FC<ChatCardProps> = ({
     currentUserId,
 }) => {
     const isTab = useMediaQuery('(max-width: 768px)');
-    console.log({ recentMessage });
+    console.log({ isActive, id: `/chat/${id}` });
     return (
-        <div
-            className={` overflow-hidden ${
-                isTab ? 'w-auto' : 'w-full'
-            } space-y-6 hover:opacity-60 ${
-                id === isActive.slice(5) ? 'text-white bg-blue-400' : ''
-            }  py-2 rounded - md`}
-            onClick={() => {
-                localStorage.setItem('activeChat', isActive);
-            }}
-        >
-            <Link to={`/chat/${id} `}>
+        <Link to={`/chat/${id} `}>
+            <div
+                className={` overflow-hidden ${
+                    isTab ? 'w-auto' : 'w-full'
+                } space-y-6 hover:opacity-60 ${
+                    id === localStorage.getItem('activeChat') ? 'text-white bg-blue-400' : ''
+                }  py-2 rounded - md`}
+            >
                 <div className=" gap-3  flex w-full px-2">
                     <Avatar name={name} img={logo} />
                     <div className="grow">
                         <div className="flex justify-between   items-center ">
                             <p className="font-semibold text-sm capitalize">{name}</p>
-                            <p className=" text-xs ">
-                                {getTime(recentMessage?.timestamp?.seconds) ?? '...'}
-                            </p>
+                            {recentMessage ? (
+                                <p className=" text-xs ">
+                                    {getTime(recentMessage?.timestamp?.seconds) ?? '...'}
+                                </p>
+                            ) : null}
                         </div>
-                        <p
-                            className={`flex items-center gap-2 ${
-                                id === isActive ? ' ' : ''
-                            } text - sm font - normal`}
-                        >
-                            {currentUserId === recentMessage.sentId
-                                ? 'You: '
-                                : recentMessage.sentBy.split(' ')[0] + ': '}
-                            {recentMessage?.type === 'text'
-                                ? truncateText(recentMessage?.message ?? '', 20)
-                                : null}
-                            {recentMessage?.type === 'video' ? (
-                                <>
-                                    {messageIcon['video']}
-                                    {truncateText(recentMessage?.message ?? '', 20)}
-                                </>
-                            ) : null}
+                        {recentMessage ? (
+                            <p
+                                className={`flex items-center gap-2 ${
+                                    id === isActive ? ' ' : ''
+                                } text - sm font - normal`}
+                            >
+                                {currentUserId === recentMessage?.sentId
+                                    ? 'You: '
+                                    : recentMessage?.sentBy.split(' ')[0] + ': ' ?? ''}
+                                {recentMessage?.type === 'text'
+                                    ? truncateText(recentMessage?.message ?? '', 20)
+                                    : null}
+                                {recentMessage?.type === 'video' ? (
+                                    <>
+                                        {messageIcon['video']}
+                                        {truncateText(recentMessage?.message ?? '', 20)}
+                                    </>
+                                ) : null}
 
-                            {recentMessage?.type === 'image' ? (
-                                <>
-                                    {messageIcon['photo']}
-                                    {truncateText(recentMessage?.message ?? '', 20)}
-                                </>
-                            ) : null}
-                        </p>
+                                {recentMessage?.type === 'image' ? (
+                                    <>
+                                        {messageIcon['photo']}
+                                        {truncateText(recentMessage?.message ?? '', 20)}
+                                    </>
+                                ) : null}
+                            </p>
+                        ) : (
+                            'No messages here yet...'
+                        )}
                     </div>
                 </div>
-            </Link>
-        </div>
+            </div>
+        </Link>
     );
 };
