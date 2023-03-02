@@ -78,11 +78,12 @@ export interface UserInfo {
     createdAt: Timestamp;
 }
 
+export type RecentMessage = ChatRoom['recentMessage'];
 export interface ChatCardProps {
     id: string;
     name: string;
     logo: string;
-    recentMessage: ChatRoom['recentMessage'];
+    recentMessage: RecentMessage;
     isActive: string;
     currentUserId: string;
 }

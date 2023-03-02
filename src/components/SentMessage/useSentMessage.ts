@@ -3,13 +3,17 @@ import { nanoid } from 'nanoid';
 import { useParams } from 'react-router-dom';
 import { useChatRoomContext } from '../../context/context';
 import { db, timeStamp } from '../../firebase';
+import { validURL } from '../../utilities/validURL';
 export const useSentMessage = () => {
     const { chatRoomId } = useParams()!;
     const { currentUser } = useChatRoomContext();
 
     const lastMessage = async (message: string = '', type = 'text', forwardChatRoomId?: string) => {
         const chatId = forwardChatRoomId ? forwardChatRoomId : chatRoomId;
-        console.log('chatId', chatId);
+
+        if (validURL(message)) {
+            type = 'link';
+        }
         if (!chatId) return;
         await setDoc(
             doc(db, 'chatRooms', chatId),
@@ -25,6 +29,7 @@ export const useSentMessage = () => {
             },
             { merge: true }
         );
+        console.log(type);
     };
 
     const sendMessage = async (
@@ -38,7 +43,9 @@ export const useSentMessage = () => {
 
         const messageId = `message-${nanoid(8)}`;
         if (!chatId) return;
-
+        if (validURL(message)) {
+            type = 'link';
+        }
         await setDoc(doc(db, 'chatRooms', chatId, 'messages', messageId), {
             sentBy: {
                 name: currentUser?.displayName,

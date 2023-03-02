@@ -32,7 +32,7 @@ export const DetailsTopCard = () => {
                         <button
                             className="btn p-0 bg-transparent border-none"
                             onClick={() => {
-                                navigate(-1);
+                                navigate('/');
                             }}
                         >
                             <svg

@@ -5,6 +5,7 @@ import { GroupMessage } from '../../models/types';
 import { getTime } from '../../utilities/getTime';
 import { DeleteMessage } from '../DeleteMessage/DeleteMessage';
 import { ImagePreview } from '../FilePreview/ImagePreview';
+import URLPreview from '../FilePreview/URLPreview';
 import VideoPreview from '../FilePreview/VideoPreview';
 import { ForwardMessage } from '../ForwardMessage/ForwardMessage';
 import { ContextMenuItem } from './ContextMenu/ContextMenuItem';
@@ -21,6 +22,8 @@ export const RightClickMenu = () => {
     const { messageData, currentUser, chatRoomInfo } = useChatRoomDetails();
     const [value, copy] = useCopyToClipboard();
     const isFile = selectedMessage.type !== 'text' && selectedMessage?.fileLink;
+    const isLink = selectedMessage.type === 'link';
+    const isText = selectedMessage.message && selectedMessage.type === 'text';
 
     useEffect(() => {
         const handleClick = () => setShow(false);
@@ -80,7 +83,11 @@ export const RightClickMenu = () => {
                                 <ImagePreview src={message?.fileLink!} width="full" height="96" />
                             ) : null}
 
-                            {message?.message}
+                            {message?.type === 'link' ? (
+                                <URLPreview url={message?.message} />
+                            ) : (
+                                message?.message
+                            )}
                         </div>
                     </div>
                 ))}
@@ -96,7 +103,7 @@ export const RightClickMenu = () => {
                     }}
                 >
                     <ContextMenuList>
-                        {selectedMessage.message ? (
+                        {isText ? (
                             <ContextMenuItem
                                 icon="copy-text"
                                 title="Copy Text"
@@ -115,6 +122,18 @@ export const RightClickMenu = () => {
                                 action={() => {
                                     if (selectedMessage) {
                                         copy(selectedMessage?.fileLink!);
+                                    }
+                                }}
+                            />
+                        ) : null}
+
+                        {isLink ? (
+                            <ContextMenuItem
+                                icon="url-link"
+                                title={`Copy  Link`}
+                                action={() => {
+                                    if (selectedMessage) {
+                                        copy(selectedMessage?.message!);
                                     }
                                 }}
                             />
