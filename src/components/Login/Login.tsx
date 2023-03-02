@@ -7,7 +7,15 @@ export const Login = () => {
     // createUser
 
     return (
-        <div className="hero" style={{ backgroundImage: `url(${BG})` }}>
+        <div
+            className="hero"
+            style={{
+                backgroundImage: `url(${BG})`,
+                backgroundSize: 'cover',
+                backgroundPosition: 'top',
+                backgroundRepeat: 'no-repeat',
+            }}
+        >
             <div className="grid place-items-center  py-10 h-screen">
                 <button
                     className="btn"

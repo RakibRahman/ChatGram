@@ -9,6 +9,7 @@
         "preview": "vite preview"
     },
     "dependencies": {
+        "@dhaiwat10/react-link-preview": "^1.15.0",
         "cssnano": "^5.1.14",
         "daisyui": "^2.46.1",
         "date-fns": "^2.29.3",

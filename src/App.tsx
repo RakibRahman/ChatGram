@@ -21,10 +21,6 @@ function App() {
     console.log({ isAnyChatActive });
 
     useEffect(() => {
-        // if (!isTab && !currentUser) {
-        //     navigate('/');
-        // }
-
         if (!!isAnyChatActive && currentUser) {
             navigate(`/chat/${isAnyChatActive}`);
         }
@@ -43,7 +39,7 @@ function App() {
     }
     if (isTab) {
         return (
-            <div className="grid place-items-stretch max-w-full mt-10 px-4">
+            <div className="grid place-items-stretch max-w-full mt-1 p-1">
                 <Routes>
                     {currentUser ? (
                         <Route path="/" element={<LeftSideBar />} />

@@ -8,7 +8,7 @@ export const SentMessage = () => {
     const { lastMessage, currentUser, sendMessage } = useSentMessage();
 
     useEffect(() => {
-        // messageRef.current?.focus();
+        messageRef.current?.focus();
     }, []);
 
     return (
