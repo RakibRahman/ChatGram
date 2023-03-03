@@ -1,9 +1,8 @@
-import React, { useRef, useState } from 'react';
-import { ChatCardProps } from '../../models/types';
+import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
+import { ChatCardProps } from '../../models/types';
 import { getTime } from '../../utilities/getTime';
 import { Avatar } from '../common/Avatar/Avatar';
-import { useMediaQuery } from '../../hooks/useMediaQuery';
 import { ChatCardMessage } from './ChatCardMessage';
 
 export const ChatCard: React.FC<ChatCardProps> = ({
@@ -14,17 +13,13 @@ export const ChatCard: React.FC<ChatCardProps> = ({
     isActive,
     currentUserId,
 }) => {
-    const isTab = useMediaQuery('(max-width: 768px)');
-
     const [newMessage, setNewMessage] = useState(recentMessage?.message);
     const isSelected = id === localStorage.getItem('activeChat');
 
     return (
         <Link to={`/chat/${id} `}>
             <div
-                className={`indicator overflow-hidden ${
-                    isTab ? 'w-full' : 'w-auto'
-                } space-y-6 hover:opacity-60 ${
+                className={`indicator overflow-hidden w-full space-y-6 hover:opacity-60 ${
                     isSelected ? 'text-white bg-blue-400' : ''
                 }  py-2 rounded - md`}
                 onClick={() => {

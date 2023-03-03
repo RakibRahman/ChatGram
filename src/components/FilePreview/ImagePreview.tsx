@@ -11,7 +11,6 @@ export const ImagePreview: React.FC<ImagePreview> = ({ src, width = 'full', heig
         <>
             <img
                 onClick={() => {
-                    console.log(src);
                     setOpen(true);
                 }}
                 style={{

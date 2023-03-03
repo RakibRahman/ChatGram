@@ -3,9 +3,8 @@ import { useCollection, useDocument } from 'react-firebase-hooks/firestore';
 import { useChatRoomContext } from '../../context/context';
 import { db } from '../../firebase';
 
-export const useChatRoomList = (userName?: string) => {
+export const useChatRoomList = () => {
     const { currentUser, signOut } = useChatRoomContext();
-    // console.log(currentUser);
     const usersRef = doc(db, 'users', currentUser?.uid!);
 
     const [userInfo, userInfoError, userInfoLoading] = useDocument(usersRef, {
@@ -13,7 +12,7 @@ export const useChatRoomList = (userName?: string) => {
     });
 
     const usersChatRooms: string[] = userInfo?.data()?.['chatRooms'] ?? [''];
-    // console.log(usersChatRooms);
+
     const userStatus = {
         userInfoError,
         usersChatRooms,
@@ -25,6 +24,7 @@ export const useChatRoomList = (userName?: string) => {
         where('id', 'in', usersChatRooms?.length === 0 ? [''] : usersChatRooms),
         orderBy('lastActivity', 'desc')
     );
+
     const [chatRoomList, chatRoomListLoading, chatRoomListError] = useCollection(q, {
         snapshotListenOptions: { includeMetadataChanges: true },
     });

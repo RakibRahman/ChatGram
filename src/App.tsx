@@ -18,7 +18,6 @@ function App() {
     const isAnyChatActive = localStorage.getItem('activeChat');
     const isTab = useMediaQuery('(max-width: 768px)');
     const navigate = useNavigate();
-    console.log({ isAnyChatActive });
 
     useEffect(() => {
         if (!!isAnyChatActive && currentUser) {

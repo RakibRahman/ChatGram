@@ -34,11 +34,9 @@ export const TopMenuBar: React.FC<TopMenuBarProps> = ({ isSearchActive, setSearc
         if (q) {
             await handleSearch(q)
                 .then((result) => {
-                    // console.log('search by result', result);
                     if (result.length > 0) {
                         const users = result.filter((user) => user.type === 'user') as UserInfo[];
                         const rooms = result.filter((room) => room.type === 'room') as ChatRoom[];
-                        console.log(rooms);
                         setSearchResult({
                             users,
                             rooms,

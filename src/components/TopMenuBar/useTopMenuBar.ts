@@ -70,8 +70,6 @@ export const useTopMenuBar = (setSearchActive: Dispatch<SetStateAction<boolean>>
             try {
                 Promise.allSettled([createNewChatRoom, updateUserInfo()]).then((values) => {
                     navigate(`/chat/${chatRoomId}`);
-                    console.log(docSnap.data()?.['id'], 'id');
-                    console.log(values);
                     setSearchActive(false);
                 });
             } catch {
@@ -82,13 +80,12 @@ export const useTopMenuBar = (setSearchActive: Dispatch<SetStateAction<boolean>>
 
     const joinChatRoom = async (chatRoomId: string) => {
         const docRef = doc(db, 'chatRooms', chatRoomId);
-        console.log(chatRoomId);
+
         const docSnap = await getDoc(docRef);
 
         const isAlreadyJoined = docSnap
             .data()
             ?.['members'].some((member: string) => member === currentUser?.uid);
-        console.log(isAlreadyJoined);
 
         if (isAlreadyJoined) {
             navigate(`/${chatRoomId}`);

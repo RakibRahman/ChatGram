@@ -84,18 +84,10 @@ export const ChatCardMessage: React.FC<ChatCardMessageProps> = ({
     currentUserId,
     isNewMessage,
 }) => {
-    console.log({ isNewMessage });
     return (
         <>
             {recentMessage ? (
-                <p
-                    className={`flex items-center justify-between gap-2 ${
-                        id === isActive ? ' ' : ''
-                    } text - sm font - normal`}
-                    onClick={() => {
-                        console.log('first');
-                    }}
-                >
+                <p className={`flex items-center justify-between gap-2 text - sm font - normal`}>
                     <span className="flex gap-1 items-center">
                         {currentUserId === recentMessage?.sentId
                             ? 'You: '

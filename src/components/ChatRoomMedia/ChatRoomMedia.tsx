@@ -14,8 +14,8 @@ export const ChatRoomMedia: React.FC<ChatRoomMediaProps> = ({ photos, videos }) 
     return (
         <>
             <Accordion>
-                <AccordionItem title={`Photos ${photos?.length}`}>
-                    <div className="grid grid-cols-3 gap-4">
+                <AccordionItem title={`Photos ${photos?.length ?? 0}`}>
+                    <div className="grid md:grid-cols-3 gap-4 sm:grid-cols-2">
                         {photos?.length === 0 ? 'No videos here yet...' : null}
 
                         {photos?.map((photo: GroupMessage) => (
@@ -23,7 +23,7 @@ export const ChatRoomMedia: React.FC<ChatRoomMediaProps> = ({ photos, videos }) 
                         ))}
                     </div>
                 </AccordionItem>
-                <AccordionItem title={`Videos ${videos?.length}`}>
+                <AccordionItem title={`Videos ${videos?.length ?? 0}`}>
                     <div className="grid grid-cols-3 gap-4">
                         {videos?.length === 0 ? 'No videos here yet...' : null}
                         {videos?.map((vid: GroupMessage) => (

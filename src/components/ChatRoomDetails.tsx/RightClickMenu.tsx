@@ -28,7 +28,7 @@ export const RightClickMenu = () => {
     useEffect(() => {
         const handleClick = () => setShow(false);
         window.addEventListener('click', handleClick);
-        localStorage.setItem('currentChat', chatRoomId!);
+        // localStorage.setItem('currentChat', chatRoomId!);
         return () => window.removeEventListener('click', handleClick);
     }, []);
 
