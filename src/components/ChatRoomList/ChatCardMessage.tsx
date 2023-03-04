@@ -1,4 +1,4 @@
-import React, { useRef } from 'react';
+import React from 'react';
 import { RecentMessage } from '../../models/types';
 import { truncateText } from '../../utilities/truncateText';
 
@@ -75,12 +75,10 @@ const messageIcon = {
     ),
 };
 
-const Indicator = () => <div className="w-4 h-4 rounded-full bg-sky-400 animate-ping"></div>;
+const Indicator = () => <div className="w-3 h-3 rounded-full bg-sky-600 animate-ping"></div>;
 
 export const ChatCardMessage: React.FC<ChatCardMessageProps> = ({
     recentMessage,
-    isActive,
-    id,
     currentUserId,
     isNewMessage,
 }) => {

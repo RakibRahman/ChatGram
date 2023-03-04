@@ -15,7 +15,7 @@ export const TextMessage = ({ message }: { message: string }) => {
 
     const MessageWithLinks = (): JSX.Element => {
         let m = message.split(' ').map((l) => (
-            <span>
+            <>
                 {isValidUrl(l) ? (
                     <a href={l} className="text-sky-400 tracking-wider" target="_blank">
                         {l}
@@ -23,7 +23,7 @@ export const TextMessage = ({ message }: { message: string }) => {
                 ) : (
                     ' ' + l + ' '
                 )}
-            </span>
+            </>
         ));
 
         return <>{m}</>;

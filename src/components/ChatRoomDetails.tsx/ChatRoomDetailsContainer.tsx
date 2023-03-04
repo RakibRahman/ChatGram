@@ -4,14 +4,13 @@ import { Messages } from './Messages';
 
 export const ChatRoomDetailsContainer = () => {
     return (
-        <div className="h-screen overflow-hidden">
+        <div className="h-full overflow-hidden">
             <DetailsTopCard />
-            <div className="h-[80%] overflow-hidden p-1">
+            <div className="h-[80%]  p-1">
                 <Messages />
             </div>
 
-            <div className="justify-end">
-                {' '}
+            <div className="pb-2">
                 <SentMessage />
             </div>
         </div>

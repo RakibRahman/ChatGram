@@ -6,7 +6,7 @@ interface AvatarProps {
     img?: string;
 }
 
-export const Avatar: React.FC<AvatarProps> = ({ name, img }) => {
+export const Avatar: React.FC<AvatarProps> = React.memo(({ name, img }) => {
     const { avatarName, gradient } = useAvatar(name);
 
     return (
@@ -22,4 +22,4 @@ export const Avatar: React.FC<AvatarProps> = ({ name, img }) => {
             )}
         </>
     );
-};
+});

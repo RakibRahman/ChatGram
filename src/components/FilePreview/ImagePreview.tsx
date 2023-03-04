@@ -10,6 +10,7 @@ export const ImagePreview: React.FC<ImagePreview> = ({ src, width, height }) => 
     return (
         <>
             <img
+                loading="lazy"
                 onClick={() => {
                     setOpen(true);
                 }}

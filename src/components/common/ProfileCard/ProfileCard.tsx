@@ -6,8 +6,15 @@ interface ProfileCardProps {
     pic: string;
     isOnline?: string;
     lastActive?: string | Date;
+    totalMembers?: number | string;
 }
-export const ProfileCard: React.FC<ProfileCardProps> = ({ name, pic, isOnline, lastActive }) => {
+export const ProfileCard: React.FC<ProfileCardProps> = ({
+    name,
+    pic,
+    isOnline,
+    lastActive,
+    totalMembers,
+}) => {
     const date = new Date(lastActive ?? '');
     return (
         <>
@@ -19,6 +26,7 @@ export const ProfileCard: React.FC<ProfileCardProps> = ({ name, pic, isOnline, l
                     {lastActive ? (
                         <p className="text-sm">last seen {date.toLocaleDateString()}</p>
                     ) : null}
+                    {totalMembers ? <p>{totalMembers} Members</p> : null}
                 </div>
             </div>
         </>
