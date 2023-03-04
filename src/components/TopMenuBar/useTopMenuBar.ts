@@ -1,15 +1,15 @@
 import { arrayUnion, doc, getDoc, setDoc, updateDoc } from 'firebase/firestore';
-import { nanoid } from 'nanoid';
 import { Dispatch, SetStateAction } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useChatRoomContext } from '../../context/context';
 import { db, timeStamp } from '../../firebase';
-import { ChatUserInfo, CreateChatRoom, UserInfo } from '../../models/types';
+import { ChatUserInfo, UserInfo } from '../../models/types';
 import { joinChatRoom as joinRoom } from '../apiOperations';
 
 export const useTopMenuBar = (setSearchActive: Dispatch<SetStateAction<boolean>>) => {
     const { currentUser } = useChatRoomContext();
     const navigate = useNavigate();
+
     const createOneToOneChatRoom = async (receiver: UserInfo) => {
         if (!currentUser) return;
         const currentUserInfo: ChatUserInfo = currentUser;
@@ -31,6 +31,8 @@ export const useTopMenuBar = (setSearchActive: Dispatch<SetStateAction<boolean>>
         if (isAlreadyJoined) {
             navigate(`/chat/${docSnap.data()?.['id']}`);
             setSearchActive(false);
+            localStorage.setItem('activeChat', chatRoomId);
+
             return;
         }
         if (!isAlreadyJoined) {
@@ -70,6 +72,8 @@ export const useTopMenuBar = (setSearchActive: Dispatch<SetStateAction<boolean>>
             try {
                 Promise.allSettled([createNewChatRoom, updateUserInfo()]).then((values) => {
                     navigate(`/chat/${chatRoomId}`);
+                    localStorage.setItem('activeChat', chatRoomId);
+
                     setSearchActive(false);
                 });
             } catch {
@@ -88,7 +92,8 @@ export const useTopMenuBar = (setSearchActive: Dispatch<SetStateAction<boolean>>
             ?.['members'].some((member: string) => member === currentUser?.uid);
 
         if (isAlreadyJoined) {
-            navigate(`/${chatRoomId}`);
+            navigate(`/chat/${chatRoomId}`);
+            localStorage.setItem('activeChat', chatRoomId);
             setSearchActive(false);
             return;
         }
@@ -97,7 +102,8 @@ export const useTopMenuBar = (setSearchActive: Dispatch<SetStateAction<boolean>>
             joinRoom(chatRoomId, currentUser?.uid!)
                 .then(() => {
                     setSearchActive(false);
-                    navigate(`/${chatRoomId}`);
+                    navigate(`chat/${chatRoomId}`);
+                    localStorage.setItem('activeChat', chatRoomId);
                 })
                 .catch((err) => {
                     console.log(err);

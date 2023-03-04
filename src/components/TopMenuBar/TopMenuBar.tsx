@@ -22,6 +22,7 @@ export const TopMenuBar: React.FC<TopMenuBarProps> = ({ isSearchActive, setSearc
         rooms: [],
     });
     const [loading, setLoading] = useState(false);
+    const [selectedId, setSelectedId] = useState('');
     const { handleSearch, currentUser } = useLeftSideBar();
     const { createOneToOneChatRoom, joinChatRoom } = useTopMenuBar(setSearchActive);
     const searchUsers = async (e: React.FormEvent) => {
@@ -77,6 +78,7 @@ export const TopMenuBar: React.FC<TopMenuBarProps> = ({ isSearchActive, setSearc
                                 className="btn btn-xs  bg-base-100 text-base-content border-none"
                                 onClick={() => {
                                     setSearchActive(false);
+                                    setSelectedId('');
                                     if (searchQuery?.current?.value) {
                                         searchQuery.current.value = '';
                                         setSearchResult({
@@ -109,48 +111,80 @@ export const TopMenuBar: React.FC<TopMenuBarProps> = ({ isSearchActive, setSearc
                 </div>
             </form>
 
-            <div>
-                {noResultFound ? (
-                    <p className="text-sm mt-4">No results found, please be more specific</p>
-                ) : null}
-                {loading ? (
-                    <div className="w-10 h-10 mt-10 grid place-items-center ml-5">
-                        {' '}
-                        <Loader />{' '}
-                    </div>
-                ) : null}
-                {userSearchCondition ? (
-                    <div className="my-1">
-                        <p>Users</p>
+            {isSearchActive ? (
+                <div>
+                    {noResultFound ? (
+                        <p className="text-sm mt-4">No results found, please be more specific</p>
+                    ) : null}
+                    {loading ? (
+                        <div className="w-full h-10 mt-10 grid place-items-center mx-auto">
+                            <Loader />
+                        </div>
+                    ) : null}
+                    {userSearchCondition ? (
+                        <div className="mt-1 flex flex-col gap-2">
+                            <p className="font-semibold text-lg">Users</p>
 
-                        {searchResult?.users?.map((user: UserInfo) => (
-                            <div
-                                key={user?.uid}
-                                onClick={() => {
-                                    createOneToOneChatRoom(user);
-                                }}
-                            >
-                                <ProfileCard name={user?.name!} pic={user?.photoURL!} />
-                            </div>
-                        ))}
-                    </div>
-                ) : null}
-                {roomSearchCondition ? (
-                    <div>
-                        <p>Rooms</p>
-                        {searchResult?.rooms?.map((room: ChatRoom) => (
-                            <div
-                                key={room?.id}
-                                onClick={() => {
-                                    joinChatRoom(room?.id);
-                                }}
-                            >
-                                <ProfileCard name={room?.name!} pic={room?.logo!} />
-                            </div>
-                        ))}
-                    </div>
-                ) : null}
-            </div>
+                            {searchResult?.users?.map((user: UserInfo) => (
+                                <div
+                                    className={`transition-colors ease-in-out cursor-pointer ${
+                                        selectedId === user?.uid
+                                            ? 'bg-sky-400 bg-opacity-50 text-white  animate-pulse'
+                                            : ''
+                                    }  p-1 rounded-lg hover:text-white hover:bg-sky-500`}
+                                    key={user?.uid}
+                                    onClick={() => {
+                                        setSelectedId(user.uid ?? '');
+                                        createOneToOneChatRoom(user).then(() => {
+                                            if (searchQuery?.current?.value) {
+                                                searchQuery.current.value = '';
+                                            }
+                                            // localStorage.setItem('activeChat', user?.uid)
+                                            setSelectedId('');
+                                        });
+                                    }}
+                                >
+                                    <ProfileCard
+                                        name={user?.name!}
+                                        pic={user?.photoURL!}
+                                        lastActive={user?.lastLogin}
+                                    />
+                                </div>
+                            ))}
+                        </div>
+                    ) : null}
+
+                    {roomSearchCondition ? (
+                        <div className="flex flex-col gap-2 mt-2">
+                            <p className="font-semibold text-lg">Rooms</p>
+                            {searchResult?.rooms?.map((room: ChatRoom) => (
+                                <div
+                                    className={`transition-colors ease-in-out cursor-pointer ${
+                                        selectedId === room?.id
+                                            ? 'bg-sky-400 text-white bg-opacity-60 animate-pulse'
+                                            : ''
+                                    }  p-1 rounded-lg hover:text-white hover:bg-sky-500`}
+                                    key={room?.id}
+                                    onClick={() => {
+                                        joinChatRoom(room?.id).then(() => {
+                                            if (searchQuery?.current?.value) {
+                                                searchQuery.current.value = '';
+                                            }
+                                            setSelectedId('');
+                                        });
+                                    }}
+                                >
+                                    <ProfileCard
+                                        name={room?.name!}
+                                        pic={room?.logo!}
+                                        totalMembers={room?.members.length}
+                                    />
+                                </div>
+                            ))}
+                        </div>
+                    ) : null}
+                </div>
+            ) : null}
         </div>
     );
 };

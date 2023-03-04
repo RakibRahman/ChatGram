@@ -24,6 +24,8 @@ const VideoPreview: React.FC<VideoPlayerProps> = ({
     return (
         <>
             <video
+                preload="none"
+                // poster='https://gettravel.com/wp-content/uploads/2018/04/Video-Placeholder.jpg'
                 style={{
                     height: height,
                     width: width,
@@ -35,8 +37,8 @@ const VideoPreview: React.FC<VideoPlayerProps> = ({
                 className="videoPlayer"
                 loop={isLoop ? true : false}
             >
-                <source src={videoLink} type="video/mp4" />
-                <source src={videoLink} type="video/webm" />
+                <source src={videoLink + '#t=0.5'} type="video/mp4" />
+                <source src={videoLink + '#t=0.5'} type="video/webm" />
                 Your browser does not support the video tag.
             </video>
         </>

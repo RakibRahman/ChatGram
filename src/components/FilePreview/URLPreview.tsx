@@ -22,7 +22,7 @@ const URLPreview: React.FC<URLPreviewProps> = ({ url }) => {
                 />
             </svg>
             <a
-                className="link break-words overflow-hidden no-underline text-sky-500 uppercase text-sm leading-tight tracking-wide"
+                className="link break-words overflow-hidden no-underline text-sky-500 uppercase text-sm leading-tight tracking-wide font-semibold"
                 href={url}
                 target="_blank"
             >

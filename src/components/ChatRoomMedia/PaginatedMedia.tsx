@@ -24,7 +24,7 @@ export const PaginatedMedia: React.FC<PaginatedMediaProps> = ({
     // Change page
     const paginateFront = () => setCurrentPage(currentPage + 1);
     const paginateBack = () => setCurrentPage(currentPage - 1);
-
+    console.log(mediaArray);
     return (
         <>
             <div className="grid lg:grid-cols-4  gap-2">
