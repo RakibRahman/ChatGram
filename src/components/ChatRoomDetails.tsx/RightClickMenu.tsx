@@ -10,6 +10,7 @@ import VideoPreview from '../FilePreview/VideoPreview';
 import { ForwardMessage } from '../ForwardMessage/ForwardMessage';
 import { ContextMenuItem } from './ContextMenu/ContextMenuItem';
 import { ContextMenuList } from './ContextMenu/ContextMenuList';
+import { TextMessage } from './TextMessage';
 import { useChatRoomDetails } from './useChatRoomDetails';
 
 export const RightClickMenu = () => {
@@ -67,7 +68,6 @@ export const RightClickMenu = () => {
                                 setShow(true);
                                 setSelectedMessage(message);
                                 setPoints({ x: e.pageX, y: e.pageY });
-                                console.log(points);
                             }}
                         >
                             {message?.type === 'video' ? (
@@ -86,7 +86,7 @@ export const RightClickMenu = () => {
                             {message?.type === 'link' ? (
                                 <URLPreview url={message?.message} />
                             ) : (
-                                message?.message
+                                <TextMessage message={message?.message ?? ''} />
                             )}
                         </div>
                     </div>

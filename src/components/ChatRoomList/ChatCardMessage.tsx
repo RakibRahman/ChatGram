@@ -75,7 +75,7 @@ const messageIcon = {
     ),
 };
 
-const Indicator = () => <div className="w-4 h-4 rounded-full bg-blue-700"></div>;
+const Indicator = () => <div className="w-4 h-4 rounded-full bg-sky-400 animate-ping"></div>;
 
 export const ChatCardMessage: React.FC<ChatCardMessageProps> = ({
     recentMessage,
