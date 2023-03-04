@@ -47,7 +47,7 @@ export default function useFireBaseUpload(
     }
 
     const [state, dispatch] = useReducer(reducer, FileUploadState);
-    // console.log(allowedImgExtensions.exec(state?.file?.name), 'dd')
+
     const handleUpload = (file: File) => {
         const storageRef = ref(storage, `${chatRoomId}/${nanoid(10)}`);
         const uploadTask = uploadBytesResumable(storageRef, file);

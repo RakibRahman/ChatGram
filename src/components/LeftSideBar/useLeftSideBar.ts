@@ -28,8 +28,6 @@ export const useLeftSideBar = () => {
             return doc.data();
         });
 
-        console.log({ rooms });
-
         return [...users, ...rooms];
     };
 

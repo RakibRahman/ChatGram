@@ -11,7 +11,11 @@ export const ChatRoomDetails = () => {
     const navigate = useNavigate();
 
     if (loading) {
-        return <Loader />;
+        return (
+            <div className="mt-20">
+                <Loader />
+            </div>
+        );
     }
 
     if (!chatRoomInfo && !loading) {
@@ -22,7 +26,6 @@ export const ChatRoomDetails = () => {
     if (error) {
         return <Alert type="error" title="Failed to load chat" />;
     }
-    console.log(chatRoomInfo);
 
     return (
         <div className="h-full overflow-y-scroll pb-2">

@@ -29,7 +29,6 @@ export const useSentMessage = () => {
             },
             { merge: true }
         );
-        console.log(type);
     };
 
     const sendMessage = async (

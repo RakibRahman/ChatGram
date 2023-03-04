@@ -5,22 +5,21 @@ interface ImagePreview {
     width?: string;
     height?: string;
 }
-export const ImagePreview: React.FC<ImagePreview> = ({ src, width = 'full', height = '20' }) => {
+export const ImagePreview: React.FC<ImagePreview> = ({ src, width, height }) => {
     const [isOpen, setOpen] = useState(false);
     return (
         <>
             <img
                 onClick={() => {
-                    console.log(src);
                     setOpen(true);
                 }}
                 style={{
-                    height: '300px',
-                    maxWidth: '100%',
+                    height: height ? height : '300px',
+                    width: width ? width : '100%',
                     objectFit: 'cover',
                     cursor: 'pointer',
+                    borderRadius: '6px',
                 }}
-                className={`w-${40} h-${40} object-cover`}
                 src={src ? src : 'https://via.placeholder.com/150/FFFF00/000000?Text=No Preview'}
                 alt="preview"
                 onError={({ currentTarget }) => {
