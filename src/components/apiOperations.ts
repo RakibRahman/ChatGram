@@ -60,6 +60,7 @@ export const createUser = async (currentUser: CurrentUser) => {
             lastLogin: currentUser?.metadata?.lastSignInTime,
             status: 'online',
             createdAt: timeStamp,
+            story: "Hey There! I'm using Chatgram.",
         },
         { merge: true }
     );

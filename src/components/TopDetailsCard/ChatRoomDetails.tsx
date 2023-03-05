@@ -1,6 +1,6 @@
 import { useNavigate } from 'react-router-dom';
 import { getTime } from '../../utilities/getTime';
-import { useChatRoomDetails } from '../ChatRoomDetails.tsx/useChatRoomDetails';
+import { useChatRoomDetails } from '../ChatRoomDetails/useChatRoomDetails';
 import { ChatRoomMedia } from '../ChatRoomMedia/ChatRoomMedia';
 import { Alert } from '../common/Alert';
 import { Loader } from '../common/Loader/Loader';

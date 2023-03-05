@@ -1,4 +1,3 @@
-import React from 'react';
 import { useSentMessage } from '../SentMessage/useSentMessage';
 
 const greetingImages = [
@@ -11,7 +10,7 @@ const greetingImages = [
 const getRandomIndex = Math.floor(Math.random() * greetingImages.length);
 
 export const NoMessage = () => {
-    const { lastMessage, currentUser, sendMessage } = useSentMessage();
+    const { lastMessage, sendMessage } = useSentMessage();
 
     const sendGreetingMessage = () => {
         lastMessage('', 'image');
@@ -25,6 +24,7 @@ export const NoMessage = () => {
                 <p>Send a message or tap the greeting below.</p>
                 <button onClick={sendGreetingMessage}>
                     <img
+                        loading="lazy"
                         className="w-56 max-h-56 object-cover rounded-lg"
                         src={greetingImages[getRandomIndex]}
                         alt="greeting"

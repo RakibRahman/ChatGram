@@ -28,6 +28,7 @@ export const useCreateChatRoom = () => {
             members: [uid],
             lastActivity: timeStamp,
             type: 'room',
+            story: '',
         });
 
         const updateUserInfo = async () => {
@@ -35,28 +36,12 @@ export const useCreateChatRoom = () => {
             await updateDoc(docRef, {
                 chatRooms: arrayUnion(chatRoomId),
             });
-            // if (docSnap.exists()) {
-            //     const updateChatRooms = [...docSnap.data().chatRooms, chatRoomId];
-            //     setDoc(docRef, { ...docSnap.data(), chatRooms: updateChatRooms }, { merge: true });
-            // } else {
-            //     setDoc(
-            //         docRef,
-            //         {
-            //             chatRooms: [chatRoomId],
-            //             id: uid,
-            //             name: displayName?.toLowerCase(),
-            //             email,
-            //             photoURL,
-            //         },
-            //         { merge: true }
-            //     );
-            // }
         };
 
         try {
             Promise.all([createNewChatRoom, updateUserInfo()]).then((values) => {
-                console.log(values);
-                navigate(`/${chatRoomId}`);
+                navigate(`/chat/${chatRoomId}`);
+                localStorage.setItem('activeChatRoom', chatRoomId);
             });
         } catch {
             alert('Error creating chat room');

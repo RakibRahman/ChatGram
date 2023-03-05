@@ -3,13 +3,13 @@ import { useScrollIntoView } from '../../hooks/useScrollIntoView';
 import { Alert } from '../common/Alert';
 import { Loader } from '../common/Loader/Loader';
 import { NoMessage } from './NoMessage';
-import { RightClickMenu } from './RightClickMenu';
+import { MessageContainer } from './MessageContainer';
 
 import { useChatRoomDetails } from './useChatRoomDetails';
 
 export const Messages = () => {
     const messageContainerRef = useRef<HTMLDivElement>(null);
-    const { messageData, isValidUser, chatRoomInfo, currentUser } = useChatRoomDetails();
+    const { messageData, isValidUser, chatRoomInfo } = useChatRoomDetails();
 
     useScrollIntoView(messageContainerRef, messageData?.groupMessages);
 
@@ -31,7 +31,7 @@ export const Messages = () => {
                         </div>
                     ) : null}
                     {messageData?.groupMessages?.length === 0 ? <NoMessage /> : null}
-                    <RightClickMenu />
+                    <MessageContainer />
                 </div>
             </div>
         </>

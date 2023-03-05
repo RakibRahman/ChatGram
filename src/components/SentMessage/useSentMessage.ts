@@ -10,10 +10,15 @@ export const useSentMessage = () => {
 
     const lastMessage = async (message: string = '', type = 'text', forwardChatRoomId?: string) => {
         const chatId = forwardChatRoomId ? forwardChatRoomId : chatRoomId;
-
+        const linkWithText = message.match(/\bhttps?:\/\/\S+/gi)?.length;
         if (validURL(message)) {
             type = 'link';
         }
+
+        if (linkWithText && linkWithText > 1) {
+            type = 'text-link';
+        }
+
         if (!chatId) return;
         await setDoc(
             doc(db, 'chatRooms', chatId),
@@ -39,12 +44,18 @@ export const useSentMessage = () => {
         forwardChatRoomId?: string
     ) => {
         const chatId = forwardChatRoomId ? forwardChatRoomId : chatRoomId;
-
         const messageId = `message-${nanoid(8)}`;
         if (!chatId) return;
+
+        const linkWithText = message.match(/\bhttps?:\/\/\S+/gi)?.length;
         if (validURL(message)) {
             type = 'link';
         }
+
+        if (linkWithText && linkWithText > 1) {
+            type = 'text-link';
+        }
+
         await setDoc(doc(db, 'chatRooms', chatId, 'messages', messageId), {
             sentBy: {
                 name: currentUser?.displayName,
