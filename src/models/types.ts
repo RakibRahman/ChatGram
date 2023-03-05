@@ -39,6 +39,7 @@ export interface ChatRoom {
         sentId: string;
     };
     type: ChatRoomType;
+    story: string;
 }
 
 export interface SingleChatRoom extends ChatRoom {
@@ -60,7 +61,7 @@ export interface GroupMessage {
         seconds: number;
         nanoseconds: number;
     };
-    type: string;
+    type: 'text' | 'image' | 'video' | 'link' | 'text-link';
     chatRoomId: string;
     messageId: string;
     fileLink?: string;
@@ -76,6 +77,7 @@ export interface UserInfo {
     lastLogin: string;
     status: string;
     createdAt: Timestamp;
+    story: string;
 }
 
 export type RecentMessage = ChatRoom['recentMessage'];

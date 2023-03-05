@@ -9,6 +9,7 @@ import { CreateChatRoom } from '../CreateChatRoom/CreateChatRoom';
 import GroupIcon from '../../assets/group.png';
 import ThemeIcon from '../../assets/theme.png';
 import { useMediaQuery } from '../../hooks/useMediaQuery';
+import { EditProfile } from '../EditProfile/EditProfile';
 
 export const LeftMainMenu = () => {
     const { currentUser, signOut } = useChatRoomContext();
@@ -38,10 +39,7 @@ export const LeftMainMenu = () => {
             </button>
             <Drawer isOpen={isOpen} setIsOpen={setIsOpen}>
                 <div className="flex flex-col items-start gap-2  h-full">
-                    <div className=" space-y-1 my-10 px-4">
-                        <Avatar name={currentUser?.displayName!} img={currentUser?.photoURL!} />
-                        <h2 className="text-md font-medium">{currentUser?.displayName}</h2>
-                    </div>
+                    <EditProfile />
                     <div className=" w-full p-4 hover:opacity-80">
                         {currentUser ? (
                             <button

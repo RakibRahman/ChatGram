@@ -95,6 +95,10 @@ export const ChatCardMessage: React.FC<ChatCardMessageProps> = ({
                             ? truncateText(recentMessage?.message ?? '', 20)
                             : null}
 
+                        {recentMessage?.type === 'text-link'
+                            ? truncateText(recentMessage?.message ?? '', 20)
+                            : null}
+
                         {recentMessage?.type === 'video' ? (
                             <>
                                 {messageIcon['video']}

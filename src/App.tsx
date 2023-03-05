@@ -2,7 +2,7 @@ import { useEffect } from 'react';
 import { Route, Routes, useNavigate } from 'react-router-dom';
 import './App.css';
 import BG from './assets/login_bg.svg';
-import { ChatRoomDetailsContainer } from './components/ChatRoomDetails.tsx/ChatRoomDetailsContainer';
+import { ChatRoomDetailsContainer } from './components/ChatRoomDetails/ChatRoomDetailsContainer';
 import { Error404 } from './components/common/Error404';
 import { Loader } from './components/common/Loader/Loader';
 import { SelectChatRoom } from './components/common/SelectChatRoom';

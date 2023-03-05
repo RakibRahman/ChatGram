@@ -1,3 +1,4 @@
+import { validURL } from '../../utilities/validURL';
 import URLPreview from '../FilePreview/URLPreview';
 
 export const TextMessage = ({ message }: { message: string }) => {
@@ -7,16 +8,10 @@ export const TextMessage = ({ message }: { message: string }) => {
         return <>{message}</>;
     }
 
-    function isValidUrl(url: string) {
-        const matchpattern =
-            /^https?:\/\/(?:www\.)?[-a-zA-Z0-9@:%._\+~#=]{1,256}\.[a-zA-Z0-9()]{1,6}\b([-a-zA-Z0-9()@:%_\+.~#?&//=]*)$/gm;
-        return matchpattern.test(url);
-    }
-
     const MessageWithLinks = (): JSX.Element => {
         let m = message.split(' ').map((l) => (
             <>
-                {isValidUrl(l) ? (
+                {validURL(l) ? (
                     <a href={l} className="text-sky-400 tracking-wider" target="_blank">
                         {l}
                     </a>
