@@ -38,7 +38,7 @@ export const LeftMainMenu = () => {
                 </svg>
             </button>
             <Drawer isOpen={isOpen} setIsOpen={setIsOpen}>
-                <div className="flex flex-col items-start gap-2  h-full">
+                <div className="flex flex-col items-start gap-2  h-screen">
                     <EditProfile />
                     <div className=" w-full p-4 hover:opacity-80">
                         {currentUser ? (
