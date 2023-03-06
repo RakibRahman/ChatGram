@@ -11,7 +11,7 @@ export default function useFireBaseUpload(
     message?: string
 ) {
     const { chatRoomId } = useParams()!;
-    const { lastMessage, currentUser, sendMessage } = useSentMessage();
+    const { lastMessage, sendMessage } = useSentMessage();
 
     const FileUploadState: FileUploadStateProps = {
         uploading: false,
