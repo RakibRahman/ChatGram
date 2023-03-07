@@ -87,9 +87,9 @@ export const ChatCardMessage: React.FC<ChatCardMessageProps> = ({
             {recentMessage ? (
                 <p className={`flex items-center justify-between gap-2 text - sm font - normal`}>
                     <span className="flex gap-1 items-center">
-                        {currentUserId === recentMessage?.sentId
+                        {currentUserId === recentMessage?.uid
                             ? 'You: '
-                            : recentMessage?.sentBy.split(' ')[0] + ': ' ?? ''}
+                            : recentMessage?.name?.split(' ')[0] + ': ' ?? ''}
 
                         {recentMessage?.type === 'text'
                             ? truncateText(recentMessage?.message ?? '', 20)
@@ -122,7 +122,7 @@ export const ChatCardMessage: React.FC<ChatCardMessageProps> = ({
                     </span>
 
                     {isNewMessage !== recentMessage?.message &&
-                    currentUserId !== recentMessage?.sentId ? (
+                        currentUserId !== recentMessage?.uid ? (
                         <Indicator />
                     ) : null}
                 </p>

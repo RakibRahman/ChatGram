@@ -24,17 +24,16 @@ export const RenderMessageView: React.FC<RenderMessageViewProps> = ({
 
     return (
         <div
-            className={`chat ${
-                message.chatRoomId.length > 20 && message.sentBy.id === currentUser?.uid
+            className={`chat ${message.chatRoomId.length > 20 && message.sentBy.uid === currentUser?.uid
                     ? 'chat-end'
                     : 'chat-start'
-            } `}
+                } `}
         >
             <div className="chat-image avatar relative">
                 <div className="w-10 rounded-full">
                     <img
                         referrerPolicy="no-referrer"
-                        src={message.sentBy.pic ?? 'https://placeimg.com/192/192/people'}
+                        src={message.sentBy.photoURL ?? 'https://placeimg.com/192/192/people'}
                     />
                 </div>
             </div>

@@ -24,6 +24,8 @@ export const useChatRoomDetails = (userId?: string) => {
     });
 
     const chatRoomInfo = value?.docs.map((d) => d.data())[0];
+    const chatRoomIDs = value?.docs.map((d) => d.data())[0]['members'];
+    console.log(chatRoomIDs)
     const isValidUser: boolean = chatRoomInfo?.['members'].some(
         (member: string) => member === currentUser?.uid
     );

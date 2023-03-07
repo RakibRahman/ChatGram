@@ -13,6 +13,7 @@ interface ModalProps {
     hideTitleClose?: boolean;
     hideYesBtn?: boolean;
     size?: string;
+    disableYesBtn?: boolean;
 }
 
 export const Modal: FC<ModalProps> = ({
@@ -26,6 +27,7 @@ export const Modal: FC<ModalProps> = ({
     hideTitleClose = false,
     hideYesBtn = false,
     size,
+    disableYesBtn = false
 }) => {
     if (!isOpen) return null;
 
@@ -72,6 +74,7 @@ export const Modal: FC<ModalProps> = ({
                     </button>
                     {hideYesBtn ? null : (
                         <button
+                            disabled={disableYesBtn}
                             className="text-center btn btn-outline btn-success text-sm cursor-pointer btn-sm"
                             onClick={onConfirm}
                         >

@@ -19,11 +19,10 @@ export const ChatCard: React.FC<ChatCardProps> = ({
     return (
         <Link to={`/chat/${id} `}>
             <div
-                className={`indicator overflow-hidden w-full space-y-6 hover:opacity-60 ${
-                    isSelected ? 'text-white bg-blue-400' : ''
-                }  py-2 rounded - md`}
+                className={`indicator overflow-hidden w-full space-y-6 hover:opacity-60 ${isSelected ? 'text-white bg-blue-400' : ''
+                    }  py-2 rounded - md`}
                 onClick={() => {
-                    setNewMessage(recentMessage.message);
+                    setNewMessage(recentMessage?.message);
                 }}
             >
                 <div className=" gap-3  flex w-full px-2 ">

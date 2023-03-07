@@ -21,7 +21,7 @@ type ChatRoomType = 'single' | 'room';
 interface ChatRoomSingleUserInfo {
     email: string;
     name: string;
-    id: string;
+    uid: string;
     photoURL: string;
 }
 export interface ChatRoom {
@@ -33,10 +33,10 @@ export interface ChatRoom {
     members: string[];
     recentMessage: {
         message: string;
-        sentBy: string;
+        name: string;
         timestamp: Timestamp;
         type: string;
-        sentId: string;
+        uid: string;
     };
     type: ChatRoomType;
     story: string;
@@ -52,11 +52,7 @@ export interface CreateChatRoom {
 }
 export interface GroupMessage {
     message: string;
-    sentBy: {
-        name: string;
-        id: string;
-        pic: string;
-    };
+    sentBy: Pick<UserInfo, 'name' | 'email' | 'uid' | 'photoURL'>,
     sentTime: {
         seconds: number;
         nanoseconds: number;
