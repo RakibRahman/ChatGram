@@ -6,7 +6,7 @@ import { ChatCard } from './ChatCard';
 import { useChatRoomList } from './useChatRoomList';
 
 export const ChatRoomList = () => {
-    const { currentUser, chatListData, usersChatRooms } = useChatRoomList();
+    const { currentUser, chatListData, usersChatRooms } = useChatRoomList()!;
     let location = useLocation();
     const activeChat = location.pathname.replace(/^\/|\/$/g, '') ?? '';
 
@@ -35,17 +35,17 @@ export const ChatRoomList = () => {
             {chatListData.list &&
                 chatListData?.list?.map((chatRoom) => (
                     <div
-                        key={chatRoom.id}
+                        key={chatRoom?.id}
                         onClick={() => {
                             localStorage.setItem('activeChat', chatRoom.id);
                         }}
                     >
                         {chatRoom?.type === 'room' ? (
                             <ChatCard
-                                name={chatRoom.name!}
-                                recentMessage={chatRoom.recentMessage!}
-                                logo={chatRoom.logo!}
-                                id={chatRoom.id!}
+                                name={chatRoom?.name!}
+                                recentMessage={chatRoom?.recentMessage!}
+                                logo={chatRoom?.logo!}
+                                id={chatRoom?.id!}
                                 isActive={activeChat}
                                 currentUserId={currentUser?.uid!}
                             />
@@ -58,12 +58,12 @@ export const ChatRoomList = () => {
                                         : chatRoom?.userTwo?.name
                                 }
                                 logo={
-                                    chatRoom?.userOne.id !== currentUser?.uid
+                                    chatRoom?.userOne.uid !== currentUser?.uid
                                         ? chatRoom?.userOne?.photoURL
                                         : chatRoom?.userTwo?.photoURL
                                 }
-                                recentMessage={chatRoom.recentMessage!}
-                                id={chatRoom.id!}
+                                recentMessage={chatRoom?.recentMessage!}
+                                id={chatRoom?.id!}
                                 currentUserId={currentUser?.uid!}
                             />
                         )}

@@ -21,6 +21,16 @@ export const Login = () => {
                     className="btn"
                     onClick={() => {
                         signInWithGoogle().then((user) => {
+                            localStorage.setItem(
+                                'currentUser',
+                                JSON.stringify({
+                                    uid: user?.user?.uid ?? '',
+                                    name: user?.user?.displayName ?? '',
+                                    email: user?.user?.email ?? '',
+                                    photoURL: user?.user?.photoURL ?? '',
+                                })
+                            );
+
                             createUser(user?.user);
                         });
                     }}

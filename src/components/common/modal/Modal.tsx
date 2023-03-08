@@ -27,7 +27,7 @@ export const Modal: FC<ModalProps> = ({
     hideTitleClose = false,
     hideYesBtn = false,
     size,
-    disableYesBtn = false
+    disableYesBtn = false,
 }) => {
     if (!isOpen) return null;
 

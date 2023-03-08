@@ -49,22 +49,26 @@ export const createUser = async (currentUser: CurrentUser) => {
     if (!currentUser) return;
     const { uid, displayName, email, photoURL } = currentUser;
     const docRef = doc(db, 'users', uid);
+    const userInfo = {
+        uid: uid,
+        name: displayName?.toLowerCase(),
+        email,
+        photoURL,
+        lastLogin: currentUser?.metadata?.lastSignInTime,
+        status: 'online',
+        createdAt: timeStamp,
+        updatedAt: timeStamp,
+        story: "Hey There! I'm using Chatgram.",
+    };
 
-    setDoc(
-        docRef,
-        {
-            uid: uid,
-            name: displayName?.toLowerCase(),
-            email,
-            photoURL,
-            lastLogin: currentUser?.metadata?.lastSignInTime,
-            status: 'online',
-            createdAt: timeStamp,
-            updatedAt: timeStamp,
-            story: "Hey There! I'm using Chatgram.",
-        },
-        { merge: true }
-    );
+    localStorage.setItem('currentUser', JSON.stringify(userInfo));
+
+    const docSnap = await getDoc(docRef);
+    if (docSnap.exists()) {
+        console.log('userAlreadyExists');
+        return;
+    }
+    setDoc(docRef, userInfo, { merge: true });
 };
 
 export const checkUserStatus = async (id: string): Promise<UserInfo | null> => {

@@ -26,7 +26,7 @@ interface ChatRoomSingleUserInfo {
 }
 export interface ChatRoom {
     name: string;
-    createdBy: Partial<UserCredential['user']>;
+    createdBy: ChatRoomSingleUserInfo;
     createdAt: Timestamp;
     id: string;
     logo: string;
@@ -45,6 +45,8 @@ export interface ChatRoom {
 export interface SingleChatRoom extends ChatRoom {
     userOne: ChatRoomSingleUserInfo;
     userTwo: ChatRoomSingleUserInfo;
+    userOneId: string;
+    userTwoId: string;
 }
 export interface CreateChatRoom {
     createNewChatRoom: () => Promise<void>;
@@ -52,7 +54,7 @@ export interface CreateChatRoom {
 }
 export interface GroupMessage {
     message: string;
-    sentBy: Pick<UserInfo, 'name' | 'email' | 'uid' | 'photoURL'>,
+    sentBy: string;
     sentTime: {
         seconds: number;
         nanoseconds: number;

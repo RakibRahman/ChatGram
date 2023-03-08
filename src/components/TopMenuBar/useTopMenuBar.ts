@@ -1,19 +1,19 @@
 import { arrayUnion, doc, getDoc, setDoc, updateDoc } from 'firebase/firestore';
 import { Dispatch, SetStateAction } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { useChatRoomContext } from '../../context/context';
 import { db, timeStamp } from '../../firebase';
-import { ChatUserInfo, UserInfo } from '../../models/types';
+import { UserInfo } from '../../models/types';
 import { joinChatRoom as joinRoom } from '../apiOperations';
 
 export const useTopMenuBar = (setSearchActive: Dispatch<SetStateAction<boolean>>) => {
-    const { currentUser } = useChatRoomContext();
+    const currentUser: UserInfo = JSON.parse(localStorage.getItem('currentUser')!) ?? {};
+
     const navigate = useNavigate();
 
     const createOneToOneChatRoom = async (receiver: UserInfo) => {
         if (!currentUser) return;
-        const currentUserInfo: ChatUserInfo = currentUser;
-        const { uid, displayName, email, photoURL } = currentUserInfo;
+
+        const { uid, name, email, photoURL } = currentUser;
         // const chatRoomId = receiver.uid + currentUser?.uid;
         let chatRoomId =
             currentUser?.uid > receiver?.uid
@@ -26,7 +26,7 @@ export const useTopMenuBar = (setSearchActive: Dispatch<SetStateAction<boolean>>
 
         const isAlreadyJoined = docSnap
             .data()
-            ?.['members'].some((member: string) => member === currentUser?.uid);
+            ?.['members']?.some((member: string) => member === currentUser?.uid);
 
         if (isAlreadyJoined) {
             navigate(`/chat/${docSnap.data()?.['id']}`);
@@ -40,17 +40,19 @@ export const useTopMenuBar = (setSearchActive: Dispatch<SetStateAction<boolean>>
                 id: chatRoomId,
                 createdAt: timeStamp,
                 userOne: {
-                    name: displayName?.toLowerCase(),
+                    name,
                     email,
                     photoURL,
                     uid,
                 },
+                userOneId: uid,
                 userTwo: {
                     name: receiver?.name?.toLowerCase(),
                     email: receiver?.email,
                     photoURL: receiver?.photoURL,
                     uid: receiver?.uid,
                 },
+                userTwoId: receiver?.uid,
                 members: [uid, receiver?.uid],
                 lastActivity: timeStamp,
                 type: 'single',

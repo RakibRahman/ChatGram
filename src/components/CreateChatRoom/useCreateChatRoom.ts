@@ -3,27 +3,27 @@ import { nanoid } from 'nanoid';
 import { useNavigate } from 'react-router-dom';
 import { useChatRoomContext } from '../../context/context';
 import { db, timeStamp } from '../../firebase';
-import { ChatUserInfo } from '../../models/types';
+import { ChatUserInfo, UserInfo } from '../../models/types';
 
 export const useCreateChatRoom = () => {
-    const { currentUser } = useChatRoomContext();
+    const currentUser: UserInfo = JSON.parse(localStorage.getItem('currentUser')!) ?? {};
     const navigate = useNavigate();
     const createNewChatRoom = async (chatRoomName: string) => {
         const chatRoomId = `chatRoom-${nanoid(8)}`;
 
         if (!currentUser) return;
-        const currentUserInfo: ChatUserInfo = currentUser;
-        const { uid, displayName, email, photoURL } = currentUserInfo;
+
+        const { uid, name, email, photoURL } = currentUser;
         const createNewChatRoom = await setDoc(doc(db, 'chatRooms', chatRoomId), {
             name: chatRoomName?.toLowerCase(),
             id: chatRoomId,
             createdAt: timeStamp,
             logo: '',
             createdBy: {
-                name: displayName?.toLowerCase(),
+                name: name?.toLowerCase(),
                 email,
                 photoURL,
-                id: uid,
+                uid,
             },
             members: [uid],
             lastActivity: timeStamp,

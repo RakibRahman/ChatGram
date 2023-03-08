@@ -14,10 +14,10 @@ export const EditProfile = () => {
     const userInfo = useRef({} as UserInfo);
 
     if (loading) {
-        return <p>Loading...</p>
+        return <p>Loading...</p>;
     }
     if (error) {
-        return <Alert title='Profile fetch error' />
+        return <Alert title="Profile fetch error" />;
     }
 
     return (
@@ -41,17 +41,21 @@ export const EditProfile = () => {
                 isOpen={isEditOpen}
                 onClose={() => setEditOpen(false)}
                 title="Edit Profile"
-                yesText={userLoading ? 'Saving...' : "Save Changes"}
+                yesText={userLoading ? 'Saving...' : 'Save Changes'}
                 onConfirm={() => {
                     setUserLoading(true);
-                    updateUser(userInfo.current).then(() => {
-                        console.log('user updated successfully')
-                    }).catch(() => {
-                        console.log('something went wrong')
-                    }).finally(() => {
-                        setUserLoading(false);
-                        setEditOpen(false)
-                    })
+                    updateUser(userInfo.current)
+                        .then(() => {
+                            console.log('user updated successfully');
+                            // localStorage.setItem('currentUser', JSON.stringify(userInfo.current))
+                        })
+                        .catch(() => {
+                            console.log('something went wrong');
+                        })
+                        .finally(() => {
+                            setUserLoading(false);
+                            setEditOpen(false);
+                        });
                 }}
             >
                 <div className="form-control">
@@ -60,33 +64,33 @@ export const EditProfile = () => {
                         <input
                             defaultValue={currentUser?.name}
                             id="name"
-                            name='name'
+                            name="name"
                             type="text"
                             placeholder="Full Name"
                             className="input input-md w-full max-w-xs border border-blue-300 focus:outline-none"
                             onChange={(r) => {
-                                userInfo.current.name = r.target.value
+                                userInfo.current.name = r.target.value;
                             }}
                         />
                         <label htmlFor="status">Status</label>
                         <input
                             onChange={(r) => {
-                                userInfo.current.story = r.target.value
+                                userInfo.current.story = r.target.value;
                             }}
                             id="story"
                             type="text"
                             placeholder="Status"
                             defaultValue={currentUser?.story ?? ''}
-                            name='story'
+                            name="story"
                             className="input input-md w-full max-w-xs border border-blue-300 focus:outline-none"
                         />
                         <label htmlFor="photoURL">Profile Pic</label>
                         <input
                             defaultValue={currentUser?.photoURL ?? ''}
                             onChange={(r) => {
-                                userInfo.current.photoURL = r.target.value
+                                userInfo.current.photoURL = r.target.value;
                             }}
-                            name='photoURL'
+                            name="photoURL"
                             id="photoURL"
                             type="text"
                             placeholder="Profile Pic URL"

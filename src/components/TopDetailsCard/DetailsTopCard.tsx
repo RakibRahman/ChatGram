@@ -12,8 +12,8 @@ export const DetailsTopCard = () => {
     const navigate = useNavigate();
     const profileId =
         chatRoomInfo?.['members'][0] !== currentUser?.uid
-            ? chatRoomInfo?.userOne?.id
-            : chatRoomInfo?.userTwo?.id;
+            ? chatRoomInfo?.userOne?.uid
+            : chatRoomInfo?.userTwo?.uid;
     const menuListData = {
         chatRoomId: chatRoomInfo?.id,
         type: chatRoomInfo?.type,
@@ -59,8 +59,8 @@ export const DetailsTopCard = () => {
                         }`}
                     >
                         <ProfileCard
-                            name={getUserInfo('name')}
-                            pic={getUserInfo('photoURL')}
+                            name={getUserInfo('name')!}
+                            pic={getUserInfo('photoURL')!}
                             isOnline={userInfo?.data()?.['status']}
                             // lastActive={getUserInfo('lastLogin')}
                         />

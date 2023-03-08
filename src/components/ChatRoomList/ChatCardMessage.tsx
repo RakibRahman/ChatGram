@@ -122,7 +122,7 @@ export const ChatCardMessage: React.FC<ChatCardMessageProps> = ({
                     </span>
 
                     {isNewMessage !== recentMessage?.message &&
-                        currentUserId !== recentMessage?.uid ? (
+                    currentUserId !== recentMessage?.uid ? (
                         <Indicator />
                     ) : null}
                 </p>
