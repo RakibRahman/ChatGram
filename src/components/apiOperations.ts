@@ -66,6 +66,15 @@ export const createUser = async (currentUser: CurrentUser) => {
     const docSnap = await getDoc(docRef);
     if (docSnap.exists()) {
         console.log('userAlreadyExists');
+        setDoc(
+            docRef,
+            {
+                lastLogin: currentUser?.metadata?.lastSignInTime,
+                status: 'online',
+            },
+            { merge: true }
+        );
+
         return;
     }
     setDoc(docRef, userInfo, { merge: true });

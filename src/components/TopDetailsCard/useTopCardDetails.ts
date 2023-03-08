@@ -5,20 +5,27 @@ import { UserInfo } from '../../models/types';
 import { useChatRoomDetails } from '../ChatRoomDetails/useChatRoomDetails';
 
 export const useTopCardDetails = () => {
-    const { chatRoomInfo } = useChatRoomDetails();
+    const { chatRoomInfo, userListHashMap } = useChatRoomDetails();
     const loggedUser: UserInfo = JSON.parse(localStorage.getItem('currentUser')!);
 
-    const getUserInfo = (info: 'name' | 'email' | 'uid' | 'photoURL') => {
+    const getSingleUserInfo = (key: 'name' | 'email' | 'photoURL' | 'uid') => {
         if (!chatRoomInfo) return;
-
-        return chatRoomInfo['members'][0] !== loggedUser?.uid
-            ? chatRoomInfo?.userOne?.[info]
-            : chatRoomInfo?.userTwo?.[info];
+        return chatRoomInfo?.['members'][0] === loggedUser?.uid
+            ? userListHashMap?.[chatRoomInfo['members'][1]]?.[key]
+            : userListHashMap?.[chatRoomInfo['members'][0]]?.[key];
     };
-    const usersRef = doc(db, 'users', getUserInfo('uid') ?? 'aa');
+
+    const usersRef = doc(db, 'users', getSingleUserInfo('uid') ?? 'aa');
 
     const [userInfo, userInfoLoading, userInfoError] = useDocument(usersRef, {
         snapshotListenOptions: { includeMetadataChanges: true },
     });
-    return { userInfo, chatRoomInfo, getUserInfo, currentUser: loggedUser, userInfoLoading };
+    return {
+        userInfo,
+        chatRoomInfo,
+        getSingleUserInfo,
+        currentUser: loggedUser,
+        userInfoLoading,
+        userListHashMap,
+    };
 };

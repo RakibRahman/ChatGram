@@ -1,12 +1,15 @@
 import { Fragment } from 'react';
 import { useLocation } from 'react-router-dom';
+import { ChatRoom } from '../../models/types';
+import { useChatRoomDetails } from '../ChatRoomDetails/useChatRoomDetails';
 import { Alert } from '../common/Alert';
 import { Loader } from '../common/Loader/Loader';
 import { ChatCard } from './ChatCard';
 import { useChatRoomList } from './useChatRoomList';
 
 export const ChatRoomList = () => {
-    const { currentUser, chatListData, usersChatRooms } = useChatRoomList()!;
+    const { currentUser, chatListData, usersChatRooms, userListHashMap } = useChatRoomList()!;
+
     let location = useLocation();
     const activeChat = location.pathname.replace(/^\/|\/$/g, '') ?? '';
 
@@ -21,6 +24,12 @@ export const ChatRoomList = () => {
     if (chatListData.chatRoomListError) {
         return <Alert title={chatListData.chatRoomListError.message} type="error" />;
     }
+
+    const getSingleUserInfo = (key: 'name' | 'email' | 'photoURL' | 'uid', chatRoom: ChatRoom) => {
+        return chatRoom['members'][0] === currentUser?.uid
+            ? userListHashMap?.[chatRoom['members'][1]]?.[key]
+            : userListHashMap?.[chatRoom['members'][0]]?.[key];
+    };
 
     return (
         <div className=" flex flex-col overflow-hidden">
@@ -52,16 +61,8 @@ export const ChatRoomList = () => {
                         ) : (
                             <ChatCard
                                 isActive={activeChat}
-                                name={
-                                    chatRoom['members'][0] !== currentUser?.uid
-                                        ? chatRoom?.userOne?.name
-                                        : chatRoom?.userTwo?.name
-                                }
-                                logo={
-                                    chatRoom?.userOne.uid !== currentUser?.uid
-                                        ? chatRoom?.userOne?.photoURL
-                                        : chatRoom?.userTwo?.photoURL
-                                }
+                                name={getSingleUserInfo('name', chatRoom)}
+                                logo={getSingleUserInfo('photoURL', chatRoom)}
                                 recentMessage={chatRoom?.recentMessage!}
                                 id={chatRoom?.id!}
                                 currentUserId={currentUser?.uid!}

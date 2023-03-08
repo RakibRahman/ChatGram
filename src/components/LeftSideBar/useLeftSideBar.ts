@@ -1,16 +1,17 @@
 import { collection, getDocs, query, where } from 'firebase/firestore';
-import { useChatRoomContext } from '../../context/context';
 import { db } from '../../firebase';
+import { UserInfo } from '../../models/types';
 
 export const useLeftSideBar = () => {
-    const { currentUser } = useChatRoomContext();
+    const currentUser: UserInfo = JSON.parse(localStorage.getItem('currentUser')!);
+
     const handleSearch = async (userName: string) => {
         const usersSearchRef = collection(db, 'users');
         const roomsSearchRef = collection(db, 'chatRooms');
 
-        const nameQuery = query(usersSearchRef, where('name', '>=', userName.toLowerCase()));
+        const nameQuery = query(usersSearchRef, where('name', '==', userName.toLowerCase()));
 
-        const roomQuery = query(roomsSearchRef, where('name', '>=', userName.toLowerCase()));
+        const roomQuery = query(roomsSearchRef, where('name', '==', userName.toLowerCase()));
 
         const usersSnapShot = await getDocs(nameQuery);
 

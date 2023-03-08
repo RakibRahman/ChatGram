@@ -37,6 +37,7 @@ export const EditProfile = () => {
             </div>
 
             <Modal
+                size="w-[420px]"
                 disableYesBtn={userLoading}
                 isOpen={isEditOpen}
                 onClose={() => setEditOpen(false)}
@@ -58,44 +59,63 @@ export const EditProfile = () => {
                         });
                 }}
             >
-                <div className="form-control">
+                <div className="">
                     <form className="form-control">
-                        <label htmlFor="name">Name</label>
-                        <input
-                            defaultValue={currentUser?.name}
-                            id="name"
-                            name="name"
-                            type="text"
-                            placeholder="Full Name"
-                            className="input input-md w-full max-w-xs border border-blue-300 focus:outline-none"
-                            onChange={(r) => {
-                                userInfo.current.name = r.target.value;
-                            }}
-                        />
-                        <label htmlFor="status">Status</label>
-                        <input
-                            onChange={(r) => {
-                                userInfo.current.story = r.target.value;
-                            }}
-                            id="story"
-                            type="text"
-                            placeholder="Status"
-                            defaultValue={currentUser?.story ?? ''}
-                            name="story"
-                            className="input input-md w-full max-w-xs border border-blue-300 focus:outline-none"
-                        />
-                        <label htmlFor="photoURL">Profile Pic</label>
-                        <input
-                            defaultValue={currentUser?.photoURL ?? ''}
-                            onChange={(r) => {
-                                userInfo.current.photoURL = r.target.value;
-                            }}
-                            name="photoURL"
-                            id="photoURL"
-                            type="text"
-                            placeholder="Profile Pic URL"
-                            className="input input-md w-full max-w-xs border border-blue-300 focus:outline-none"
-                        />
+                        <div className="flex justify-between items-center">
+                            <div className="space-y-4">
+                                <div>
+                                    <label htmlFor="name">Name</label>
+                                    <input
+                                        defaultValue={currentUser?.name}
+                                        id="name"
+                                        name="name"
+                                        type="text"
+                                        placeholder="Full Name"
+                                        className="input input-md w-full max-w-xs border border-blue-300 focus:outline-none"
+                                        onChange={(r) => {
+                                            userInfo.current.name = r.target.value;
+                                        }}
+                                    />
+                                </div>
+                                <div>
+                                    <label htmlFor="status">Status</label>
+                                    <textarea
+                                        onChange={(r) => {
+                                            userInfo.current.story = r.target.value;
+                                        }}
+                                        id="story"
+                                        placeholder="Status"
+                                        defaultValue={currentUser?.story ?? ''}
+                                        name="story"
+                                        className="textarea textarea-bordered textarea-md w-full max-w-xs"
+                                    />
+                                </div>
+                            </div>
+                            <div className="relative border">
+                                <label
+                                    className="absolute bottom-0 text-white bg-black w-full text-center"
+                                    htmlFor="photoURL"
+                                >
+                                    Change Photo
+                                </label>
+                                <img
+                                    src={currentUser?.photoURL}
+                                    alt="profilePic"
+                                    className="max-w-full h-32 object-cover rounded-lg"
+                                />
+                                <input
+                                    defaultValue={currentUser?.photoURL ?? ''}
+                                    onChange={(r) => {
+                                        userInfo.current.photoURL = r.target.value;
+                                    }}
+                                    name="photoURL"
+                                    id="photoURL"
+                                    type="text"
+                                    placeholder="Profile Pic URL"
+                                    className="input hidden input-md w-full max-w-xs border border-blue-300 focus:outline-none"
+                                />
+                            </div>
+                        </div>
                     </form>
                 </div>
             </Modal>

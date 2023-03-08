@@ -87,3 +87,5 @@ export interface ChatCardProps {
     isActive: string;
     currentUserId: string;
 }
+
+export type UserListHashMap = Record<string, ChatRoomSingleUserInfo>;

@@ -1,24 +1,19 @@
 import { collection, doc, limitToLast, orderBy, query, updateDoc, where } from 'firebase/firestore';
-import {
-    useCollection,
-    useCollectionData,
-    useCollectionDataOnce,
-    useCollectionOnce,
-} from 'react-firebase-hooks/firestore';
+import { useCallback, useEffect, useRef, useState } from 'react';
+import { useCollection, useCollectionData } from 'react-firebase-hooks/firestore';
 import { useParams } from 'react-router-dom';
-import { useChatRoomContext } from '../../context/context';
 import { db } from '../../firebase';
-import { GroupMessage, SingleChatRoom, UserInfo } from '../../models/types';
-import { useEffect, useRef, useCallback, useState } from 'react';
+import { GroupMessage, SingleChatRoom, UserInfo, UserListHashMap } from '../../models/types';
 
-export const useChatRoomDetails = (userId?: string) => {
+export const useChatRoomDetails = () => {
     const { chatRoomId } = useParams()!;
     const singleRoomUpdated = useRef(true);
     const [toggle, setToggle] = useState(chatRoomId);
     const currentUser: UserInfo = JSON.parse(localStorage.getItem('currentUser')!);
-    console.log({ toggle });
+
     const chatRoomsRef = collection(db, 'chatRooms');
     const usersRef = collection(db, 'users');
+    const docRef = doc(db, 'chatRooms', chatRoomId!);
 
     const chatMessagesRef = collection(db, 'chatRooms', chatRoomId!, 'messages');
 
@@ -40,7 +35,7 @@ export const useChatRoomDetails = (userId?: string) => {
 
     const [userList, userListLoading, userListError] = useCollectionData(userQuery);
 
-    const userListHashMap = userList?.reduce((acc, user) => {
+    const userListHashMap: UserListHashMap = userList?.reduce((acc, user) => {
         acc[user.uid] = {
             email: user.email,
             name: user?.name,
@@ -48,7 +43,8 @@ export const useChatRoomDetails = (userId?: string) => {
             photoURL: user?.photoURL,
         };
         return acc;
-    }, {});
+    }, {})!;
+
     const isValidUser: boolean = chatRoomInfo?.['members'].some(
         (member: string) => member === currentUser?.uid
     );
@@ -64,23 +60,19 @@ export const useChatRoomDetails = (userId?: string) => {
 
         if (chatRoomInfo?.type === 'room') return;
 
-        console.log(userListHashMap);
         const otherUserId = getUserInfo('uid');
-
-        console.log({ otherUserId });
 
         const otherUser = userListHashMap?.[otherUserId!];
 
         let userOne = {};
         let userTwo = {};
-        const docRef = doc(db, 'chatRooms', chatRoomId!);
 
         if (currentUser?.uid === chatRoomInfo?.userOneId) {
             userOne = {
-                email: currentUser.email,
-                name: currentUser.name,
-                uid: currentUser.uid,
-                photoURL: currentUser.photoURL,
+                email: currentUser?.email,
+                name: currentUser?.name,
+                uid: currentUser?.uid,
+                photoURL: currentUser?.photoURL,
             };
             userTwo = {
                 email: otherUser?.email,
@@ -105,7 +97,6 @@ export const useChatRoomDetails = (userId?: string) => {
             };
         }
 
-        console.log({ userOne, userTwo });
         await updateDoc(docRef, {
             userOne,
             userTwo,
@@ -120,12 +111,10 @@ export const useChatRoomDetails = (userId?: string) => {
     }, [toggle]);
 
     useEffect(() => {
-        updateChatRoomUsersInfo();
+        if (singleRoomUpdated.current) {
+            updateChatRoomUsersInfo();
+        }
     }, [updateChatRoomUsersInfo]);
-
-    const logData = () => {
-        console.log(chatRoomInfo);
-    };
 
     return {
         currentUser,

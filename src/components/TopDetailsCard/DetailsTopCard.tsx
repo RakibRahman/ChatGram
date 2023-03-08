@@ -5,15 +5,18 @@ import { Link, useNavigate } from 'react-router-dom';
 import { TopMenuList } from './TopMenuList';
 
 export const DetailsTopCard = () => {
-    const { userInfo, getUserInfo, chatRoomInfo, currentUser, userInfoLoading } =
-        useTopCardDetails();
+    const {
+        userInfo,
+        getSingleUserInfo,
+        chatRoomInfo,
+        currentUser,
+        userInfoLoading,
+        userListHashMap,
+    } = useTopCardDetails();
 
     const isTab = useMediaQuery('(max-width: 768px)');
     const navigate = useNavigate();
-    const profileId =
-        chatRoomInfo?.['members'][0] !== currentUser?.uid
-            ? chatRoomInfo?.userOne?.uid
-            : chatRoomInfo?.userTwo?.uid;
+    const profileId = getSingleUserInfo('uid') ?? '';
     const menuListData = {
         chatRoomId: chatRoomInfo?.id,
         type: chatRoomInfo?.type,
@@ -59,8 +62,8 @@ export const DetailsTopCard = () => {
                         }`}
                     >
                         <ProfileCard
-                            name={getUserInfo('name')!}
-                            pic={getUserInfo('photoURL')!}
+                            name={getSingleUserInfo('name')!}
+                            pic={getSingleUserInfo('photoURL')!}
                             isOnline={userInfo?.data()?.['status']}
                             // lastActive={getUserInfo('lastLogin')}
                         />

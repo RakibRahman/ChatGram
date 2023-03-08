@@ -69,6 +69,7 @@ export const LeftMainMenu = () => {
                                         .then(() => {
                                             updateUserOnlineStatus(userId.current!, 'offline');
                                             localStorage.removeItem('activeChat');
+                                            localStorage.removeItem('currentUser');
                                         })
                                         .catch((error) => {
                                             console.log(error);

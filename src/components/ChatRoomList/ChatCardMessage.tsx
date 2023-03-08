@@ -1,6 +1,7 @@
 import React from 'react';
 import { RecentMessage } from '../../models/types';
 import { truncateText } from '../../utilities/truncateText';
+import { useChatRoomList } from './useChatRoomList';
 
 interface ChatCardMessageProps {
     recentMessage: RecentMessage;
@@ -82,6 +83,8 @@ export const ChatCardMessage: React.FC<ChatCardMessageProps> = ({
     currentUserId,
     isNewMessage,
 }) => {
+    const { currentUser, chatListData, usersChatRooms, userListHashMap } = useChatRoomList()!;
+
     return (
         <>
             {recentMessage ? (
@@ -89,7 +92,8 @@ export const ChatCardMessage: React.FC<ChatCardMessageProps> = ({
                     <span className="flex gap-1 items-center">
                         {currentUserId === recentMessage?.uid
                             ? 'You: '
-                            : recentMessage?.name?.split(' ')[0] + ': ' ?? ''}
+                            : userListHashMap?.[recentMessage.uid]?.name?.split(' ')[0] + ': ' ??
+                              ''}
 
                         {recentMessage?.type === 'text'
                             ? truncateText(recentMessage?.message ?? '', 20)

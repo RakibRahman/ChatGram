@@ -1,9 +1,8 @@
 import { arrayUnion, doc, setDoc, updateDoc } from 'firebase/firestore';
 import { nanoid } from 'nanoid';
 import { useNavigate } from 'react-router-dom';
-import { useChatRoomContext } from '../../context/context';
 import { db, timeStamp } from '../../firebase';
-import { ChatUserInfo, UserInfo } from '../../models/types';
+import { UserInfo } from '../../models/types';
 
 export const useCreateChatRoom = () => {
     const currentUser: UserInfo = JSON.parse(localStorage.getItem('currentUser')!) ?? {};
@@ -41,7 +40,7 @@ export const useCreateChatRoom = () => {
         try {
             Promise.all([createNewChatRoom, updateUserInfo()]).then((values) => {
                 navigate(`/chat/${chatRoomId}`);
-                localStorage.setItem('activeChatRoom', chatRoomId);
+                localStorage.setItem('activeChat', chatRoomId);
             });
         } catch {
             alert('Error creating chat room');

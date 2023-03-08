@@ -6,7 +6,7 @@ import { Alert } from '../common/Alert';
 import { Loader } from '../common/Loader/Loader';
 import { useUserProfile } from '../UserProfile/useUserProfile';
 export const ChatRoomDetails = () => {
-    const { chatRoomInfo, loading, error } = useChatRoomDetails();
+    const { chatRoomInfo, loading, error, userListHashMap } = useChatRoomDetails();
     const { photos, videos } = useUserProfile();
     const navigate = useNavigate();
 
@@ -60,7 +60,9 @@ export const ChatRoomDetails = () => {
                         <h1 className="mb-5 text-5xl font-bold">{chatRoomInfo?.name}</h1>
 
                         <p>Created At: {createDate}</p>
-                        <p className="capitalize">Creator: {chatRoomInfo?.createdBy?.name}</p>
+                        <p className="capitalize">
+                            Creator: {userListHashMap?.[chatRoomInfo?.createdBy?.uid]?.name ?? ''}
+                        </p>
                         {/* <p>Created By: {chatRoomInfo?.createdBy?.email}</p> */}
 
                         <p>Members: {chatRoomInfo?.members.length}</p>
