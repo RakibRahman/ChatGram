@@ -5,11 +5,17 @@ import { Alert } from '../common/Alert';
 import { Avatar } from '../common/Avatar/Avatar';
 import { Modal } from '../common/modal/Modal';
 import { useEditProfile } from './useEditProfile';
+import useFireBaseUpload from '../FileUpload/useFirebaseUpload';
 
 export const EditProfile = () => {
     const { currentUser, loading, error, updateUser } = useEditProfile()!;
     const [isEditOpen, setEditOpen] = useState(false);
     const [userLoading, setUserLoading] = useState(false);
+    const [selectedFile, setSelectedFile] = useState<File>();
+
+    const { handleUpload, state, dispatch, cancelUpload, discardUpload } = useFireBaseUpload();
+
+    const { progress, uploading, downloadURL, file } = state;
 
     const userInfo = useRef({} as UserInfo);
 
@@ -48,6 +54,7 @@ export const EditProfile = () => {
                     updateUser(userInfo.current)
                         .then(() => {
                             console.log('user updated successfully');
+
                             // localStorage.setItem('currentUser', JSON.stringify(userInfo.current))
                         })
                         .catch(() => {
@@ -57,6 +64,9 @@ export const EditProfile = () => {
                             setUserLoading(false);
                             setEditOpen(false);
                         });
+                    if (selectedFile) {
+                        handleUpload(selectedFile, true);
+                    }
                 }}
             >
                 <div className="">
@@ -104,13 +114,16 @@ export const EditProfile = () => {
                                     className="max-w-full h-32 object-cover rounded-lg"
                                 />
                                 <input
-                                    defaultValue={currentUser?.photoURL ?? ''}
+                                    // defaultValue={currentUser?.photoURL ?? ''}
                                     onChange={(r) => {
-                                        userInfo.current.photoURL = r.target.value;
+                                        const file = r.target.files ? r.target.files[0] : undefined;
+                                        setSelectedFile(file);
+
                                     }}
                                     name="photoURL"
                                     id="photoURL"
-                                    type="text"
+                                    type="file"
+                                    accept="image/*"
                                     placeholder="Profile Pic URL"
                                     className="input hidden input-md w-full max-w-xs border border-blue-300 focus:outline-none"
                                 />

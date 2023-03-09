@@ -3,15 +3,19 @@ import { nanoid } from 'nanoid';
 import { useReducer } from 'react';
 import { useParams } from 'react-router-dom';
 import { storage } from '../../firebase';
+import { UserInfo } from '../../models/types';
 import { FileUploadStateProps, ACTIONTYPE } from '../../models/UploadType';
+import { useEditProfile } from '../EditProfile/useEditProfile';
 import { useSentMessage } from '../SentMessage/useSentMessage';
 
 export default function useFireBaseUpload(
-    setIsOpen: React.Dispatch<React.SetStateAction<boolean>>,
+    setIsOpen?: React.Dispatch<React.SetStateAction<boolean>>,
     message?: string
 ) {
     const { chatRoomId } = useParams()!;
     const { lastMessage, sendMessage } = useSentMessage();
+    const currentUser: UserInfo = JSON.parse(localStorage.getItem('currentUser')!);
+    const { updateUser } = useEditProfile()!;
 
     const FileUploadState: FileUploadStateProps = {
         uploading: false,
@@ -48,8 +52,9 @@ export default function useFireBaseUpload(
 
     const [state, dispatch] = useReducer(reducer, FileUploadState);
 
-    const handleUpload = (file: File) => {
-        const storageRef = ref(storage, `${chatRoomId}/${nanoid(10)}`);
+    const handleUpload = (file: File, isProfile?: Boolean) => {
+        const storageID = isProfile ? currentUser?.uid : chatRoomId;
+        const storageRef = ref(storage, `${storageID}/${nanoid(10)}`);
         const uploadTask = uploadBytesResumable(storageRef, file);
         dispatch({ type: 'uploadTask', payload: uploadTask });
 
@@ -117,6 +122,13 @@ export default function useFireBaseUpload(
                     const fileType = file.type.replace(/[^/]*$/, '').replace(/[/]/, '');
                     lastMessage(message, fileType);
                     sendMessage(message, fileType, uploadTask.snapshot.ref.fullPath!, downloadURL);
+                    if (isProfile) {
+                        updateUser({
+                            photoURL: downloadURL
+                        }).then(() => {
+                            console.log('Profile pic updates')
+                        })
+                    }
                     dispatch({ type: 'isUploading', payload: false });
                     dispatch({
                         type: 'getFullPath',
@@ -126,7 +138,9 @@ export default function useFireBaseUpload(
                     // setTimeout(() => {
                     //     setIsOpen(false);
                     // }, 2000);
-                    setIsOpen(false);
+                    if (setIsOpen) {
+                        setIsOpen(false);
+                    }
                     console.log('full DL', uploadTask.snapshot.ref.fullPath);
                 });
             }
