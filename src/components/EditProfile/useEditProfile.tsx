@@ -1,8 +1,7 @@
-import React from 'react';
-import { useChatRoomContext } from '../../context/context';
-import { useDocument, useDocumentOnce } from 'react-firebase-hooks/firestore';
-import { db, timeStamp } from '../../firebase';
 import { doc, updateDoc } from 'firebase/firestore';
+import { useDocument } from 'react-firebase-hooks/firestore';
+import { useChatRoomContext } from '../../context/context';
+import { db, timeStamp } from '../../firebase';
 import { UserInfo } from '../../models/types';
 export const useEditProfile = () => {
     const { currentUser } = useChatRoomContext();

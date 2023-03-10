@@ -120,14 +120,22 @@ export default function useFireBaseUpload(
                     // console.log({ message });
                     console.log('Upload completed successfully');
                     const fileType = file.type.replace(/[^/]*$/, '').replace(/[/]/, '');
-                    lastMessage(message, fileType);
-                    sendMessage(message, fileType, uploadTask.snapshot.ref.fullPath!, downloadURL);
+                    if (!isProfile) {
+                        sendMessage(
+                            message,
+                            fileType,
+                            uploadTask.snapshot.ref.fullPath!,
+                            downloadURL
+                        );
+                        lastMessage(message, fileType);
+                    }
                     if (isProfile) {
                         updateUser({
-                            photoURL: downloadURL
+                            photoURL: downloadURL,
+                            photoURLPath: uploadTask.snapshot.ref.fullPath!!,
                         }).then(() => {
-                            console.log('Profile pic updates')
-                        })
+                            console.log('Profile pic updates');
+                        });
                     }
                     dispatch({ type: 'isUploading', payload: false });
                     dispatch({
@@ -155,10 +163,11 @@ export default function useFireBaseUpload(
         console.log('cancel');
     };
 
-    const discardUpload = async () => {
+    const discardUpload = async (photURLPath: string) => {
         // Create a reference to the file to delete
-        const desertRef = ref(storage, state.fullPath);
-        console.log('del path', state.fullPath);
+        const refPath = photURLPath ? photURLPath : state.fullPath;
+        const desertRef = ref(storage, refPath);
+        console.log('del path', refPath);
         // Delete the file
         await deleteObject(desertRef)
             .then(() => {

@@ -71,6 +71,7 @@ export interface UserInfo {
     name: string;
     email: string;
     photoURL: string;
+    photoURLPath?: string;
     chatRooms: string[];
     lastLogin: string;
     status: string;

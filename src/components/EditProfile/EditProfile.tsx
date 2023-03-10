@@ -26,6 +26,7 @@ export const EditProfile = () => {
         return <Alert title="Profile fetch error" />;
     }
 
+    console.log(currentUser);
     return (
         <div className=" space-y-1 my-10 px-4 w-full">
             <Avatar name={currentUser?.name!} img={currentUser?.photoURL!} />
@@ -46,7 +47,10 @@ export const EditProfile = () => {
                 size="w-[420px]"
                 disableYesBtn={userLoading}
                 isOpen={isEditOpen}
-                onClose={() => setEditOpen(false)}
+                onClose={() => {
+                    setEditOpen(false);
+                    setSelectedFile(undefined);
+                }}
                 title="Edit Profile"
                 yesText={userLoading ? 'Saving...' : 'Save Changes'}
                 onConfirm={() => {
@@ -54,8 +58,10 @@ export const EditProfile = () => {
                     updateUser(userInfo.current)
                         .then(() => {
                             console.log('user updated successfully');
-
-                            // localStorage.setItem('currentUser', JSON.stringify(userInfo.current))
+                            if (currentUser?.photoURLPath && selectedFile) {
+                                discardUpload(currentUser?.photoURLPath);
+                            }
+                            localStorage.setItem('currentUser', JSON.stringify(currentUser));
                         })
                         .catch(() => {
                             console.log('something went wrong');
@@ -63,6 +69,7 @@ export const EditProfile = () => {
                         .finally(() => {
                             setUserLoading(false);
                             setEditOpen(false);
+                            setSelectedFile(undefined);
                         });
                     if (selectedFile) {
                         handleUpload(selectedFile, true);
@@ -109,7 +116,11 @@ export const EditProfile = () => {
                                     Change Photo
                                 </label>
                                 <img
-                                    src={currentUser?.photoURL}
+                                    src={
+                                        selectedFile
+                                            ? URL.createObjectURL(selectedFile)
+                                            : currentUser?.photoURL
+                                    }
                                     alt="profilePic"
                                     className="max-w-full h-32 object-cover rounded-lg"
                                 />
@@ -118,7 +129,6 @@ export const EditProfile = () => {
                                     onChange={(r) => {
                                         const file = r.target.files ? r.target.files[0] : undefined;
                                         setSelectedFile(file);
-
                                     }}
                                     name="photoURL"
                                     id="photoURL"
