@@ -10,7 +10,7 @@ interface TopMenuListProps {
 export const TopMenuList: React.FC<TopMenuListProps> = ({ menuData }) => {
     return (
         <div className="dropdown dropdown-end">
-            <label tabIndex={0} className="btn btn-ghost rounded-btn">
+            <label tabIndex={0} className="btn btn-square btn-sm rounded-btn">
                 {' '}
                 <svg
                     xmlns="http://www.w3.org/2000/svg"

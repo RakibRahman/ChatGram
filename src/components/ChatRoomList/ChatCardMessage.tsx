@@ -83,17 +83,16 @@ export const ChatCardMessage: React.FC<ChatCardMessageProps> = ({
     currentUserId,
     isNewMessage,
 }) => {
-    const { currentUser, chatListData, usersChatRooms, userListHashMap } = useChatRoomList()!;
-
+    const { userListHashMap } = useChatRoomList()!;
+    const otherUser = userListHashMap?.[recentMessage?.uid]?.name?.split(' ')[0]
+        ? userListHashMap?.[recentMessage.uid]?.name?.split(' ')[0] + ':'
+        : '';
     return (
         <>
             {recentMessage ? (
                 <p className={`flex items-center justify-between gap-2 text - sm font - normal`}>
                     <span className="flex gap-1 items-center">
-                        {currentUserId === recentMessage?.uid
-                            ? 'You: '
-                            : userListHashMap?.[recentMessage.uid]?.name?.split(' ')[0] + ': ' ??
-                              ''}
+                        {currentUserId === recentMessage?.uid ? 'You: ' : otherUser}
 
                         {recentMessage?.type === 'text'
                             ? truncateText(recentMessage?.message ?? '', 20)

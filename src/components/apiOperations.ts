@@ -59,6 +59,12 @@ export const createUser = async (currentUser: CurrentUser) => {
         createdAt: timeStamp,
         updatedAt: timeStamp,
         story: "Hey There! I'm using Chatgram.",
+        phone: '',
+        socialLinks: {
+            fb: '',
+            linkedin: '',
+            twitter: '',
+        },
     };
 
     localStorage.setItem('currentUser', JSON.stringify(userInfo));

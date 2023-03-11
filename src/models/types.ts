@@ -77,6 +77,12 @@ export interface UserInfo {
     status: string;
     createdAt: Timestamp;
     story: string;
+    phone?: string;
+    socialLinks: {
+        fb?: string;
+        linkedin?: string;
+        twitter?: string;
+    };
 }
 
 export type RecentMessage = ChatRoom['recentMessage'];

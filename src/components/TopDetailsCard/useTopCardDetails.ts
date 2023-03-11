@@ -27,5 +27,6 @@ export const useTopCardDetails = () => {
         currentUser: loggedUser,
         userInfoLoading,
         userListHashMap,
+        userInfoError,
     };
 };

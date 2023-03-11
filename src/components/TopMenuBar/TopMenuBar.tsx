@@ -23,7 +23,7 @@ export const TopMenuBar: React.FC<TopMenuBarProps> = ({ isSearchActive, setSearc
     });
     const [loading, setLoading] = useState(false);
     const [selectedId, setSelectedId] = useState('');
-    const { handleSearch, currentUser } = useLeftSideBar();
+    const { handleSearch } = useLeftSideBar();
     const { createOneToOneChatRoom, joinChatRoom } = useTopMenuBar(setSearchActive);
     const searchUsers = async (e: React.FormEvent) => {
         e.preventDefault();
@@ -56,7 +56,8 @@ export const TopMenuBar: React.FC<TopMenuBarProps> = ({ isSearchActive, setSearc
     const noResultFound =
         !loading &&
         isSearchActive &&
-        (searchResult?.users?.length === 0 || searchResult?.rooms?.length === 0);
+        searchResult?.users?.length === 0 &&
+        searchResult?.rooms?.length === 0;
 
     const roomSearchCondition = isSearchActive && searchResult?.rooms?.length !== 0 && !loading;
     const userSearchCondition = isSearchActive && searchResult?.users?.length !== 0 && !loading;

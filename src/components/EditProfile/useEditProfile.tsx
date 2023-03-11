@@ -1,10 +1,10 @@
 import { doc, updateDoc } from 'firebase/firestore';
 import { useDocument } from 'react-firebase-hooks/firestore';
-import { useChatRoomContext } from '../../context/context';
 import { db, timeStamp } from '../../firebase';
 import { UserInfo } from '../../models/types';
 export const useEditProfile = () => {
-    const { currentUser } = useChatRoomContext();
+    const currentUser: UserInfo = JSON.parse(localStorage.getItem('currentUser')!);
+
     if (!currentUser) return;
 
     const docRef = doc(db, 'users', currentUser?.uid);
@@ -14,10 +14,10 @@ export const useEditProfile = () => {
 
     const updateUser = async (payload: Partial<UserInfo>) => {
         if (!payload) return;
+        console.log(payload);
         await updateDoc(docRef, { ...payload, updatedAt: timeStamp });
     };
     if (userInfo?.exists()) {
-        console.log('user logged in');
         localStorage.setItem('currentUser', JSON.stringify(userInfo.data()));
     }
     return { currentUser: userInfo?.data() as UserInfo, loading, error, updateUser };

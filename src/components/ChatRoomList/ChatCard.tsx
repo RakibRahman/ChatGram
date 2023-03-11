@@ -1,8 +1,7 @@
 import React, { useState } from 'react';
-import { Link, useParams } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 import { ChatCardProps } from '../../models/types';
 import { getTime } from '../../utilities/getTime';
-import { useChatRoomDetails } from '../ChatRoomDetails/useChatRoomDetails';
 import { Avatar } from '../common/Avatar/Avatar';
 import { ChatCardMessage } from './ChatCardMessage';
 
@@ -37,7 +36,7 @@ export const ChatCard: React.FC<ChatCardProps> = ({
                         <div className="flex justify-between   items-center ">
                             <p className="font-semibold text-sm capitalize">{name}</p>
                             {recentMessage ? (
-                                <p className=" text-xs ">
+                                <p className=" text-xs ml-1">
                                     {getTime(recentMessage?.timestamp?.seconds) ?? '...'}
                                 </p>
                             ) : null}

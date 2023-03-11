@@ -21,7 +21,7 @@ export const RenderMessageView: React.FC<RenderMessageViewProps> = ({
     setSelectedMessage,
 }) => {
     const { currentUser, userListHashMap } = useChatRoomDetails();
-    console.log(userListHashMap);
+
     return (
         <div
             className={`chat ${

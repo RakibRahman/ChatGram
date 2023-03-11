@@ -9,3 +9,8 @@ export const getTime = (seconds: number, dateOnly?: boolean): string | null => {
 
     return dateOnly ? format(createDate, 'MM/dd/yyyy') : formattedDate;
 };
+
+export const getLastActivity = (date: Date | string): string => {
+    const formattedDate = formatRelative(new Date(date), new Date());
+    return formattedDate;
+};
