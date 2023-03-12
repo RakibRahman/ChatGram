@@ -22,7 +22,7 @@ export const ChatCard: React.FC<ChatCardProps> = ({
         <Link to={`/chat/${id} `}>
             <div
                 className={`indicator overflow-hidden w-full space-y-6 hover:opacity-60 ${
-                    isSelected ? 'text-white bg-blue-400' : ''
+                    isSelected ? 'text-white bg-sky-500' : ''
                 }  py-2 rounded - md`}
                 onClick={() => {
                     setNewMessage(recentMessage?.message);

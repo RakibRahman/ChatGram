@@ -4,6 +4,7 @@ import { useTopCardDetails } from './useTopCardDetails';
 import { Link, useNavigate } from 'react-router-dom';
 import { TopMenuList } from './TopMenuList';
 import { Alert } from '../common/Alert';
+import { ArrowLeft } from 'react-feather';
 
 export const DetailsTopCard = () => {
     const { userInfo, getSingleUserInfo, chatRoomInfo, userInfoLoading, userInfoError } =
@@ -38,20 +39,7 @@ export const DetailsTopCard = () => {
                                         navigate('/');
                                     }}
                                 >
-                                    <svg
-                                        xmlns="http://www.w3.org/2000/svg"
-                                        fill="none"
-                                        viewBox="0 0 24 24"
-                                        strokeWidth={1.5}
-                                        stroke="currentColor"
-                                        className="w-6 h-6 text-base-content"
-                                    >
-                                        <path
-                                            strokeLinecap="round"
-                                            strokeLinejoin="round"
-                                            d="M9 15L3 9m0 0l6-6M3 9h12a6 6 0 010 12h-3"
-                                        />
-                                    </svg>
+                                    <ArrowLeft />
                                 </button>
                             ) : null}
                             <Link
@@ -90,20 +78,7 @@ export const DetailsTopCard = () => {
                                     navigate(-1);
                                 }}
                             >
-                                <svg
-                                    xmlns="http://www.w3.org/2000/svg"
-                                    fill="none"
-                                    viewBox="0 0 24 24"
-                                    strokeWidth={1.5}
-                                    stroke="currentColor"
-                                    className="w-6 h-6 text-base-content"
-                                >
-                                    <path
-                                        strokeLinecap="round"
-                                        strokeLinejoin="round"
-                                        d="M9 15L3 9m0 0l6-6M3 9h12a6 6 0 010 12h-3"
-                                    />
-                                </svg>
+                                <ArrowLeft />
                             </button>
                         ) : null}
 

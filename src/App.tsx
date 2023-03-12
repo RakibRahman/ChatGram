@@ -9,7 +9,7 @@ import { SelectChatRoom } from './components/common/SelectChatRoom';
 import { LeftSideBar } from './components/LeftSideBar/LeftSideBar';
 import { Login } from './components/Login/Login';
 import { ChatRoomDetails } from './components/TopDetailsCard/ChatRoomDetails';
-import { UserProfile } from './components/UserProfile/UserProfile';
+import { ChatUserProfile } from './components/UserProfile/ChatUserProfile';
 import { useChatRoomContext } from './context/context';
 import { useMediaQuery } from './hooks/useMediaQuery';
 
@@ -47,7 +47,7 @@ function App() {
                     )}
                     <Route path="/chat/:chatRoomId" element={<ChatRoomDetailsContainer />} />
                     <Route path="/chatRoom/:chatRoomId" element={<ChatRoomDetails />} />
-                    <Route path="/profile/:chatRoomId" element={<UserProfile />} />
+                    <Route path="/profile/:chatRoomId" element={<ChatUserProfile />} />
 
                     <Route path="*" element={<Error404 />} />
                 </Routes>
@@ -74,7 +74,7 @@ function App() {
                                     element={<ChatRoomDetailsContainer />}
                                 />
                                 <Route path="/chatRoom/:chatRoomId" element={<ChatRoomDetails />} />
-                                <Route path="/profile/:chatRoomId" element={<UserProfile />} />
+                                <Route path="/profile/:chatRoomId" element={<ChatUserProfile />} />
                             </Routes>
                         </div>
                     </div>

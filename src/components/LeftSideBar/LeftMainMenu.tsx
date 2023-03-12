@@ -10,6 +10,7 @@ import GroupIcon from '../../assets/group.png';
 import ThemeIcon from '../../assets/theme.png';
 import { useMediaQuery } from '../../hooks/useMediaQuery';
 import { EditProfile } from '../EditProfile/EditProfile';
+import { Menu } from 'react-feather';
 
 export const LeftMainMenu = () => {
     const { currentUser, signOut } = useChatRoomContext();
@@ -22,20 +23,7 @@ export const LeftMainMenu = () => {
     return (
         <div>
             <button className="btn btn-sm rounded-md " onClick={() => setIsOpen(true)}>
-                <svg
-                    xmlns="http://www.w3.org/2000/svg"
-                    fill="none"
-                    viewBox="0 0 24 24"
-                    strokeWidth={1.5}
-                    stroke="currentColor"
-                    className="w-8 h-8"
-                >
-                    <path
-                        strokeLinecap="square"
-                        strokeLinejoin="round"
-                        d="M3.75 5.25h16.5m-16.5 4.5h16.5m-16.5 4.5h16.5m-16.5 4.5h16.5"
-                    />
-                </svg>
+                <Menu />
             </button>
             <Drawer isOpen={isOpen} setIsOpen={setIsOpen}>
                 <div className="flex flex-col items-start gap-2  h-screen">

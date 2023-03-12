@@ -26,7 +26,7 @@ interface ChatRoomSingleUserInfo {
 }
 export interface ChatRoom {
     name: string;
-    createdBy: ChatRoomSingleUserInfo;
+    createdBy: string;
     createdAt: Timestamp;
     id: string;
     logo: string;
@@ -40,6 +40,7 @@ export interface ChatRoom {
     };
     type: ChatRoomType;
     story: string;
+    admins: string[];
 }
 
 export interface SingleChatRoom extends ChatRoom {

@@ -18,16 +18,12 @@ export const useCreateChatRoom = () => {
             id: chatRoomId,
             createdAt: timeStamp,
             logo: '',
-            createdBy: {
-                name: name?.toLowerCase(),
-                email,
-                photoURL,
-                uid,
-            },
+            createdBy: uid,
             members: [uid],
             lastActivity: timeStamp,
             type: 'room',
-            story: '',
+            story: 'A room where we talk',
+            admins: [currentUser.uid],
         });
 
         const updateUserInfo = async () => {

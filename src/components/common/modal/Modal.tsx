@@ -1,7 +1,7 @@
 import React, { FC } from 'react';
 import ReactDOM from 'react-dom';
 import './Modal.css';
-
+import { XSquare } from 'react-feather';
 interface ModalProps {
     children?: React.ReactNode;
     isOpen: boolean;
@@ -45,20 +45,7 @@ export const Modal: FC<ModalProps> = ({
                     </h3>
                     {hideTitleClose ? null : (
                         <button className="btn btn-sm btn-circle" onClick={onClose}>
-                            <svg
-                                xmlns="http://www.w3.org/2000/svg"
-                                fill="none"
-                                viewBox="0 0 24 24"
-                                strokeWidth={1.5}
-                                stroke="currentColor"
-                                className="w-6 h-6"
-                            >
-                                <path
-                                    strokeLinecap="round"
-                                    strokeLinejoin="round"
-                                    d="M6 18L18 6M6 6l12 12"
-                                />
-                            </svg>
+                            <XSquare />
                         </button>
                     )}
                 </div>

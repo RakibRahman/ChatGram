@@ -20,7 +20,7 @@ const socialIcons = {
 const LinkPreview = ({ link, icon }: { link: string; icon: string }) => {
     return (
         <>
-            <a href={link} className="link" target="_blank">
+            <a href={`//${link}`} className="link" target="_blank">
                 <img
                     src={icon}
                     alt="social link"
