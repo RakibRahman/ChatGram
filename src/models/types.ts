@@ -30,10 +30,10 @@ export interface ChatRoom {
     createdAt: Timestamp;
     id: string;
     logo: string;
+    logoURLPath?: string;
     members: string[];
     recentMessage: {
         message: string;
-        name: string;
         timestamp: Timestamp;
         type: string;
         uid: string;

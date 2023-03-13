@@ -41,7 +41,8 @@ export const ChatRoomDetails = () => {
                         navigate(-1);
                     }}
                 >
-                    <ArrowLeft />
+                    <ArrowLeft className='text-base' />
+
                 </button>
                 <div className="hero-overlay bg-opacity-60"></div>
                 <div className="hero-content text-center text-neutral-content">
@@ -60,7 +61,7 @@ export const ChatRoomDetails = () => {
                         </p>
                         <p className="mb-5 text-lg">{chatRoomInfo?.story}</p>
                         <button
-                            className="btn btn-accent bg-sky-500 shadow-md shadow-sky-500"
+                            className="btn btn-accent text-white bg-sky-500 shadow-md shadow-sky-500"
                             onClick={() => {
                                 navigate(-1);
                             }}

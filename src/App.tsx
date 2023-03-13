@@ -25,6 +25,13 @@ function App() {
         }
     }, []);
 
+    useEffect(() => {
+        if (!currentUser) {
+            navigate('/')
+            localStorage.removeItem('activeChat');
+        }
+    }, [])
+
     if (loading) {
         return (
             <div>

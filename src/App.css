@@ -26,5 +26,5 @@
     grid-auto-rows: 40px;
 }
 html {
-    overflow: hidden;
+    /* overflow: hidden; */
 }

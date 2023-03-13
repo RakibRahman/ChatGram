@@ -1,6 +1,5 @@
 import { UserInfo } from '../../models/types';
 import { Camera } from 'react-feather';
-
 import { useRef, useState } from 'react';
 import { Alert } from '../common/Alert';
 import { Avatar } from '../common/Avatar/Avatar';
@@ -71,7 +70,7 @@ export const EditProfile = () => {
                             setSelectedFile(undefined);
                         });
                     if (selectedFile) {
-                        handleUpload(selectedFile, true);
+                        handleUpload(selectedFile, 'user');
                     }
                 }}
             >

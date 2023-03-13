@@ -8,6 +8,8 @@ import { FileUploadStateProps, ACTIONTYPE } from '../../models/UploadType';
 import { useEditProfile } from '../EditProfile/useEditProfile';
 import { useSentMessage } from '../SentMessage/useSentMessage';
 
+type ChatImageUploadState = 'room' | 'user';
+
 export default function useFireBaseUpload(
     setIsOpen?: React.Dispatch<React.SetStateAction<boolean>>,
     message?: string
@@ -52,8 +54,9 @@ export default function useFireBaseUpload(
 
     const [state, dispatch] = useReducer(reducer, FileUploadState);
 
-    const handleUpload = (file: File, isProfile?: Boolean) => {
-        const storageID = isProfile ? currentUser?.uid : chatRoomId;
+    const handleUpload = (file: File, chatImageUploadState?: ChatImageUploadState, roomId?: string) => {
+
+        const storageID = chatImageUploadState && chatImageUploadState === 'user' ? currentUser?.uid : chatRoomId ?? roomId;
         const storageRef = ref(storage, `${storageID}/${nanoid(10)}`);
         const uploadTask = uploadBytesResumable(storageRef, file);
         dispatch({ type: 'uploadTask', payload: uploadTask });
@@ -120,7 +123,7 @@ export default function useFireBaseUpload(
                     // console.log({ message });
                     console.log('Upload completed successfully');
                     const fileType = file.type.replace(/[^/]*$/, '').replace(/[/]/, '');
-                    if (!isProfile) {
+                    if (!chatImageUploadState) {
                         sendMessage(
                             message,
                             fileType,
@@ -129,13 +132,16 @@ export default function useFireBaseUpload(
                         );
                         lastMessage(message, fileType);
                     }
-                    if (isProfile) {
+                    if (chatImageUploadState && chatImageUploadState === 'user') {
                         updateUser({
                             photoURL: downloadURL,
                             photoURLPath: uploadTask.snapshot.ref.fullPath!!,
                         }).then(() => {
                             console.log('Profile pic updates');
                         });
+                    }
+                    if (chatImageUploadState && chatImageUploadState === 'room') {
+                        console.log('object');
                     }
                     dispatch({ type: 'isUploading', payload: false });
                     dispatch({

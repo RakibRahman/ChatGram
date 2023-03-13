@@ -31,7 +31,8 @@ export const ChatUserProfile = () => {
                     navigate(-1);
                 }}
             >
-                <ArrowLeft />
+                <ArrowLeft className='text-base-content' />
+
             </button>
 
             <div className="bg-base-100 text-base text-center p-5 w-full  flex flex-col items-center">
@@ -50,7 +51,7 @@ export const ChatUserProfile = () => {
                     ) : null}
                 </div>
 
-                <div className="grid sm:grid-cols-4 grid-cols-2 my-6">
+                <div className="grid sm:grid-cols-4 gap-4 grid-cols-2 my-6">
                     <div>
                         <div className="flex font-semibold items-center gap-1 justify-center">
                             {' '}
@@ -89,7 +90,7 @@ export const ChatUserProfile = () => {
                 <SocialLinks socialLinks={userInfo?.socialLinks} />
 
                 <button
-                    className="btn btn-accent bg-sky-500 shadow-md shadow-sky-500 mt-6 mb-4"
+                    className="btn btn-accent text-white bg-sky-500 shadow-md shadow-sky-500 mt-6 mb-4"
                     onClick={() => {
                         navigate(-1);
                     }}
