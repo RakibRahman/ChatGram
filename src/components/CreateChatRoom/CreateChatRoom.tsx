@@ -8,26 +8,32 @@ import { useCreateChatRoom, RoomUpdatePayload } from './useCreateChatRoom';
 import { randomRoomBg } from './useCreateChatRoom';
 import { nanoid } from 'nanoid';
 
-
 interface CreateChatRoomProps {
     isOpen: boolean;
     onClose: () => void;
-    chatRoomInfo?: ChatRoom
+    chatRoomInfo?: ChatRoom;
+    isEditMode?: boolean;
 }
 
-export const CreateChatRoom: React.FC<CreateChatRoomProps> = ({ isOpen, onClose, chatRoomInfo }) => {
-    const chatRoomId = `chatRoom-${nanoid(8)}`;
-
-    const { createNewChatRoom, currentUser } = useCreateChatRoom();
+const chatRoomId = `chatRoom-${nanoid(8)}`;
+export const CreateChatRoom: React.FC<CreateChatRoomProps> = ({
+    isOpen,
+    onClose,
+    chatRoomInfo,
+    isEditMode = false,
+}) => {
+    const { createNewChatRoom, updateChatRoom } = useCreateChatRoom();
     const [selectedFile, setSelectedFile] = useState<File>();
-
-    const { handleUpload, state, dispatch, cancelUpload, discardUpload } = useFireBaseUpload();
-    const { progress, uploading, downloadURL, file, fullPath } = state;
-
+    const maxBioLength = 200;
+    const { handleUpload, state, cancelUpload, discardUpload } = useFireBaseUpload();
+    const { progress, uploading, downloadURL, fullPath } = state;
 
     const roomInfo = useRef({} as RoomUpdatePayload);
 
-    const [roomBioLength, setRoomBioLength] = useState<number>(currentUser?.story?.length);
+    const [roomBioLength, setRoomBioLength] = useState<number>(
+        chatRoomInfo?.story ? maxBioLength - chatRoomInfo.story.length : maxBioLength
+    );
+
     return (
         <div>
             <Modal
@@ -38,27 +44,33 @@ export const CreateChatRoom: React.FC<CreateChatRoomProps> = ({ isOpen, onClose,
                     if (uploading) {
                         cancelUpload();
                     }
+
+                    if (selectedFile && !uploading) {
+                        discardUpload(state.fullPath);
+                    }
                 }}
-                title="Create Chat Room"
-                yesText="Create"
+                title={isEditMode ? 'Update Chat Room' : 'Create Chat Room'}
+                yesText={isEditMode ? 'Update' : 'Create'}
                 onConfirm={() => {
-                    console.log(roomInfo.current);
-
-                    if (selectedFile) {
-                        handleUpload(selectedFile, 'room', chatRoomId);
+                    if (!uploading && chatRoomInfo && isEditMode) {
+                        const payload = { ...roomInfo.current };
+                        if (downloadURL) {
+                            payload.logo = downloadURL;
+                            payload.logoURLPath = fullPath;
+                        }
+                        updateChatRoom(payload, chatRoomInfo.id).then(() => {
+                            chatRoomInfo.logoURLPath && discardUpload(chatRoomInfo.logoURLPath);
+                        });
                     }
-
-
-                    if (roomInfo.current?.name !== '' && currentUser && !uploading) {
+                    if (roomInfo.current?.name !== '' && !uploading && !isEditMode) {
                         createNewChatRoom(roomInfo.current, chatRoomId, state);
-
                     }
-                    // onClose();
+
+                    onClose();
                 }}
             >
                 <div className="form-control">
-
-                    <div className="relative max-h-50">
+                    <div className="relative max-h-56">
                         <label
                             className="cursor-pointer absolute bottom-0 right-0 text-white w-10 h-10 grid place-items-center rounded-full bg-sky-500 text-center"
                             htmlFor="photoURL"
@@ -72,26 +84,30 @@ export const CreateChatRoom: React.FC<CreateChatRoomProps> = ({ isOpen, onClose,
                                     : chatRoomInfo?.logo ?? randomRoomBg
                             }
                             alt="profilePic"
-                            className="w-full max-h-50  rounded-lg object-cover"
+                            className="w-full max-h-56  rounded-lg object-cover"
                         />
                         <input
                             // defaultValue={currentUser?.photoURL ?? ''}
                             onChange={(r) => {
                                 const file = r.target.files ? r.target.files[0] : undefined;
                                 setSelectedFile(file);
+                                if (file) {
+                                    handleUpload(file, 'room', chatRoomId);
+                                }
                             }}
                             name="photoURL"
                             id="photoURL"
                             type="file"
                             accept="image/*"
                             placeholder="Profile Pic URL"
-
                             className="input hidden input-md w-full max-w-xs border border-blue-300 focus:outline-none"
                         />
-                        {uploading ? <ProgressBar value={progress} /> : null}
-
+                        <div className="">
+                            {' '}
+                            {!uploading ? <ProgressBar value={progress} /> : null}
+                        </div>
                     </div>
-                    <div className='my-4'>
+                    <div className="mt-8 mb-4">
                         <label htmlFor="chatRoomName">Room Name</label>
                         <input
                             defaultValue={chatRoomInfo?.name ?? ''}
@@ -107,22 +123,18 @@ export const CreateChatRoom: React.FC<CreateChatRoomProps> = ({ isOpen, onClose,
                     <div>
                         <div className="flex justify-between">
                             {' '}
-                            <label
-                                htmlFor="status"
-                                className="font-medium tracking-wide"
-                            >
+                            <label htmlFor="status" className="font-medium tracking-wide">
                                 Description
                             </label>{' '}
-                            <p>{roomBioLength ?? 70 - currentUser?.story?.length}</p>{' '}
+                            <p>{roomBioLength}</p>{' '}
                         </div>
                         <textarea
-                            maxLength={70}
+                            maxLength={maxBioLength}
                             onChange={(r) => {
-                                if (r.target.value.length <= 70) {
+                                if (r.target.value.length <= maxBioLength) {
                                     roomInfo.current.story = r.target.value;
-                                    setRoomBioLength(
-                                        70 - roomInfo.current.story.length
-                                    );
+
+                                    setRoomBioLength(maxBioLength - r.target.value.length);
                                 }
                             }}
                             id="story"
@@ -131,7 +143,6 @@ export const CreateChatRoom: React.FC<CreateChatRoomProps> = ({ isOpen, onClose,
                             name="story"
                             className="textarea textarea-bordered textarea-md w-full max-w-full"
                         />
-
                     </div>
                 </div>
             </Modal>

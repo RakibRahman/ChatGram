@@ -31,8 +31,7 @@ export const ChatUserProfile = () => {
                     navigate(-1);
                 }}
             >
-                <ArrowLeft className='text-base-content' />
-
+                <ArrowLeft className="text-base-content" />
             </button>
 
             <div className="bg-base-100 text-base text-center p-5 w-full  flex flex-col items-center">

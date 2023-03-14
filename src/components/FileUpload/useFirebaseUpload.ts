@@ -54,9 +54,15 @@ export default function useFireBaseUpload(
 
     const [state, dispatch] = useReducer(reducer, FileUploadState);
 
-    const handleUpload = (file: File, chatImageUploadState?: ChatImageUploadState, roomId?: string) => {
-
-        const storageID = chatImageUploadState && chatImageUploadState === 'user' ? currentUser?.uid : chatRoomId ?? roomId;
+    const handleUpload = (
+        file: File,
+        chatImageUploadState?: ChatImageUploadState,
+        roomId?: string
+    ) => {
+        const storageID =
+            chatImageUploadState && chatImageUploadState === 'user'
+                ? currentUser?.uid
+                : chatRoomId ?? roomId;
         const storageRef = ref(storage, `${storageID}/${nanoid(10)}`);
         const uploadTask = uploadBytesResumable(storageRef, file);
         dispatch({ type: 'uploadTask', payload: uploadTask });

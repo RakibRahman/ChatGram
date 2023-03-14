@@ -39,21 +39,21 @@ export const DetailsTopCard = () => {
                                         navigate('/');
                                     }}
                                 >
-                                    <ArrowLeft className='text-base-content' />
-
+                                    <ArrowLeft className="text-base-content" />
                                 </button>
                             ) : null}
                             <Link
-                                to={`${menuListData.type === 'room'
-                                    ? `/chatRoom/${menuListData.chatRoomId}`
-                                    : `/profile/${menuListData.profileId}`
-                                    }`}
+                                to={`${
+                                    menuListData.type === 'room'
+                                        ? `/chatRoom/${menuListData.chatRoomId}`
+                                        : `/profile/${menuListData.profileId}`
+                                }`}
                             >
                                 <ProfileCard
                                     name={getSingleUserInfo('name')!}
                                     pic={getSingleUserInfo('photoURL')!}
                                     isOnline={userInfo?.data()?.['status']}
-                                // lastActive={getUserInfo('lastLogin')}
+                                    // lastActive={getUserInfo('lastLogin')}
                                 />
                             </Link>
                         </div>
@@ -78,16 +78,16 @@ export const DetailsTopCard = () => {
                                     navigate(-1);
                                 }}
                             >
-                                <ArrowLeft className='text-base-content' />
-
+                                <ArrowLeft className="text-base-content" />
                             </button>
                         ) : null}
 
                         <Link
-                            to={`${menuListData.type === 'room'
-                                ? `/chatRoom/${menuListData.chatRoomId}`
-                                : `/profile/${menuListData.profileId}`
-                                }`}
+                            to={`${
+                                menuListData.type === 'room'
+                                    ? `/chatRoom/${menuListData.chatRoomId}`
+                                    : `/profile/${menuListData.profileId}`
+                            }`}
                         >
                             <div className="flex flex-col gap-2">
                                 <p className="font-bold capitalize">{chatRoomInfo?.name}</p>

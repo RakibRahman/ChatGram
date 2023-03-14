@@ -1,10 +1,10 @@
+import { useEffect } from 'react';
 import BG from '../../assets/login_bg.svg';
 import { useChatRoomContext } from '../../context/context';
 import { createUser } from '../apiOperations';
 
 export const Login = () => {
     const { signInWithGoogle } = useChatRoomContext();
-    // createUser
 
     return (
         <div
@@ -12,7 +12,7 @@ export const Login = () => {
             style={{
                 backgroundImage: `url(${BG})`,
                 backgroundSize: 'cover',
-                backgroundPosition: 'top',
+                backgroundPosition: 'center',
                 backgroundRepeat: 'no-repeat',
             }}
         >

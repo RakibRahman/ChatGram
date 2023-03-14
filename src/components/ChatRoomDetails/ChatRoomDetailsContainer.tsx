@@ -8,7 +8,12 @@ export const ChatRoomDetailsContainer = () => {
     const { loading } = useChatRoomDetails();
     return (
         <div className="h-full  overflow-hidden flex flex-col ">
-            {loading ? <div className="mt-20"> <Loader /></div> : null}
+            {loading ? (
+                <div className="mt-20">
+                    {' '}
+                    <Loader />
+                </div>
+            ) : null}
             <DetailsTopCard />
             <div className="h-[80vh]  p-1">
                 <Messages />

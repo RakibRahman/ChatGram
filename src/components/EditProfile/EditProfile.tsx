@@ -12,7 +12,7 @@ export const EditProfile = () => {
     const [isEditOpen, setEditOpen] = useState(false);
     const [userLoading, setUserLoading] = useState(false);
     const [selectedFile, setSelectedFile] = useState<File>();
-
+    const maxBioLength = 70;
     const { handleUpload, discardUpload } = useFireBaseUpload();
 
     const userInfo = useRef({} as UserInfo);
@@ -134,15 +134,18 @@ export const EditProfile = () => {
                                         >
                                             Bio
                                         </label>{' '}
-                                        <p>{userStoryLength ?? 70 - currentUser?.story?.length}</p>{' '}
+                                        <p>
+                                            {userStoryLength ??
+                                                maxBioLength - currentUser?.story?.length}
+                                        </p>{' '}
                                     </div>
                                     <textarea
-                                        maxLength={70}
+                                        maxLength={maxBioLength}
                                         onChange={(r) => {
-                                            if (r.target.value.length <= 70) {
+                                            if (r.target.value.length <= maxBioLength) {
                                                 userInfo.current.story = r.target.value;
                                                 setUserStoryLength(
-                                                    70 - userInfo.current.story.length
+                                                    maxBioLength - userInfo.current.story.length
                                                 );
                                             }
                                         }}
@@ -152,7 +155,7 @@ export const EditProfile = () => {
                                         name="story"
                                         className="textarea textarea-bordered textarea-md w-full max-w-full"
                                     />
-                                    <p className="text-sm px-4 py-2  bg-gray-300 font-light">
+                                    <p className="text-sm px-4 py-2  bg-gray-300 font-light text-black">
                                         Any details such as age,occupation or city. <br />
                                         Example: Front-end Developer from Dhaka
                                     </p>

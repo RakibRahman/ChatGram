@@ -1,14 +1,17 @@
-import { ArrowLeft, Users } from 'react-feather';
+import { useState } from 'react';
+import { ArrowLeft, Edit, Users } from 'react-feather';
 import { useNavigate } from 'react-router-dom';
 import { getTime } from '../../utilities/getTime';
 import { useChatRoomDetails } from '../ChatRoomDetails/useChatRoomDetails';
 import { ChatRoomMedia } from '../ChatRoomMedia/ChatRoomMedia';
 import { Alert } from '../common/Alert';
 import { Loader } from '../common/Loader/Loader';
+import { CreateChatRoom } from '../CreateChatRoom/CreateChatRoom';
 import { useUserProfile } from '../UserProfile/useUserProfile';
 
 export const ChatRoomDetails = () => {
-    const { chatRoomInfo, loading, error, userListHashMap } = useChatRoomDetails();
+    const { chatRoomInfo, loading, error, userListHashMap, currentUser } = useChatRoomDetails();
+    const [isOpenModal, setIsOpenModal] = useState(false);
     const { photos, videos } = useUserProfile();
     const navigate = useNavigate();
 
@@ -41,8 +44,7 @@ export const ChatRoomDetails = () => {
                         navigate(-1);
                     }}
                 >
-                    <ArrowLeft className='text-base' />
-
+                    <ArrowLeft className="text-base" />
                 </button>
                 <div className="hero-overlay bg-opacity-60"></div>
                 <div className="hero-content text-center text-neutral-content">
@@ -60,6 +62,7 @@ export const ChatRoomDetails = () => {
                             Room Creator: {userListHashMap?.[chatRoomInfo?.createdBy]?.name ?? ''}
                         </p>
                         <p className="mb-5 text-lg">{chatRoomInfo?.story}</p>
+
                         <button
                             className="btn btn-accent text-white bg-sky-500 shadow-md shadow-sky-500"
                             onClick={() => {
@@ -68,10 +71,28 @@ export const ChatRoomDetails = () => {
                         >
                             Share your thoughts
                         </button>
+                        {chatRoomInfo?.admins.includes(currentUser.uid) ? (
+                            <button
+                                className="btn btn-square btn-sm absolute right-1 top-1 hover:opacity-60"
+                                onClick={() => {
+                                    setIsOpenModal(true);
+                                }}
+                            >
+                                <Edit />
+                            </button>
+                        ) : null}
                     </div>
                 </div>
             </div>
             <ChatRoomMedia photos={photos!} videos={videos!} />
+            <CreateChatRoom
+                isOpen={isOpenModal}
+                isEditMode
+                onClose={() => {
+                    setIsOpenModal(false);
+                }}
+                chatRoomInfo={chatRoomInfo}
+            />
         </div>
     );
 };
