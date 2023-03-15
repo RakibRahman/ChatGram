@@ -25,12 +25,3 @@
     grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
     grid-auto-rows: 40px;
 }
-body,
-html {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
-}
-* {
-    box-sizing: border-box;
-}

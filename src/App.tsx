@@ -26,6 +26,12 @@ function App() {
     }, []);
 
     useEffect(() => {
+
+
+        if (!currentUser && isTab) {
+            navigate('/login');
+            localStorage.removeItem('activeChat');
+        }
         if (!currentUser) {
             navigate('/');
             localStorage.removeItem('activeChat');
