@@ -66,7 +66,7 @@ function App() {
         <div className="App">
             {currentUser ? (
                 <>
-                    <div className="flex w-full overflow-hidden  mx-auto pt-2  h-full items-start">
+                    <div className="flex w-full overflow-hidden  mx-auto   h-full items-start">
                         <div className="w-auto h-full  p-1">
                             {currentUser ? <LeftSideBar /> : null}
                         </div>

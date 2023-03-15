@@ -1,6 +1,6 @@
 import { UserInfo } from '../../models/types';
 import { Camera } from 'react-feather';
-import { useRef, useState } from 'react';
+import { useRef, useState, useEffect } from 'react';
 import { Alert } from '../common/Alert';
 import { Avatar } from '../common/Avatar/Avatar';
 import { Modal } from '../common/modal/Modal';
@@ -17,7 +17,12 @@ export const EditProfile = () => {
 
     const userInfo = useRef({} as UserInfo);
     const [userStoryLength, setUserStoryLength] = useState<number>(currentUser?.story?.length);
+    useEffect(() => {
+        if (currentUser) {
+            userInfo.current = currentUser
+        }
 
+    }, [currentUser])
     if (loading) {
         return <p>Loading...</p>;
     }
@@ -29,7 +34,6 @@ export const EditProfile = () => {
         <div className=" space-y-1 my-10 px-4 w-full">
             <Avatar name={currentUser?.name!} img={currentUser?.photoURL!} />
             <div className="flex justify-between items-center w-full ">
-                {' '}
                 <h2 className="text-md font-medium">{currentUser?.name}</h2>
                 <p
                     className="cursor-pointer text-md font-semibold text-sky-500"
@@ -53,9 +57,8 @@ export const EditProfile = () => {
                 yesText={userLoading ? 'Saving...' : 'Save Changes'}
                 onConfirm={() => {
                     setUserLoading(true);
-                    updateUser(userInfo.current)
+                    updateUser(userInfo.current!)
                         .then(() => {
-                            console.log('user updated successfully');
                             if (currentUser?.photoURLPath && selectedFile) {
                                 discardUpload(currentUser?.photoURLPath);
                             }
@@ -121,7 +124,7 @@ export const EditProfile = () => {
                                         placeholder="Full Name"
                                         className="input input-sm w-full max-w-full border border-blue-300 focus:outline-none"
                                         onChange={(r) => {
-                                            userInfo.current.name = r.target.value;
+                                            userInfo.current!.name = r.target.value;
                                         }}
                                     />
                                 </div>
@@ -143,9 +146,9 @@ export const EditProfile = () => {
                                         maxLength={maxBioLength}
                                         onChange={(r) => {
                                             if (r.target.value.length <= maxBioLength) {
-                                                userInfo.current.story = r.target.value;
+                                                userInfo.current!.story = r.target.value;
                                                 setUserStoryLength(
-                                                    maxBioLength - userInfo.current.story.length
+                                                    maxBioLength - userInfo.current!.story.length
                                                 );
                                             }
                                         }}
@@ -173,7 +176,7 @@ export const EditProfile = () => {
                                         placeholder="Phone Number"
                                         className="input input-sm w-full max-w-full border border-blue-300 focus:outline-none"
                                         onChange={(r) => {
-                                            userInfo.current.phone = r.target.value;
+                                            userInfo.current!.phone = r.target.value;
                                         }}
                                     />
                                 </div>
@@ -189,7 +192,11 @@ export const EditProfile = () => {
                                         placeholder="Facebook Profile"
                                         className="input input-sm w-full max-w-full border border-blue-300 focus:outline-none"
                                         onChange={(r) => {
-                                            userInfo.current['socialLinks']!.fb = r.target.value;
+                                            console.log(r.target.value, userInfo.current);
+
+                                            userInfo.current!['socialLinks'].fb = r.target.value;
+
+
                                         }}
                                     />
                                 </div>
@@ -205,7 +212,7 @@ export const EditProfile = () => {
                                         placeholder="LinkedIn Profile"
                                         className="input input-sm w-full max-w-full border border-blue-300 focus:outline-none"
                                         onChange={(r) => {
-                                            userInfo.current['socialLinks']!.linkedin =
+                                            userInfo.current!['socialLinks']!.linkedin =
                                                 r.target.value;
                                         }}
                                     />
@@ -222,7 +229,7 @@ export const EditProfile = () => {
                                         placeholder="Twitter profile"
                                         className="input input-sm w-full max-w-full border border-blue-300 focus:outline-none"
                                         onChange={(r) => {
-                                            userInfo.current.socialLinks!.twitter = r.target.value;
+                                            userInfo.current!.socialLinks.twitter = r.target.value;
                                         }}
                                     />
                                 </div>

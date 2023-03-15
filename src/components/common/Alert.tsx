@@ -8,7 +8,7 @@ interface AlertProps {
     description?: string;
 }
 
-export const Alert: React.FC<AlertProps> = ({ type = 'error', size = 40, title, description }) => {
+export const Alert: React.FC<AlertProps> = ({ type = 'error', size = 42, title, description }) => {
     const icons = {
         warning: <AlertTriangle size="20px" />,
         error: <XOctagon size="20px" />,

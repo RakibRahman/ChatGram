@@ -102,9 +102,9 @@ export const CreateChatRoom: React.FC<CreateChatRoomProps> = ({
                             placeholder="Profile Pic URL"
                             className="input hidden input-md w-full max-w-xs border border-blue-300 focus:outline-none"
                         />
-                        <div className="">
+                        <div className="mt-4">
                             {' '}
-                            {!uploading ? <ProgressBar value={progress} /> : null}
+                            {uploading ? <ProgressBar value={progress} /> : null}
                         </div>
                     </div>
                     <div className="mt-8 mb-4">

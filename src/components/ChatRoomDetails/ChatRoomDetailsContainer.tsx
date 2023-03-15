@@ -7,7 +7,7 @@ import { useChatRoomDetails } from './useChatRoomDetails';
 export const ChatRoomDetailsContainer = () => {
     const { loading } = useChatRoomDetails();
     return (
-        <div className="h-full  overflow-hidden flex flex-col ">
+        <div className="h-full  overflow-hidden flex flex-col justify-between">
             {loading ? (
                 <div className="mt-20">
                     {' '}
@@ -15,11 +15,11 @@ export const ChatRoomDetailsContainer = () => {
                 </div>
             ) : null}
             <DetailsTopCard />
-            <div className="h-[80vh]  p-1">
+            <div className="h-[80dvh]  p-1">
                 <Messages />
             </div>
 
-            <div className="pb-2 flex-1">
+            <div className="">
                 <SentMessage />
             </div>
         </div>

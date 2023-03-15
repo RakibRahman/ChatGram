@@ -18,7 +18,7 @@ export const NoMessage = () => {
         sendMessage('', 'image', '', greetingImages[getRandomIndex]);
     };
     return (
-        <div className="w-full  h-screen  grid place-items-center overflow-hidden font-semibold text-center">
+        <div className="w-full  grid place-items-center overflow-hidden font-semibold text-center">
             <div className="grid place-items-center gap-2  rounded-xl p-2 bg-white/30 bg-opacity-50 backdrop-blur-xl  drop-shadow-lg">
                 <p>No messages here yet...</p>
                 <p>Send a message or tap the greeting below.</p>

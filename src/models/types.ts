@@ -80,9 +80,9 @@ export interface UserInfo {
     story: string;
     phone?: string;
     socialLinks: {
-        fb?: string;
-        linkedin?: string;
-        twitter?: string;
+        fb: string;
+        linkedin: string;
+        twitter: string;
     };
 }
 

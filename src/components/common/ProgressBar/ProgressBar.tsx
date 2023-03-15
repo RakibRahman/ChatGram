@@ -14,7 +14,7 @@ export const ProgressBar = ({ value }: { value: number }) => {
                     style={{
                         width: `${value}%`,
                     }}
-                    className={`bg-blue-300 rounded-sm text-white text-center h-6 shadow-md shadow-blue-500/50`}
+                    className={`bg-sky-300 rounded-sm text-white text-center h-6 shadow-md shadow-blue-500/50`}
                 >
                     {value ?? 0}%
                 </div>

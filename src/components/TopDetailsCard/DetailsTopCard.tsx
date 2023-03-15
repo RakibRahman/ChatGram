@@ -29,8 +29,8 @@ export const DetailsTopCard = () => {
     if (chatRoomInfo?.type === 'single') {
         return (
             <>
-                <div className="navbar bg-base-100 border-b-2">
-                    <div className="flex-1">
+                <div className=" navbar pt-2 bg-base-100 border-b-2">
+                    <div className="">
                         <div className={` w-full ${isTab ? 'flex gap-2 items-center' : 'block'} `}>
                             {isTab ? (
                                 <button
@@ -43,17 +43,16 @@ export const DetailsTopCard = () => {
                                 </button>
                             ) : null}
                             <Link
-                                to={`${
-                                    menuListData.type === 'room'
-                                        ? `/chatRoom/${menuListData.chatRoomId}`
-                                        : `/profile/${menuListData.profileId}`
-                                }`}
+                                to={`${menuListData.type === 'room'
+                                    ? `/chatRoom/${menuListData.chatRoomId}`
+                                    : `/profile/${menuListData.profileId}`
+                                    }`}
                             >
                                 <ProfileCard
                                     name={getSingleUserInfo('name')!}
                                     pic={getSingleUserInfo('photoURL')!}
                                     isOnline={userInfo?.data()?.['status']}
-                                    // lastActive={getUserInfo('lastLogin')}
+                                // lastActive={getUserInfo('lastLogin')}
                                 />
                             </Link>
                         </div>
@@ -83,11 +82,10 @@ export const DetailsTopCard = () => {
                         ) : null}
 
                         <Link
-                            to={`${
-                                menuListData.type === 'room'
-                                    ? `/chatRoom/${menuListData.chatRoomId}`
-                                    : `/profile/${menuListData.profileId}`
-                            }`}
+                            to={`${menuListData.type === 'room'
+                                ? `/chatRoom/${menuListData.chatRoomId}`
+                                : `/profile/${menuListData.profileId}`
+                                }`}
                         >
                             <div className="flex flex-col gap-2">
                                 <p className="font-bold capitalize">{chatRoomInfo?.name}</p>
