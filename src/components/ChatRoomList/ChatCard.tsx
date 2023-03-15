@@ -13,6 +13,8 @@ export const ChatCard: React.FC<ChatCardProps> = ({
     isActive,
     currentUserId,
 }) => {
+    // const { logData } = useChatRoomDetails();
+
     const [newMessage, setNewMessage] = useState(recentMessage?.message);
     const isSelected = id === localStorage.getItem('activeChat');
 
@@ -20,10 +22,12 @@ export const ChatCard: React.FC<ChatCardProps> = ({
         <Link to={`/chat/${id} `}>
             <div
                 className={`indicator overflow-hidden w-full space-y-6 hover:opacity-60 ${
-                    isSelected ? 'text-white bg-blue-400' : ''
+                    isSelected ? 'text-white bg-sky-500' : ''
                 }  py-2 rounded - md`}
                 onClick={() => {
-                    setNewMessage(recentMessage.message);
+                    setNewMessage(recentMessage?.message);
+                    // updateChatRoomUsersInfo()
+                    // logData();
                 }}
             >
                 <div className=" gap-3  flex w-full px-2 ">
@@ -32,7 +36,7 @@ export const ChatCard: React.FC<ChatCardProps> = ({
                         <div className="flex justify-between   items-center ">
                             <p className="font-semibold text-sm capitalize">{name}</p>
                             {recentMessage ? (
-                                <p className=" text-xs ">
+                                <p className=" text-xs ml-1">
                                     {getTime(recentMessage?.timestamp?.seconds) ?? '...'}
                                 </p>
                             ) : null}

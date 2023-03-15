@@ -3,13 +3,13 @@ import { useChatRoomList } from '../ChatRoomList/useChatRoomList';
 
 export const useForwardMessage = (query: string) => {
     const { chatRoomId } = useParams();
-    const { currentUser, chatListData } = useChatRoomList();
+    const { currentUser, chatListData, userListHashMap } = useChatRoomList();
 
     const chatList = chatListData.list.filter((chatRoom) => {
         const userName =
-            chatRoom['members'][0] !== currentUser?.uid
-                ? chatRoom?.userOne?.name
-                : chatRoom?.userTwo?.name;
+            chatRoom?.['members'][0] === currentUser?.uid
+                ? userListHashMap?.[chatRoom['members'][1]]?.['name']
+                : userListHashMap?.[chatRoom['members'][0]]?.['name'];
         if (userName) {
             chatRoom.name = userName;
         }
@@ -17,5 +17,5 @@ export const useForwardMessage = (query: string) => {
         return chatRoom?.name?.includes(query ?? '');
     });
 
-    return { chatList: chatList.filter((c) => c.id !== chatRoomId), currentUser };
+    return { chatList: chatList.filter((c) => c.id !== chatRoomId), currentUser, userListHashMap };
 };

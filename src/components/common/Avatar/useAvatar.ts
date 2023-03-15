@@ -16,7 +16,7 @@ export const useAvatar = (name: string) => {
     const getRandomIndex = Math.floor(Math.random() * gradients.length);
 
     const getAvatarName = (): string => {
-        const nameArray = name.trim().split(' ');
+        const nameArray = name?.trim().split(' ') ?? '';
         let shortName = '';
 
         for (let i = 0; i < 3; i++) {

@@ -1,22 +1,32 @@
 import { doc } from 'firebase/firestore';
 import { useDocument } from 'react-firebase-hooks/firestore';
 import { db } from '../../firebase';
+import { UserInfo } from '../../models/types';
 import { useChatRoomDetails } from '../ChatRoomDetails/useChatRoomDetails';
 
 export const useTopCardDetails = () => {
-    const { currentUser, chatRoomInfo } = useChatRoomDetails();
+    const { chatRoomInfo, userListHashMap } = useChatRoomDetails();
+    const loggedUser: UserInfo = JSON.parse(localStorage.getItem('currentUser')!);
 
-    const getUserInfo = (info: string) => {
+    const getSingleUserInfo = (key: 'name' | 'email' | 'photoURL' | 'uid') => {
         if (!chatRoomInfo) return;
-
-        return chatRoomInfo['members'][0] !== currentUser?.uid
-            ? chatRoomInfo?.userOne?.[info]
-            : chatRoomInfo?.userTwo?.[info];
+        return chatRoomInfo?.['members'][0] === loggedUser?.uid
+            ? userListHashMap?.[chatRoomInfo['members'][1]]?.[key]
+            : userListHashMap?.[chatRoomInfo['members'][0]]?.[key];
     };
-    const usersRef = doc(db, 'users', getUserInfo('id') ?? 'aa');
+
+    const usersRef = doc(db, 'users', getSingleUserInfo('uid') ?? 'aa');
 
     const [userInfo, userInfoLoading, userInfoError] = useDocument(usersRef, {
         snapshotListenOptions: { includeMetadataChanges: true },
     });
-    return { userInfo, chatRoomInfo, getUserInfo, currentUser, userInfoLoading };
+    return {
+        userInfo,
+        chatRoomInfo,
+        getSingleUserInfo,
+        currentUser: loggedUser,
+        userInfoLoading,
+        userListHashMap,
+        userInfoError,
+    };
 };

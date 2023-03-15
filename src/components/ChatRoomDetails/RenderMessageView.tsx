@@ -20,12 +20,12 @@ export const RenderMessageView: React.FC<RenderMessageViewProps> = ({
     setPoints,
     setSelectedMessage,
 }) => {
-    const { currentUser } = useChatRoomDetails();
+    const { currentUser, userListHashMap } = useChatRoomDetails();
 
     return (
         <div
             className={`chat ${
-                message.chatRoomId.length > 20 && message.sentBy.id === currentUser?.uid
+                message.chatRoomId.length > 20 && message.sentBy === currentUser?.uid
                     ? 'chat-end'
                     : 'chat-start'
             } `}
@@ -34,12 +34,15 @@ export const RenderMessageView: React.FC<RenderMessageViewProps> = ({
                 <div className="w-10 rounded-full">
                     <img
                         referrerPolicy="no-referrer"
-                        src={message.sentBy.pic ?? 'https://placeimg.com/192/192/people'}
+                        src={
+                            userListHashMap?.[message?.sentBy]?.photoURL ??
+                            'https://placeimg.com/192/192/people'
+                        }
                     />
                 </div>
             </div>
             <div className="chat-header">
-                {message?.sentBy?.name}
+                {userListHashMap?.[message?.sentBy]?.name ?? 'Anonymous'}
                 <time className="text-xs opacity-50"> {getTime(message?.sentTime?.seconds)}</time>
             </div>
             <div

@@ -3,15 +3,17 @@ import { nanoid } from 'nanoid';
 import { useParams } from 'react-router-dom';
 import { useChatRoomContext } from '../../context/context';
 import { db, timeStamp } from '../../firebase';
+import { UserInfo } from '../../models/types';
 import { validURL } from '../../utilities/validURL';
+import { useEditProfile } from '../EditProfile/useEditProfile';
 export const useSentMessage = () => {
     const { chatRoomId } = useParams()!;
-    const { currentUser } = useChatRoomContext();
+    const loggedUser: UserInfo = JSON.parse(localStorage.getItem('currentUser')!);
 
     const lastMessage = async (message: string = '', type = 'text', forwardChatRoomId?: string) => {
         const chatId = forwardChatRoomId ? forwardChatRoomId : chatRoomId;
         const linkWithText = message.match(/\bhttps?:\/\/\S+/gi)?.length;
-        if (validURL(message)) {
+        if (validURL(message) && linkWithText) {
             type = 'link';
         }
 
@@ -26,8 +28,8 @@ export const useSentMessage = () => {
                 lastActivity: timeStamp,
                 recentMessage: {
                     message,
-                    sentBy: currentUser?.displayName,
-                    sentId: currentUser?.uid,
+                    name: loggedUser?.name,
+                    uid: loggedUser?.uid,
                     timestamp: timeStamp,
                     type,
                 },
@@ -57,11 +59,7 @@ export const useSentMessage = () => {
         }
 
         await setDoc(doc(db, 'chatRooms', chatId, 'messages', messageId), {
-            sentBy: {
-                name: currentUser?.displayName,
-                id: currentUser?.uid,
-                pic: currentUser?.photoURL,
-            },
+            sentBy: loggedUser?.uid,
             chatRoomId,
             message,
             sentTime: timeStamp,
@@ -72,5 +70,5 @@ export const useSentMessage = () => {
         });
     };
 
-    return { lastMessage, sendMessage, currentUser };
+    return { lastMessage, sendMessage, currentUser: loggedUser };
 };

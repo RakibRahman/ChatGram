@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { XSquare } from 'react-feather';
 
 interface ImagePreview {
     src: string;
@@ -43,20 +44,7 @@ export const ImagePreview: React.FC<ImagePreview> = ({ src, width, height }) => 
                         }}
                         className="btn btn-sm absolute right-0 top-0"
                     >
-                        <svg
-                            xmlns="http://www.w3.org/2000/svg"
-                            fill="none"
-                            viewBox="0 0 24 24"
-                            strokeWidth={1.5}
-                            stroke="currentColor"
-                            className="w-6 h-6"
-                        >
-                            <path
-                                strokeLinecap="round"
-                                strokeLinejoin="round"
-                                d="M6 18L18 6M6 6l12 12"
-                            />
-                        </svg>
+                        <XSquare />
                     </button>
 
                     <div className="grid place-items-center mt-10">

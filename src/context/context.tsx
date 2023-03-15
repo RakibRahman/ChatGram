@@ -20,6 +20,8 @@ export const ChatRoomData: FC<ChatRoomDataProp> = ({ children }) => {
     const [signOut] = useSignOut(auth);
     const [user, loading, error] = useAuthState(auth);
     const [themeName, setThemeName] = useState(localStorage.getItem('theme') ?? 'dark');
+    // const [refetch,set]
+
     // const values = useMemo(()=>())
     return (
         <context.Provider

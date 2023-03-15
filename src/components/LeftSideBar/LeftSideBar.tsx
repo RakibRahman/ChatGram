@@ -7,7 +7,7 @@ export const LeftSideBar = () => {
     const [isSearchActive, setSearchActive] = useState(false);
 
     return (
-        <div className=" h-full flex-shrink-0">
+        <div className=" h-full flex-shrink-0 pt-2">
             <div className="flex gap-4  mb-4">
                 <LeftMainMenu />
                 <TopMenuBar isSearchActive={isSearchActive} setSearchActive={setSearchActive} />

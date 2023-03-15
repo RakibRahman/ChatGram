@@ -9,7 +9,7 @@ import { SelectChatRoom } from './components/common/SelectChatRoom';
 import { LeftSideBar } from './components/LeftSideBar/LeftSideBar';
 import { Login } from './components/Login/Login';
 import { ChatRoomDetails } from './components/TopDetailsCard/ChatRoomDetails';
-import { UserProfile } from './components/UserProfile/UserProfile';
+import { ChatUserProfile } from './components/UserProfile/ChatUserProfile';
 import { useChatRoomContext } from './context/context';
 import { useMediaQuery } from './hooks/useMediaQuery';
 
@@ -22,6 +22,13 @@ function App() {
     useEffect(() => {
         if (!!isAnyChatActive && currentUser) {
             navigate(`/chat/${isAnyChatActive}`);
+        }
+    }, []);
+
+    useEffect(() => {
+        if (!currentUser) {
+            navigate('/');
+            localStorage.removeItem('activeChat');
         }
     }, []);
 
@@ -47,7 +54,7 @@ function App() {
                     )}
                     <Route path="/chat/:chatRoomId" element={<ChatRoomDetailsContainer />} />
                     <Route path="/chatRoom/:chatRoomId" element={<ChatRoomDetails />} />
-                    <Route path="/profile/:chatRoomId" element={<UserProfile />} />
+                    <Route path="/profile/:chatRoomId" element={<ChatUserProfile />} />
 
                     <Route path="*" element={<Error404 />} />
                 </Routes>
@@ -59,12 +66,12 @@ function App() {
         <div className="App">
             {currentUser ? (
                 <>
-                    <div className="flex w-screen overflow-hidden  mx-auto px-10 pt-4  h-screen items-start">
-                        <div className="w-1/4 h-full border-r-2 pr-1">
+                    <div className="flex w-full overflow-hidden  mx-auto   h-full items-start">
+                        <div className="w-auto h-full  p-1">
                             {currentUser ? <LeftSideBar /> : null}
                         </div>
 
-                        <div className="flex-1  h-full">
+                        <div className="flex-1  h-full border-l-2 px-1">
                             <Routes>
                                 {!!isAnyChatActive ? null : (
                                     <Route path="/" element={<SelectChatRoom />} />
@@ -74,7 +81,7 @@ function App() {
                                     element={<ChatRoomDetailsContainer />}
                                 />
                                 <Route path="/chatRoom/:chatRoomId" element={<ChatRoomDetails />} />
-                                <Route path="/profile/:chatRoomId" element={<UserProfile />} />
+                                <Route path="/profile/:chatRoomId" element={<ChatUserProfile />} />
                             </Routes>
                         </div>
                     </div>

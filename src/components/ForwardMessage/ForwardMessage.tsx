@@ -15,7 +15,7 @@ interface FMessageProps {
 export const ForwardMessage: React.FC<FMessageProps> = ({ isOpen, onClose, selectedMessage }) => {
     const [searchKey, setSearchKey] = useState('');
     const query = useDeferredValue(searchKey);
-    const { chatList, currentUser } = useForwardMessage(query);
+    const { chatList, currentUser, userListHashMap } = useForwardMessage(query);
     const { lastMessage, sendMessage } = useSentMessage();
     const navigate = useNavigate();
 
@@ -82,14 +82,22 @@ export const ForwardMessage: React.FC<FMessageProps> = ({ isOpen, onClose, selec
                                 ) : (
                                     <ForwardChatCard
                                         name={
-                                            chatRoom['members'][0] !== currentUser?.uid
-                                                ? chatRoom?.userOne?.name
-                                                : chatRoom?.userTwo?.name
+                                            chatRoom?.['members'][0] === currentUser?.uid
+                                                ? userListHashMap?.[chatRoom['members'][1]]?.[
+                                                      'name'
+                                                  ]
+                                                : userListHashMap?.[chatRoom['members'][0]]?.[
+                                                      'name'
+                                                  ]
                                         }
                                         logo={
-                                            chatRoom?.userOne.id !== currentUser?.uid
-                                                ? chatRoom?.userOne?.photoURL
-                                                : chatRoom?.userTwo?.photoURL
+                                            chatRoom?.['members'][0] === currentUser?.uid
+                                                ? userListHashMap?.[chatRoom['members'][1]]?.[
+                                                      'photoURL'
+                                                  ]
+                                                : userListHashMap?.[chatRoom['members'][0]]?.[
+                                                      'photoURL'
+                                                  ]
                                         }
                                         type={chatRoom?.type}
                                     />

@@ -21,30 +21,33 @@ type ChatRoomType = 'single' | 'room';
 interface ChatRoomSingleUserInfo {
     email: string;
     name: string;
-    id: string;
+    uid: string;
     photoURL: string;
 }
 export interface ChatRoom {
     name: string;
-    createdBy: Partial<UserCredential['user']>;
+    createdBy: string;
     createdAt: Timestamp;
     id: string;
     logo: string;
+    logoURLPath?: string;
     members: string[];
     recentMessage: {
         message: string;
-        sentBy: string;
         timestamp: Timestamp;
         type: string;
-        sentId: string;
+        uid: string;
     };
     type: ChatRoomType;
     story: string;
+    admins: string[];
 }
 
 export interface SingleChatRoom extends ChatRoom {
     userOne: ChatRoomSingleUserInfo;
     userTwo: ChatRoomSingleUserInfo;
+    userOneId: string;
+    userTwoId: string;
 }
 export interface CreateChatRoom {
     createNewChatRoom: () => Promise<void>;
@@ -52,11 +55,7 @@ export interface CreateChatRoom {
 }
 export interface GroupMessage {
     message: string;
-    sentBy: {
-        name: string;
-        id: string;
-        pic: string;
-    };
+    sentBy: string;
     sentTime: {
         seconds: number;
         nanoseconds: number;
@@ -73,11 +72,18 @@ export interface UserInfo {
     name: string;
     email: string;
     photoURL: string;
+    photoURLPath?: string;
     chatRooms: string[];
     lastLogin: string;
     status: string;
     createdAt: Timestamp;
     story: string;
+    phone?: string;
+    socialLinks: {
+        fb: string;
+        linkedin: string;
+        twitter: string;
+    };
 }
 
 export type RecentMessage = ChatRoom['recentMessage'];
@@ -89,3 +95,5 @@ export interface ChatCardProps {
     isActive: string;
     currentUserId: string;
 }
+
+export type UserListHashMap = Record<string, ChatRoomSingleUserInfo>;
