@@ -38,8 +38,8 @@ export const Modal: FC<ModalProps> = ({
                 backgroundColor: 'rgba(0,0,0,0.8)',
             }}
         >
-            <div className="fixed bg-base-200 rounded-lg flex flex-col   -translate-y-2/4 -translate-x-2/4 left-2/4 top-2/4 z-50 py-2 px-4">
-                <div className={`flex justify-between items-center min-w-96 ${size}`}>
+            <div className="fixed bg-base-200 rounded-lg flex flex-col   -translate-y-2/4 -translate-x-2/4 left-2/4 top-2/4 z-50 py-1 sm:py-2 sm:px-4 px-1">
+                <div className={`flex justify-between items-center w-auto  min-w-72 sm:${size}`}>
                     <h3 className="text-xl font-bold tracking-widest mb-2">
                         {title ?? 'Are You Sure You Want to Continue?'}
                     </h3>

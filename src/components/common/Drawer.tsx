@@ -28,7 +28,7 @@ export const Drawer: React.FC<DrawerProps> = ({ children, isOpen, setIsOpen, sid
                 </div>
             </section>
             <section
-                className=" w-screen h-screen cursor-pointer overflow-hidden"
+                className=" w-screen h-screen cursor-pointer overflow-y-scroll"
                 onClick={() => {
                     setIsOpen(false);
                 }}

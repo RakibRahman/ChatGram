@@ -20,8 +20,12 @@ function App() {
     const navigate = useNavigate();
 
     useEffect(() => {
-        if (!!isAnyChatActive && currentUser) {
+        if (!!isAnyChatActive && currentUser && !isTab) {
             navigate(`/chat/${isAnyChatActive}`);
+        }
+        if (currentUser) {
+            navigate('/');
+
         }
     }, []);
 
