@@ -1,24 +1,23 @@
-import { useRef, useState } from 'react';
-import { useNavigate } from 'react-router-dom';
+import { useState } from 'react';
+import { Menu } from 'react-feather';
+import GroupIcon from '../../assets/group.png';
+import ThemeIcon from '../../assets/theme.png';
 import { useChatRoomContext } from '../../context/context';
-import { updateUserOnlineStatus } from '../apiOperations';
-import { Avatar } from '../common/Avatar/Avatar';
 import { Drawer } from '../common/Drawer';
 import { ThemeSelector } from '../common/ThemeSelector';
 import { CreateChatRoom } from '../CreateChatRoom/CreateChatRoom';
-import GroupIcon from '../../assets/group.png';
-import ThemeIcon from '../../assets/theme.png';
-import { useMediaQuery } from '../../hooks/useMediaQuery';
 import { EditProfile } from '../EditProfile/EditProfile';
-import { Menu } from 'react-feather';
+import { UserSignOut } from './UserSignOut';
 
 export const LeftMainMenu = () => {
-    const { currentUser, signOut } = useChatRoomContext();
-    const userId = useRef(currentUser?.uid);
-    const navigate = useNavigate();
+    const { currentUser } = useChatRoomContext();
+
     const [isOpen, setIsOpen] = useState(false);
     const [isOpenModal, setIsOpenModal] = useState(false);
-    const isTab = useMediaQuery('(max-width: 768px)');
+
+
+
+
 
     return (
         <div>
@@ -26,7 +25,7 @@ export const LeftMainMenu = () => {
                 <Menu />
             </button>
             <Drawer isOpen={isOpen} setIsOpen={setIsOpen}>
-                <div className="flex flex-col items-start gap-2  h-screen">
+                <div className="flex flex-col gap-2  justify-between min-h-screen overflow-y-visible">
                     <EditProfile />
                     <div className=" w-full p-4 hover:opacity-80">
                         {currentUser ? (
@@ -48,31 +47,9 @@ export const LeftMainMenu = () => {
                         </div>
                     </div>
 
-                    <div className="mt-auto pl-4">
+                    <div className="mt-auto pl-4 ">
                         {currentUser ? (
-                            <button
-                                className="btn mb-2"
-                                onClick={async () => {
-                                    signOut()
-                                        .then(() => {
-                                            updateUserOnlineStatus(userId.current!, 'offline');
-                                            localStorage.removeItem('activeChat');
-                                            localStorage.removeItem('currentUser');
-                                        })
-                                        .catch((error) => {
-                                            console.log(error);
-                                        })
-                                        .finally(() => {
-                                            if (isTab) {
-                                                navigate('/login');
-                                            } else {
-                                                navigate('/');
-                                            }
-                                        });
-                                }}
-                            >
-                                Sign Out
-                            </button>
+                            <UserSignOut />
                         ) : null}
                     </div>
                 </div>

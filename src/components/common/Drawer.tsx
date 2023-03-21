@@ -9,6 +9,9 @@ interface DrawerProps {
 export const Drawer: React.FC<DrawerProps> = ({ children, isOpen, setIsOpen, side = 'left' }) => {
     return (
         <main
+            onClick={() => {
+                setIsOpen(false)
+            }}
             className={
                 ' fixed overflow-hidden z-10 bg-black  bg-opacity-70 inset-0 transform ease-in-out ' +
                 (isOpen
@@ -18,7 +21,7 @@ export const Drawer: React.FC<DrawerProps> = ({ children, isOpen, setIsOpen, sid
         >
             <section
                 className={
-                    ` w-screen max-w-xs ${side}-0 absolute overflow-hidden  h-screen shadow-xl delay-100 duration-200 ease-in-out transition-all transform ` +
+                    ` w-screen max-w-xs ${side}-0 absolute overflow-hidden  shadow-xl delay-100 duration-200 ease-in-out transition-all transform ` +
                     (isOpen ? ' translate-y-0 ' : ' translate-y-full ')
                 }
             >
@@ -28,7 +31,7 @@ export const Drawer: React.FC<DrawerProps> = ({ children, isOpen, setIsOpen, sid
                 </div>
             </section>
             <section
-                className=" w-screen h-screen cursor-pointer overflow-y-scroll"
+                className=" w-screen  cursor-pointer overflow-y-scroll"
                 onClick={() => {
                     setIsOpen(false);
                 }}
