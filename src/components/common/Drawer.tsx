@@ -13,7 +13,7 @@ export const Drawer: React.FC<DrawerProps> = ({ children, isOpen, setIsOpen, sid
                 setIsOpen(false)
             }}
             className={
-                ' fixed overflow-hidden z-10 bg-black  bg-opacity-70 inset-0 transform ease-in-out ' +
+                'cursor-pointer fixed  z-10 bg-black  bg-opacity-70 inset-0 transform ease-in-out  min-h-screen' +
                 (isOpen
                     ? ' transition-opacity opacity-100 duration-200 translate-y-0  '
                     : ' transition-all delay-100 opacity-0 translate-y-full  ')
@@ -21,7 +21,7 @@ export const Drawer: React.FC<DrawerProps> = ({ children, isOpen, setIsOpen, sid
         >
             <section
                 className={
-                    ` w-screen max-w-xs ${side}-0 absolute overflow-hidden  shadow-xl delay-100 duration-200 ease-in-out transition-all transform ` +
+                    ` w-screen max-w-xs ${side}-0 absolute   shadow-xl delay-100 duration-200 ease-in-out transition-all transform ` +
                     (isOpen ? ' translate-y-0 ' : ' translate-y-full ')
                 }
             >
@@ -31,7 +31,7 @@ export const Drawer: React.FC<DrawerProps> = ({ children, isOpen, setIsOpen, sid
                 </div>
             </section>
             <section
-                className=" w-screen  cursor-pointer overflow-y-scroll"
+                className="cursor-pointer"
                 onClick={() => {
                     setIsOpen(false);
                 }}

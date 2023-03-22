@@ -25,7 +25,7 @@ export const LeftMainMenu = () => {
                 <Menu />
             </button>
             <Drawer isOpen={isOpen} setIsOpen={setIsOpen}>
-                <div className="flex flex-col gap-2  justify-between min-h-screen overflow-y-visible">
+                <div className="flex flex-col gap-2  justify-between h-screen overflow-y-scroll">
                     <EditProfile />
                     <div className=" w-full p-4 hover:opacity-80">
                         {currentUser ? (
