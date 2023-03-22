@@ -47,7 +47,7 @@ export const LeftMainMenu = () => {
                         </div>
                     </div>
 
-                    <div className="mt-auto pl-4 ">
+                    <div className="pl-4 ">
                         {currentUser ? (
                             <UserSignOut />
                         ) : null}
