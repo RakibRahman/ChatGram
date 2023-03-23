@@ -19,10 +19,9 @@ export const EditProfile = () => {
     const [userStoryLength, setUserStoryLength] = useState<number>(currentUser?.story?.length);
     useEffect(() => {
         if (currentUser) {
-            userInfo.current = currentUser
+            userInfo.current = currentUser;
         }
-
-    }, [currentUser])
+    }, [currentUser]);
     if (loading) {
         return <p>Loading...</p>;
     }
@@ -114,7 +113,7 @@ export const EditProfile = () => {
                             <div className="space-y-4">
                                 <div className="">
                                     <label htmlFor="name" className="font-medium tracking-wide">
-                                        Name
+                                        Name<sup>*</sup>
                                     </label>
                                     <input
                                         defaultValue={currentUser?.name}
@@ -195,8 +194,6 @@ export const EditProfile = () => {
                                             console.log(r.target.value, userInfo.current);
 
                                             userInfo.current!['socialLinks'].fb = r.target.value;
-
-
                                         }}
                                     />
                                 </div>

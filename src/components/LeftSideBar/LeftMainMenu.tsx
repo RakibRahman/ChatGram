@@ -15,43 +15,41 @@ export const LeftMainMenu = () => {
     const [isOpen, setIsOpen] = useState(false);
     const [isOpenModal, setIsOpenModal] = useState(false);
 
-
-
-
-
     return (
         <div>
             <button className="btn btn-sm rounded-md " onClick={() => setIsOpen(true)}>
                 <Menu />
             </button>
             <Drawer isOpen={isOpen} setIsOpen={setIsOpen}>
-                <div className="flex flex-col gap-2  justify-between h-screen overflow-y-scroll">
-                    <EditProfile />
-                    <div className=" w-full p-4 hover:opacity-80">
-                        {currentUser ? (
-                            <button
-                                onClick={() => setIsOpenModal(true)}
-                                className=" bg-transparent border-0 flex  items-center gap-3 hover:bg-transparent"
-                            >
-                                <img src={GroupIcon} alt="group" className="w-8 h-8 object-cover" />{' '}
-                                <p className="text-sm font-medium"> New chat room</p>
-                            </button>
-                        ) : null}
-                    </div>
-                    <div className="flex gap-3 items-center p-4  w-full hover:opacity-80 cursor-pointer">
-                        <img src={ThemeIcon} alt="group" className="w-8 h-8 object-cover" />
-                        <div className="flex items-center gap-2">
-                            <p className="text-sm font-medium">Theme</p>
+                <div className="flex flex-col gap-2 min-h-[100dvh] justify-between">
+                    <div>
+                        <EditProfile />
+                        <div className=" w-full p-4 hover:opacity-80">
+                            {currentUser ? (
+                                <button
+                                    onClick={() => setIsOpenModal(true)}
+                                    className=" bg-transparent border-0 flex  items-center gap-3 hover:bg-transparent"
+                                >
+                                    <img
+                                        src={GroupIcon}
+                                        alt="group"
+                                        className="w-8 h-8 object-cover"
+                                    />{' '}
+                                    <p className="text-sm font-medium"> New chat room</p>
+                                </button>
+                            ) : null}
+                        </div>
+                        <div className="flex gap-3 items-center p-4  w-full hover:opacity-80 cursor-pointer">
+                            <img src={ThemeIcon} alt="group" className="w-8 h-8 object-cover" />
+                            <div className="flex items-center gap-2">
+                                <p className="text-sm font-medium">Theme</p>
 
-                            <ThemeSelector />
+                                <ThemeSelector />
+                            </div>
                         </div>
                     </div>
 
-                    <div className="pl-4 ">
-                        {currentUser ? (
-                            <UserSignOut />
-                        ) : null}
-                    </div>
+                    <div className="px-4 ml-auto">{currentUser ? <UserSignOut /> : null}</div>
                 </div>
                 <CreateChatRoom
                     isOpen={isOpenModal}

@@ -12,7 +12,6 @@ export const useLeftSideBar = () => {
     const navigate = useNavigate();
     const isTab = useMediaQuery('(max-width: 768px)');
 
-
     const handleSearch = async (userName: string) => {
         const usersSearchRef = collection(db, 'users');
         const roomsSearchRef = collection(db, 'chatRooms');
@@ -40,7 +39,6 @@ export const useLeftSideBar = () => {
         return [...users, ...rooms];
     };
 
-
     const handleSignOut = async () => {
         signOut()
             .then(() => {
@@ -58,7 +56,7 @@ export const useLeftSideBar = () => {
                     navigate('/');
                 }
             });
-    }
+    };
 
     return { handleSearch, currentUser, handleSignOut };
 };

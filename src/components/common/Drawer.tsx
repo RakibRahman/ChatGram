@@ -10,7 +10,7 @@ export const Drawer: React.FC<DrawerProps> = ({ children, isOpen, setIsOpen, sid
     return (
         <main
             onClick={() => {
-                setIsOpen(false)
+                setIsOpen(false);
             }}
             className={
                 'cursor-pointer fixed  z-10 bg-black  bg-opacity-70 inset-0 transform ease-in-out  min-h-screen' +

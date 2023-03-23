@@ -4,11 +4,11 @@ export const UserSignOut = () => {
     const { handleSignOut } = useLeftSideBar();
 
     return (
-        <>   <button
-            className="btn mb-2"
-            onClick={handleSignOut}
-        >
-            Sign Out
-        </button></>
-    )
-}
+        <>
+            {' '}
+            <button className="btn mb-2" onClick={handleSignOut}>
+                Sign Out
+            </button>
+        </>
+    );
+};

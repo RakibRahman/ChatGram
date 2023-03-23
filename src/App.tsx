@@ -25,13 +25,10 @@ function App() {
         }
         if (currentUser) {
             navigate('/');
-
         }
     }, []);
 
     useEffect(() => {
-
-
         if (!currentUser && isTab) {
             navigate('/login');
             localStorage.removeItem('activeChat');
@@ -81,7 +78,7 @@ function App() {
                             {currentUser ? <LeftSideBar /> : null}
                         </div>
 
-                        <div className="flex-1  h-full border-l-2 px-1">
+                        <div className="flex-1  h-full border-l-2">
                             <Routes>
                                 {!!isAnyChatActive ? null : (
                                     <Route path="/" element={<SelectChatRoom />} />
