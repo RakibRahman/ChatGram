@@ -23,41 +23,32 @@ function App() {
         if (!!isAnyChatActive && currentUser && !isTab) {
             navigate(`/chat/${isAnyChatActive}`);
         }
-        if (currentUser) {
+        if (currentUser && isTab) {
             navigate('/');
         }
     }, []);
 
-    useEffect(() => {
-        if (!currentUser && isTab) {
-            navigate('/login');
-            localStorage.removeItem('activeChat');
-        }
-        if (!currentUser) {
-            navigate('/');
-            localStorage.removeItem('activeChat');
-        }
-    }, []);
+
 
     if (loading) {
         return (
-            <div>
+            <>
                 <div className="hero" style={{ backgroundImage: `url(${BG})` }}>
                     <div className="grid place-items-center  py-10 h-screen">
                         <Loader />
                     </div>
                 </div>
-            </div>
+            </>
         );
     }
     if (isTab) {
         return (
-            <div className="grid place-items-stretch max-w-full mt-1 p-1">
+            <div className="grid place-items-stretch max-w-full">
                 <Routes>
                     {currentUser ? (
                         <Route path="/" element={<LeftSideBar />} />
                     ) : (
-                        <Route path="/login" element={<Login />}></Route>
+                        <Route path="/" element={<Login />}></Route>
                     )}
                     <Route path="/chat/:chatRoomId" element={<ChatRoomDetailsContainer />} />
                     <Route path="/chatRoom/:chatRoomId" element={<ChatRoomDetails />} />

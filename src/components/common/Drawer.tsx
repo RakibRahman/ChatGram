@@ -1,4 +1,5 @@
 import React from 'react';
+import { ChevronLeft, ChevronsLeft } from 'react-feather';
 
 interface DrawerProps {
     children: React.ReactNode;
@@ -9,9 +10,7 @@ interface DrawerProps {
 export const Drawer: React.FC<DrawerProps> = ({ children, isOpen, setIsOpen, side = 'left' }) => {
     return (
         <main
-            onClick={() => {
-                setIsOpen(false);
-            }}
+
             className={
                 'cursor-pointer fixed  z-10 bg-black  bg-opacity-70 inset-0 transform ease-in-out  min-h-screen' +
                 (isOpen
@@ -28,14 +27,19 @@ export const Drawer: React.FC<DrawerProps> = ({ children, isOpen, setIsOpen, sid
                 <div className="relative menu w-80 bg-base-100 text-base-content h-full">
                     {/* <header className="p-4 font-bold text-lg">Header</header> */}
                     {children}
+
+                    <section
+                        className="cursor-pointer absolute -right-2 z-20 top-1/2 text-base"
+                        onClick={() => {
+                            console.log('object');
+                            setIsOpen(false);
+                        }}
+                    >
+                        <ChevronsLeft />
+                    </section>
                 </div>
             </section>
-            <section
-                className="cursor-pointer"
-                onClick={() => {
-                    setIsOpen(false);
-                }}
-            ></section>
+
         </main>
     );
 };

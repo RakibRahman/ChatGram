@@ -2,7 +2,6 @@ import { collection, getDocs, query, where } from 'firebase/firestore';
 import { useNavigate } from 'react-router-dom';
 import { useChatRoomContext } from '../../context/context';
 import { db } from '../../firebase';
-import { useMediaQuery } from '../../hooks/useMediaQuery';
 import { UserInfo } from '../../models/types';
 import { updateUserOnlineStatus } from '../apiOperations';
 
@@ -10,7 +9,7 @@ export const useLeftSideBar = () => {
     const currentUser: UserInfo = JSON.parse(localStorage.getItem('currentUser')!);
     const { signOut } = useChatRoomContext();
     const navigate = useNavigate();
-    const isTab = useMediaQuery('(max-width: 768px)');
+
 
     const handleSearch = async (userName: string) => {
         const usersSearchRef = collection(db, 'users');
@@ -43,18 +42,13 @@ export const useLeftSideBar = () => {
         signOut()
             .then(() => {
                 updateUserOnlineStatus(currentUser.uid!, 'offline');
-                localStorage.removeItem('activeChat');
-                localStorage.removeItem('currentUser');
+                localStorage.clear();
             })
             .catch((error) => {
                 console.log(error);
             })
             .finally(() => {
-                if (isTab) {
-                    navigate('/login');
-                } else {
-                    navigate('/');
-                }
+                navigate('/');
             });
     };
 
