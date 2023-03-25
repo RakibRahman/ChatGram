@@ -16,7 +16,6 @@ export const Error404 = () => {
 
                     <span className="relative block px-8 py-3 bg-[#1A2238] border border-current">
                         {currentUser ? <Link to={'/'}>Go Home</Link> : null}
-
                     </span>
                 </a>
             </button>

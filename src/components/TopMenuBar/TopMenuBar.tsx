@@ -30,6 +30,7 @@ export const TopMenuBar: React.FC<TopMenuBarProps> = ({ isSearchActive, setSearc
         e.preventDefault();
 
         const q = searchQuery.current?.value;
+        console.log(q);
         if (!q) return;
         setSearchActive(true);
         setLoading(true);
@@ -37,8 +38,10 @@ export const TopMenuBar: React.FC<TopMenuBarProps> = ({ isSearchActive, setSearc
             await handleSearch(q)
                 .then((result) => {
                     if (result.length > 0) {
-                        const users = result.filter((user) => user.type === 'user') as UserInfo[];
+                        const users = result.filter((user) => user.type === 'single') as UserInfo[];
                         const rooms = result.filter((room) => room.type === 'room') as ChatRoom[];
+
+                        console.log(rooms);
                         setSearchResult({
                             users,
                             rooms,
@@ -64,7 +67,7 @@ export const TopMenuBar: React.FC<TopMenuBarProps> = ({ isSearchActive, setSearc
     const userSearchCondition = isSearchActive && searchResult?.users?.length !== 0 && !loading;
 
     return (
-        <div className="flex-grow">
+        <div className="flex-grow ">
             <form onSubmit={searchUsers}>
                 <div className="flex gap-1 relative">
                     <input
@@ -103,10 +106,10 @@ export const TopMenuBar: React.FC<TopMenuBarProps> = ({ isSearchActive, setSearc
             {isSearchActive ? (
                 <div>
                     {noResultFound ? (
-                        <p className="text-sm mt-4">No results found, please be more specific</p>
+                        <p className="text-xs mt-4">No results found, please be more specific</p>
                     ) : null}
                     {loading ? (
-                        <div className="w-full h-10 mt-10 grid place-items-center mx-auto">
+                        <div className="w-full h-20 mt-12 grid place-items-center mr-10">
                             <Loader />
                         </div>
                     ) : null}

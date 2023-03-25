@@ -1,3 +1,4 @@
+import { LogOut } from 'react-feather';
 import { useLeftSideBar } from './useLeftSideBar';
 
 export const UserSignOut = () => {
@@ -5,9 +6,9 @@ export const UserSignOut = () => {
 
     return (
         <>
-            {' '}
-            <button className="btn mb-2" onClick={handleSignOut}>
+            <button className="btn gap-2 btn-sm mb-2" onClick={handleSignOut}>
                 Sign Out
+                <LogOut size={18} />
             </button>
         </>
     );

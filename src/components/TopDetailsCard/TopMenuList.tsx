@@ -32,9 +32,9 @@ export const TopMenuList: React.FC<TopMenuListProps> = ({ menuData }) => {
                         {menuData.type === 'room' ? 'View Room Info' : 'View Profile'}
                     </Link>
                 </li>
-                <li>
+                {/* <li>
                     <a>Item 2</a>
-                </li>
+                </li> */}
             </ul>
         </div>
     );

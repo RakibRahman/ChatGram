@@ -10,7 +10,6 @@ export const useLeftSideBar = () => {
     const { signOut } = useChatRoomContext();
     const navigate = useNavigate();
 
-
     const handleSearch = async (userName: string) => {
         const usersSearchRef = collection(db, 'users');
         const roomsSearchRef = collection(db, 'chatRooms');
@@ -24,7 +23,7 @@ export const useLeftSideBar = () => {
         const users = usersSnapShot.docs
             .map((doc) => {
                 const { chatRooms, ...rest } = doc.data();
-                rest.type = 'user';
+                rest.type = 'single';
                 return rest;
             })
             .filter((doc) => doc.uid !== currentUser?.uid);

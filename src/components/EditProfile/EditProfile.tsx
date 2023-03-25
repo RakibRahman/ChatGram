@@ -1,5 +1,5 @@
 import { UserInfo } from '../../models/types';
-import { Camera } from 'react-feather';
+import { Camera, Settings } from 'react-feather';
 import { useRef, useState, useEffect } from 'react';
 import { Alert } from '../common/Alert';
 import { Avatar } from '../common/Avatar/Avatar';
@@ -32,15 +32,15 @@ export const EditProfile = () => {
     return (
         <div className=" space-y-1 my-10 px-4 w-full">
             <Avatar name={currentUser?.name!} img={currentUser?.photoURL!} />
-            <div className="flex justify-between items-center w-full ">
-                <h2 className="text-md font-medium">{currentUser?.name}</h2>
+            <div className="flex justify-between items-center w-full  ">
+                <h2 className="mt-2 text-lg font-medium capitalize">{currentUser?.name}</h2>
                 <p
-                    className="cursor-pointer text-md font-semibold text-sky-500"
+                    className="mt-2 cursor-pointer text-md font-semibold text-sky-500"
                     onClick={() => {
                         setEditOpen(true);
                     }}
                 >
-                    Edit
+                    <Settings />
                 </p>
             </div>
 
@@ -123,7 +123,7 @@ export const EditProfile = () => {
                                         placeholder="Full Name"
                                         className="input input-sm w-full max-w-full border border-blue-300 focus:outline-none"
                                         onChange={(r) => {
-                                            userInfo.current!.name = r.target.value;
+                                            userInfo.current!.name = r.target.value.toLowerCase();
                                         }}
                                     />
                                 </div>

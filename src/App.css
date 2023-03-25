@@ -25,3 +25,21 @@
     grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
     grid-auto-rows: 40px;
 }
+
+#chatApplanding {
+    background-color: #000;
+    /* background: linear-gradient(-45deg, #bdc3c7, #2c3e50, #c33764, #1d2671, #141e30, #6dd5ed); */
+    /* background-size: 400% 400%; */
+    animation: backgroundChange 15s ease infinite;
+}
+@keyframes backgroundChange {
+    0% {
+        background-position: 0% 50%;
+    }
+    50% {
+        background-position: 100% 50%;
+    }
+    100% {
+        background-position: 0% 50%;
+    }
+}

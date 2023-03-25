@@ -7,10 +7,10 @@ interface DrawerProps {
     setIsOpen: React.Dispatch<React.SetStateAction<boolean>>;
     side?: 'left' | 'right';
 }
+
 export const Drawer: React.FC<DrawerProps> = ({ children, isOpen, setIsOpen, side = 'left' }) => {
     return (
         <main
-
             className={
                 'cursor-pointer fixed  z-10 bg-black  bg-opacity-70 inset-0 transform ease-in-out  min-h-screen' +
                 (isOpen
@@ -28,18 +28,16 @@ export const Drawer: React.FC<DrawerProps> = ({ children, isOpen, setIsOpen, sid
                     {/* <header className="p-4 font-bold text-lg">Header</header> */}
                     {children}
 
-                    <section
-                        className="cursor-pointer absolute -right-2 z-20 top-1/2 text-base"
+                    <div
+                        className="cursor-pointer absolute -right-3 z-20 top-1/2 text-base bg-base-300 rounded-full hover:scale-105 transition-transform"
                         onClick={() => {
-                            console.log('object');
                             setIsOpen(false);
                         }}
                     >
-                        <ChevronsLeft />
-                    </section>
+                        <ChevronsLeft size={30} />
+                    </div>
                 </div>
             </section>
-
         </main>
     );
 };

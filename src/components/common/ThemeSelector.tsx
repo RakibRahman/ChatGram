@@ -4,19 +4,18 @@ import { useChatRoomContext } from '../../context/context';
 import { themes } from '../../utilities/data';
 import { ChevronDown } from 'react-feather';
 export const ThemeSelector = () => {
-    // const themeName = useRef<HTMLSelectElement>(null)
-    //selected={themeName === localStorage.getItem('theme')}
     const { themeName, setThemeName } = useChatRoomContext();
     const [toggle, setToggle] = useState(false);
     const [isThemeChange, setThemeChange] = useState(false);
-    console.log(themes.length);
+
     useLayoutEffect(() => {
         themeChange(false);
     }, [isThemeChange]);
+
     return (
         <div>
             <button
-                className="flex justify-between w-full cursor-pointer rounded-md border py-2 px-2 items-center  text-left shadow-sm focus:border-indigo-500 focus:outline-none focus:ring-1 focus:ring-indigo-500 sm:text-sm "
+                className="flex justify-between w-full cursor-pointer rounded-md border p-2 items-center  text-left shadow-sm focus:border-indigo-500 focus:outline-none focus:ring-1 focus:ring-indigo-500 sm:text-sm btn-sm "
                 onClick={() => setToggle((t) => !t)}
             >
                 <span className="capitalize">{themeName}</span>
@@ -36,6 +35,7 @@ export const ThemeSelector = () => {
                     >
                         {themes.map((theme) => (
                             <li
+                                key={theme}
                                 className=" relative cursor-pointer select-none  "
                                 id="listbox-option-0"
                                 role="option"

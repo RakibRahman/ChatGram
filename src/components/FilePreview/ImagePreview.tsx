@@ -47,17 +47,17 @@ export const ImagePreview: React.FC<ImagePreview> = ({ src, width, height }) => 
                         <XSquare />
                     </button>
 
-                    <div className="grid place-items-center mt-10">
+                    <div className=" mt-10">
                         <img
                             onClick={() => {
                                 setOpen(true);
                             }}
-                            style={{
-                                maxHeight: '90vh',
-                                maxWidth: '100%',
-                                objectFit: 'cover',
-                            }}
-                            className={`w-${40} h-${40} object-cover`}
+                            // style={{
+                            //     maxHeight: '600px',
+                            //     width: '100%',
+                            //     objectFit: 'cover',
+                            // }}
+                            className={`w-${'full'} max-h-[90dvh] object-cover`}
                             src={
                                 src
                                     ? src

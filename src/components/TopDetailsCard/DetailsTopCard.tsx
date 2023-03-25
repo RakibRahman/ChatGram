@@ -30,7 +30,7 @@ export const DetailsTopCard = () => {
         return (
             <>
                 <div className=" navbar pt-2 bg-base-100 border-b-2">
-                    <div className="">
+                    <div className="flex-1">
                         <div className={` w-full ${isTab ? 'flex gap-2 items-center' : 'block'} `}>
                             {isTab ? (
                                 <button

@@ -18,7 +18,7 @@ const messageIcon = {
     link: <Link size="16px" />,
 };
 
-const Indicator = () => <div className="w-3 h-3 rounded-full bg-violet-600-600 animate-ping"></div>;
+const Indicator = () => <span className="w-3 h-3 rounded-full bg-violet-600 animate-ping"></span>;
 
 export const ChatCardMessage: React.FC<ChatCardMessageProps> = ({
     recentMessage,
@@ -29,6 +29,7 @@ export const ChatCardMessage: React.FC<ChatCardMessageProps> = ({
     const otherUser = userListHashMap?.[recentMessage?.uid]?.name?.split(' ')[0]
         ? userListHashMap?.[recentMessage.uid]?.name?.split(' ')[0] + ':'
         : '';
+
     return (
         <>
             {recentMessage ? (

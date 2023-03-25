@@ -1,7 +1,7 @@
 import { useEffect } from 'react';
 import { Route, Routes, useNavigate } from 'react-router-dom';
 import './App.css';
-import BG from './assets/login_bg.svg';
+import BG from './assets/wave.svg';
 import { ChatRoomDetailsContainer } from './components/ChatRoomDetails/ChatRoomDetailsContainer';
 import { Error404 } from './components/common/Error404';
 import { Loader } from './components/common/Loader/Loader';
@@ -27,8 +27,6 @@ function App() {
             navigate('/');
         }
     }, []);
-
-
 
     if (loading) {
         return (
