@@ -22,7 +22,7 @@ export const Alert: React.FC<AlertProps> = ({ type = 'error', size = 42, title, 
                 {icons[type]}
                 <div>
                     <h3 className="font-bold">{title}</h3>
-                    {description ? <div className="text-xs">{description}</div> : null}
+                    {description ? <div className="text-sm">{description}</div> : null}
                 </div>
             </div>
         </div>

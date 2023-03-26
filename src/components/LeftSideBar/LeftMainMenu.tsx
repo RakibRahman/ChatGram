@@ -27,13 +27,13 @@ export const LeftMainMenu = () => {
 
                         <button
                             onClick={() => setIsOpenModal(true)}
-                            className=" bg-transparent border-0 flex  items-center gap-3 hover:bg-base-300 w-full transition hover:opacity-80 mb-4 pl-4"
+                            className=" bg-transparent border-0 flex  items-center gap-3 hover:bg-base-300 w-full transition hover:opacity-80 mb-4 pl-4 py-1"
                         >
                             <img src={GroupIcon} alt="group" className="w-8 h-8 object-cover" />{' '}
                             <p className="text-sm font-medium"> New chat room</p>
                         </button>
 
-                        <div className="bg-transparent border-0 flex  items-center gap-3 hover:bg-base-300 w-full transition hover:opacity-80 pl-4">
+                        <div className="bg-transparent border-0 flex  items-center gap-3 hover:bg-base-300 w-full transition hover:opacity-80 pl-4 py-1">
                             <img src={ThemeIcon} alt="group" className="w-8 h-8 object-cover" />
                             <div className="flex items-center gap-2">
                                 <p className="text-sm font-medium">Theme</p>

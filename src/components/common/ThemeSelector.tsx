@@ -15,7 +15,7 @@ export const ThemeSelector = () => {
     return (
         <div>
             <button
-                className="flex justify-between w-full cursor-pointer rounded-md border p-2 items-center  text-left shadow-sm focus:border-indigo-500 focus:outline-none focus:ring-1 focus:ring-indigo-500 sm:text-sm btn-sm "
+                className="flex justify-between w-full cursor-pointer rounded-md border p-2 items-center  text-left shadow-sm focus:border-indigo-500 focus:outline-none focus:ring-1 focus:ring-indigo-500 sm:text-sm btn-xs"
                 onClick={() => setToggle((t) => !t)}
             >
                 <span className="capitalize">{themeName}</span>
@@ -48,11 +48,10 @@ export const ThemeSelector = () => {
                                 }}
                             >
                                 <span
-                                    className={`${
-                                        themeName === theme
-                                            ? 'bg-red-100 text-black w-full px-2 py-2 capitalize'
-                                            : 'px-2 py-2 capitalize'
-                                    }`}
+                                    className={`${themeName === theme
+                                        ? 'bg-red-100 text-black w-full px-2 py-2 capitalize'
+                                        : 'px-2 py-2 capitalize'
+                                        }`}
                                 >
                                     {theme}
                                 </span>

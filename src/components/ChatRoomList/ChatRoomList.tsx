@@ -36,6 +36,7 @@ export const ChatRoomList = () => {
                     title="No chat yet"
                     type="info"
                     description=" Search for users  or chat rooms. i.e: 'rakib talukder' , 'random group'"
+                    size={46}
                 />
             ) : null}
 

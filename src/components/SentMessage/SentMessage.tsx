@@ -13,7 +13,7 @@ export const SentMessage = () => {
     }, []);
 
     return (
-        <div className="pb-1">
+        <div className="pb-2">
             <form
                 onSubmit={(e) => {
                     e.preventDefault();

@@ -45,7 +45,7 @@ export const EditProfile = () => {
             </div>
 
             <Modal
-                size="w-[380px]"
+                // size="w-[380px]"
                 disableYesBtn={userLoading}
                 isOpen={isEditOpen}
                 onClose={() => {

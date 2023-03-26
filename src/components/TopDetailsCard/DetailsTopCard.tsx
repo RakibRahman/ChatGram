@@ -29,7 +29,7 @@ export const DetailsTopCard = () => {
     if (chatRoomInfo?.type === 'single') {
         return (
             <>
-                <div className=" navbar pt-2 bg-base-100 border-b-2">
+                <div className=" navbar pt-2 bg-base-100 border-b-2 pl-4">
                     <div className="flex-1">
                         <div className={` w-full ${isTab ? 'flex gap-2 items-center' : 'block'} `}>
                             {isTab ? (
@@ -43,17 +43,16 @@ export const DetailsTopCard = () => {
                                 </button>
                             ) : null}
                             <Link
-                                to={`${
-                                    menuListData.type === 'room'
-                                        ? `/chatRoom/${menuListData.chatRoomId}`
-                                        : `/profile/${menuListData.profileId}`
-                                }`}
+                                to={`${menuListData.type === 'room'
+                                    ? `/chatRoom/${menuListData.chatRoomId}`
+                                    : `/profile/${menuListData.profileId}`
+                                    }`}
                             >
                                 <ProfileCard
                                     name={getSingleUserInfo('name')!}
                                     pic={getSingleUserInfo('photoURL')!}
                                     isOnline={userInfo?.data()?.['status']}
-                                    // lastActive={getUserInfo('lastLogin')}
+                                // lastActive={getUserInfo('lastLogin')}
                                 />
                             </Link>
                         </div>
@@ -68,7 +67,7 @@ export const DetailsTopCard = () => {
 
     return (
         <>
-            <div className="navbar bg-base-100 border-b-2">
+            <div className="navbar bg-base-100 border-b-2 pl-4">
                 <div className="flex-1">
                     <div className={`w-full ${isTab ? 'flex gap-2 items-center' : 'block'}`}>
                         {isTab ? (
@@ -83,13 +82,12 @@ export const DetailsTopCard = () => {
                         ) : null}
 
                         <Link
-                            to={`${
-                                menuListData.type === 'room'
-                                    ? `/chatRoom/${menuListData.chatRoomId}`
-                                    : `/profile/${menuListData.profileId}`
-                            }`}
+                            to={`${menuListData.type === 'room'
+                                ? `/chatRoom/${menuListData.chatRoomId}`
+                                : `/profile/${menuListData.profileId}`
+                                }`}
                         >
-                            <div className="flex flex-col gap-2">
+                            <div className="flex flex-col gap-0">
                                 <p className="font-bold capitalize">{chatRoomInfo?.name}</p>
                                 <p>{chatRoomInfo?.members?.length} members</p>
                             </div>

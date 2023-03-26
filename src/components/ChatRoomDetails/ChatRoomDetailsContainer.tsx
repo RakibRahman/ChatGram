@@ -14,7 +14,7 @@ export const ChatRoomDetailsContainer = () => {
                 </div>
             ) : null}
             <DetailsTopCard />
-            <div className="h-[80dvh]  p-1">
+            <div className="h-[85dvh]  p-1">
                 <Messages />
             </div>
 

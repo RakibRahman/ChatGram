@@ -24,11 +24,10 @@ export const RenderMessageView: React.FC<RenderMessageViewProps> = ({
 
     return (
         <div
-            className={`chat ${
-                message.chatRoomId.length > 20 && message.sentBy === currentUser?.uid
-                    ? 'chat-end'
-                    : 'chat-start'
-            } `}
+            className={`chat ${message.chatRoomId.length > 20 && message.sentBy === currentUser?.uid
+                ? 'chat-end'
+                : 'chat-start'
+                } `}
         >
             <div className="chat-image avatar relative">
                 <div className="w-10 rounded-full">
@@ -41,7 +40,7 @@ export const RenderMessageView: React.FC<RenderMessageViewProps> = ({
                     />
                 </div>
             </div>
-            <div className="chat-header">
+            <div className="chat-header capitalize">
                 {userListHashMap?.[message?.sentBy]?.name ?? 'Anonymous'}
                 <time className="text-xs opacity-50"> {getTime(message?.sentTime?.seconds)}</time>
             </div>
@@ -63,9 +62,11 @@ export const RenderMessageView: React.FC<RenderMessageViewProps> = ({
                     />
                 ) : null}
 
-                {message?.type === 'image' ? (
-                    <ImagePreview src={message?.fileLink!} width="full" height="96" />
-                ) : null}
+                <div className="max-w-[520px]">
+                    {message?.type === 'image' ? (
+                        <ImagePreview src={message?.fileLink!} width="full" height="96" />
+                    ) : null}
+                </div>
 
                 {message?.type === 'link' ? <URLPreview url={message?.message} /> : null}
 

@@ -63,11 +63,11 @@ function App() {
             {currentUser ? (
                 <>
                     <div className="flex w-full overflow-hidden  mx-auto   h-full items-start">
-                        <div className="w-auto h-full  p-1">
+                        <div className="w-96 h-full  p-1">
                             {currentUser ? <LeftSideBar /> : null}
                         </div>
 
-                        <div className="flex-1  h-full border-l-2">
+                        <div className="flex-1  h-[100dvh] border-l-2">
                             <Routes>
                                 {!!isAnyChatActive ? null : (
                                     <Route path="/" element={<SelectChatRoom />} />
