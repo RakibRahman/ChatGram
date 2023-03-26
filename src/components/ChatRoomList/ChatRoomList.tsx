@@ -1,7 +1,5 @@
-import { Fragment } from 'react';
 import { useLocation } from 'react-router-dom';
 import { ChatRoom } from '../../models/types';
-import { useChatRoomDetails } from '../ChatRoomDetails/useChatRoomDetails';
 import { Alert } from '../common/Alert';
 import { Loader } from '../common/Loader/Loader';
 import { ChatCard } from './ChatCard';
@@ -37,7 +35,7 @@ export const ChatRoomList = () => {
                 <Alert
                     title="No chat yet"
                     type="info"
-                    description=" Search for users or chat rooms"
+                    description=" Search for users  or chat rooms. i.e: 'rakib talukder' , 'random group'"
                 />
             ) : null}
 
