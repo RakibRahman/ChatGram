@@ -10,7 +10,6 @@ export const ChatRoomDetailsContainer = () => {
         <div className="h-full  overflow-hidden flex flex-col justify-between">
             {loading ? (
                 <div className="mt-20">
-                    {' '}
                     <Loader />
                 </div>
             ) : null}
