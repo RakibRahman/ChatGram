@@ -21,10 +21,11 @@ export const TopMenuList: React.FC<TopMenuListProps> = ({ menuData }) => {
             >
                 <li>
                     <Link
-                        to={`${menuData.type === 'room'
-                            ? `/chatRoom/${menuData.chatRoomId}`
-                            : `/profile/${menuData.profileId}`
-                            }`}
+                        to={`${
+                            menuData.type === 'room'
+                                ? `/chatRoom/${menuData.chatRoomId}`
+                                : `/profile/${menuData.profileId}`
+                        }`}
                     >
                         <Info />
 
@@ -32,9 +33,7 @@ export const TopMenuList: React.FC<TopMenuListProps> = ({ menuData }) => {
                     </Link>
                 </li>
                 <li>
-
-                    <a>                        {menuData.type === 'room' ? 'Leave Room' : 'Delete Chat'}
-                    </a>
+                    <a> {menuData.type === 'room' ? 'Leave Room' : 'Delete Chat'}</a>
                 </li>
             </ul>
         </div>

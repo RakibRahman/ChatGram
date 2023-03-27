@@ -48,10 +48,11 @@ export const ThemeSelector = () => {
                                 }}
                             >
                                 <span
-                                    className={`${themeName === theme
-                                        ? 'bg-red-100 text-black w-full px-2 py-2 capitalize'
-                                        : 'px-2 py-2 capitalize'
-                                        }`}
+                                    className={`${
+                                        themeName === theme
+                                            ? 'bg-red-100 text-black w-full px-2 py-2 capitalize'
+                                            : 'px-2 py-2 capitalize'
+                                    }`}
                                 >
                                     {theme}
                                 </span>

@@ -1,6 +1,6 @@
 import React from 'react';
 import { GroupMessage } from '../../models/types';
-import { Modal } from '../common/modal/Modal';
+import { ModalV2 } from '../common/modal/ModalV2';
 import { useDeleteMessage } from './useDeleteMessage';
 
 interface DeleteMessageProps {
@@ -20,7 +20,7 @@ export const DeleteMessage: React.FC<DeleteMessageProps> = ({
 
     return (
         <div>
-            <Modal
+            <ModalV2
                 hideTitleClose
                 isOpen={isOpen}
                 onClose={onClose}
@@ -30,7 +30,7 @@ export const DeleteMessage: React.FC<DeleteMessageProps> = ({
                     handleDeleteMessage();
                     onClose();
                 }}
-            ></Modal>
+            ></ModalV2>
         </div>
     );
 };

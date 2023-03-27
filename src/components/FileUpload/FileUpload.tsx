@@ -1,10 +1,10 @@
 import { useState } from 'react';
-import { Modal } from '../common/modal/Modal';
+import { Paperclip } from 'react-feather';
+import { ModalV2 } from '../common/modal/ModalV2';
 import { ProgressBar } from '../common/ProgressBar/ProgressBar';
 import { ImagePreview } from '../FilePreview/ImagePreview';
 import VideoPreview from '../FilePreview/VideoPreview';
 import useFireBaseUpload from './useFirebaseUpload';
-import { Paperclip } from 'react-feather';
 
 export const FileUpload = () => {
     const [selectedFile, setSelectedFile] = useState<File>();
@@ -57,7 +57,7 @@ export const FileUpload = () => {
                 }}
             />
 
-            <Modal
+            <ModalV2
                 isOpen={isOpen}
                 onClose={() => {
                     setIsOpen(false);
@@ -75,7 +75,7 @@ export const FileUpload = () => {
                     setMessage('');
                 }}
             >
-                <div className="p-2  max-h-96">
+                <div className="p-2">
                     <p className="break-words text-sm mb-1"> {selectedFile?.name}</p>
 
                     {selectedFile && allowedImgExtensions.exec(selectedFile?.name) ? (
@@ -97,7 +97,7 @@ export const FileUpload = () => {
                     />
                     {uploading ? <ProgressBar value={state.progress} /> : null}
                 </div>
-            </Modal>
+            </ModalV2>
         </>
     );
 };

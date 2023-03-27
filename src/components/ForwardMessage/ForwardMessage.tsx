@@ -1,7 +1,7 @@
 import React, { useDeferredValue, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { GroupMessage } from '../../models/types';
-import { Modal } from '../common/modal/Modal';
+import { ModalV2 } from '../common/modal/ModalV2';
 import { useSentMessage } from '../SentMessage/useSentMessage';
 import { ForwardChatCard } from './ForwardChatCard';
 import { useForwardMessage } from './useForwardMessage';
@@ -21,7 +21,7 @@ export const ForwardMessage: React.FC<FMessageProps> = ({ isOpen, onClose, selec
 
     return (
         <div>
-            <Modal
+            <ModalV2
                 hideYesBtn
                 hideTitleClose
                 isOpen={isOpen}
@@ -31,7 +31,7 @@ export const ForwardMessage: React.FC<FMessageProps> = ({ isOpen, onClose, selec
                 onConfirm={() => {}}
             >
                 <div>
-                    <div className="py-2 mb-2">
+                    <div className="py-2 mb-2 min-md">
                         <input
                             type="text"
                             className="input input-sm w-full"
@@ -42,7 +42,7 @@ export const ForwardMessage: React.FC<FMessageProps> = ({ isOpen, onClose, selec
                         />
                     </div>
 
-                    <div className="h-96 overflow-y-scroll space-y-3" id="messageContainer">
+                    <div className="w-full space-y-3" id="messageContainer">
                         {chatList.length === 0 ? <p> No match found in your chat list!</p> : null}
                         {chatList.map((chatRoom) => (
                             <div
@@ -106,7 +106,7 @@ export const ForwardMessage: React.FC<FMessageProps> = ({ isOpen, onClose, selec
                         ))}
                     </div>
                 </div>
-            </Modal>
+            </ModalV2>
         </div>
     );
 };

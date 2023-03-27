@@ -21,6 +21,7 @@ function App() {
 
     useEffect(() => {
         if (!!isAnyChatActive && currentUser && !isTab) {
+            console.log('hello');
             navigate(`/chat/${isAnyChatActive}`);
         }
         if (currentUser && isTab) {

@@ -1,9 +1,9 @@
-import { UserInfo } from '../../models/types';
+import { useEffect, useRef, useState } from 'react';
 import { Camera, Settings } from 'react-feather';
-import { useRef, useState, useEffect } from 'react';
+import { UserInfo } from '../../models/types';
 import { Alert } from '../common/Alert';
 import { Avatar } from '../common/Avatar/Avatar';
-import { Modal } from '../common/modal/Modal';
+import { ModalV2 } from '../common/modal/ModalV2';
 import useFireBaseUpload from '../FileUpload/useFirebaseUpload';
 import { useEditProfile } from './useEditProfile';
 
@@ -29,6 +29,28 @@ export const EditProfile = () => {
         return <Alert title="Profile fetch error" />;
     }
 
+    const handleEditProfile = () => {
+        setUserLoading(true);
+        updateUser(userInfo.current!)
+            .then(() => {
+                if (currentUser?.photoURLPath && selectedFile) {
+                    discardUpload(currentUser?.photoURLPath);
+                }
+                localStorage.setItem('currentUser', JSON.stringify(currentUser));
+            })
+            .catch(() => {
+                console.log('something went wrong');
+            })
+            .finally(() => {
+                setUserLoading(false);
+                setEditOpen(false);
+                setSelectedFile(undefined);
+            });
+        if (selectedFile) {
+            handleUpload(selectedFile, 'user');
+        }
+    };
+
     return (
         <div className=" space-y-1 my-10 px-4 w-full">
             <Avatar name={currentUser?.name!} img={currentUser?.photoURL!} />
@@ -44,8 +66,7 @@ export const EditProfile = () => {
                 </p>
             </div>
 
-            <Modal
-                // size="w-[380px]"
+            <ModalV2
                 disableYesBtn={userLoading}
                 isOpen={isEditOpen}
                 onClose={() => {
@@ -54,32 +75,12 @@ export const EditProfile = () => {
                 }}
                 title="Edit Profile"
                 yesText={userLoading ? 'Saving...' : 'Save Changes'}
-                onConfirm={() => {
-                    setUserLoading(true);
-                    updateUser(userInfo.current!)
-                        .then(() => {
-                            if (currentUser?.photoURLPath && selectedFile) {
-                                discardUpload(currentUser?.photoURLPath);
-                            }
-                            localStorage.setItem('currentUser', JSON.stringify(currentUser));
-                        })
-                        .catch(() => {
-                            console.log('something went wrong');
-                        })
-                        .finally(() => {
-                            setUserLoading(false);
-                            setEditOpen(false);
-                            setSelectedFile(undefined);
-                        });
-                    if (selectedFile) {
-                        handleUpload(selectedFile, 'user');
-                    }
-                }}
+                onConfirm={handleEditProfile}
             >
-                <>
-                    <form className="">
-                        <div className="flex flex-col justify-center  items-stretch">
-                            <div className="relative self-center">
+                <div className=" ">
+                    <form className=" ">
+                        <div className="flex flex-col  w-full">
+                            <div className="relative self-center  flex-grow">
                                 <label
                                     className="cursor-pointer absolute bottom-0 right-0 text-white w-10 h-10 grid place-items-center rounded-full bg-sky-500 text-center"
                                     htmlFor="photoURL"
@@ -106,12 +107,12 @@ export const EditProfile = () => {
                                     type="file"
                                     accept="image/*"
                                     placeholder="Profile Pic URL"
-                                    className="input hidden input-md w-full max-w-xs border border-blue-300 focus:outline-none"
+                                    className="input capitalize hidden input-md w-full border border-blue-300 focus:outline-none"
                                 />
                             </div>
 
-                            <div className="space-y-4">
-                                <div className="">
+                            <div className="space-y-4  flex-grow">
+                                <div className="flex-1">
                                     <label htmlFor="name" className="font-medium tracking-wide">
                                         Name<sup>*</sup>
                                     </label>
@@ -121,7 +122,7 @@ export const EditProfile = () => {
                                         name="name"
                                         type="text"
                                         placeholder="Full Name"
-                                        className="input input-sm w-full max-w-full border border-blue-300 focus:outline-none"
+                                        className="input capitalize input-md min-w-full border border-blue-300 focus:outline-none"
                                         onChange={(r) => {
                                             userInfo.current!.name = r.target.value.toLowerCase();
                                         }}
@@ -173,7 +174,7 @@ export const EditProfile = () => {
                                         type="text"
                                         pattern="[0-9]+"
                                         placeholder="Phone Number"
-                                        className="input input-sm w-full max-w-full border border-blue-300 focus:outline-none"
+                                        className="input input-md w-full max-w-full border border-blue-300 focus:outline-none"
                                         onChange={(r) => {
                                             userInfo.current!.phone = r.target.value;
                                         }}
@@ -189,7 +190,7 @@ export const EditProfile = () => {
                                         name="fb"
                                         type="text"
                                         placeholder="Facebook Profile"
-                                        className="input input-sm w-full max-w-full border border-blue-300 focus:outline-none"
+                                        className="input input-md w-full max-w-full border border-blue-300 focus:outline-none"
                                         onChange={(r) => {
                                             console.log(r.target.value, userInfo.current);
 
@@ -207,7 +208,7 @@ export const EditProfile = () => {
                                         name="linkedin"
                                         type="text"
                                         placeholder="LinkedIn Profile"
-                                        className="input input-sm w-full max-w-full border border-blue-300 focus:outline-none"
+                                        className="input input-md w-full max-w-full border border-blue-300 focus:outline-none"
                                         onChange={(r) => {
                                             userInfo.current!['socialLinks']!.linkedin =
                                                 r.target.value;
@@ -224,7 +225,7 @@ export const EditProfile = () => {
                                         name="twitter"
                                         type="text"
                                         placeholder="Twitter profile"
-                                        className="input input-sm w-full max-w-full border border-blue-300 focus:outline-none"
+                                        className="input input-md w-full max-w-full border border-blue-300 focus:outline-none"
                                         onChange={(r) => {
                                             userInfo.current!.socialLinks.twitter = r.target.value;
                                         }}
@@ -233,8 +234,8 @@ export const EditProfile = () => {
                             </div>
                         </div>
                     </form>
-                </>
-            </Modal>
+                </div>
+            </ModalV2>
         </div>
     );
 };

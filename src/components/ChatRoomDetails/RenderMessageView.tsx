@@ -24,10 +24,11 @@ export const RenderMessageView: React.FC<RenderMessageViewProps> = ({
 
     return (
         <div
-            className={`chat ${message.chatRoomId.length > 20 && message.sentBy === currentUser?.uid
-                ? 'chat-end'
-                : 'chat-start'
-                } `}
+            className={`chat ${
+                message.chatRoomId.length > 20 && message.sentBy === currentUser?.uid
+                    ? 'chat-end'
+                    : 'chat-start'
+            } `}
         >
             <div className="chat-image avatar relative">
                 <div className="w-10 rounded-full">

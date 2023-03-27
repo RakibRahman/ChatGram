@@ -1,12 +1,11 @@
+import { nanoid } from 'nanoid';
 import React, { useRef, useState } from 'react';
 import { Camera } from 'react-feather';
 import { ChatRoom } from '../../models/types';
-import { Modal } from '../common/modal/Modal';
+import { ModalV2 } from '../common/modal/ModalV2';
 import { ProgressBar } from '../common/ProgressBar/ProgressBar';
 import useFireBaseUpload from '../FileUpload/useFirebaseUpload';
-import { useCreateChatRoom, RoomUpdatePayload } from './useCreateChatRoom';
-import { randomRoomBg } from './useCreateChatRoom';
-import { nanoid } from 'nanoid';
+import { randomRoomBg, RoomUpdatePayload, useCreateChatRoom } from './useCreateChatRoom';
 
 interface CreateChatRoomProps {
     isOpen: boolean;
@@ -36,7 +35,7 @@ export const CreateChatRoom: React.FC<CreateChatRoomProps> = ({
 
     return (
         <div>
-            <Modal
+            <ModalV2
                 isOpen={isOpen}
                 onClose={() => {
                     onClose();
@@ -107,7 +106,7 @@ export const CreateChatRoom: React.FC<CreateChatRoomProps> = ({
                             {uploading ? <ProgressBar value={progress} /> : null}
                         </div>
                     </div>
-                    <div className="mt-8 mb-4">
+                    <div className={`${uploading ? 'mt-12' : 'mt-2'} mb-4`}>
                         <label htmlFor="chatRoomName">Room Name</label>
                         <input
                             defaultValue={chatRoomInfo?.name ?? ''}
@@ -145,7 +144,7 @@ export const CreateChatRoom: React.FC<CreateChatRoomProps> = ({
                         />
                     </div>
                 </div>
-            </Modal>
+            </ModalV2>
         </div>
     );
 };
