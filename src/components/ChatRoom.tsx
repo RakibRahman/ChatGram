@@ -1,9 +1,8 @@
+import { useEffect, useRef, useState } from 'react';
 import { useChatRoomContext } from '../context/context';
-import { CreateChatRoom } from './CreateChatRoom/CreateChatRoom';
-import { useState, useRef, useEffect } from 'react';
-import { Modal } from './common/modal/Modal';
-import { joinChatRoom, updateUserOnlineStatus } from './apiOperations';
+
 import { useNavigate } from 'react-router-dom';
+import { updateUserOnlineStatus } from './apiOperations';
 export const ChatRoom = () => {
     const navigate = useNavigate();
     const { currentUser, loading, userError, signOut } = useChatRoomContext();
@@ -46,7 +45,7 @@ export const ChatRoom = () => {
                 Button
             </button>
             {/* {currentUser ? <ChatRoomList /> : null} */}
-            <Modal
+            {/* <Modal
                 isOpen={toggleModal}
                 onClose={() => setToggleModal(false)}
                 title="Join chat room"
@@ -70,7 +69,7 @@ export const ChatRoom = () => {
                         />
                     </label>
                 </div>
-            </Modal>
+            </Modal> */}
         </div>
     );
 };
