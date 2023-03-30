@@ -79,7 +79,11 @@ export const FileUpload = () => {
                     <p className="break-words text-sm mb-1"> {selectedFile?.name}</p>
 
                     {selectedFile && allowedImgExtensions.exec(selectedFile?.name) ? (
-                        <ImagePreview src={URL.createObjectURL(selectedFile)} height="50" />
+                        <ImagePreview
+                            src={URL.createObjectURL(selectedFile)}
+                            height="400px"
+                            width="100%"
+                        />
                     ) : null}
 
                     {selectedFile && allowedVidExtensions.exec(selectedFile?.name) ? (

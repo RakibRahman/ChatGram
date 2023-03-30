@@ -1,15 +1,18 @@
 import React from 'react';
+import { Info, MoreVertical, Trash } from 'react-feather';
 import { Link } from 'react-router-dom';
-import { MoreVertical, Info } from 'react-feather';
+import { useTopMenuList } from './useTopMenuList';
 
 interface TopMenuListProps {
     menuData: {
         chatRoomId: string;
         profileId: string | null;
         type: string;
+        members: string[];
     };
 }
 export const TopMenuList: React.FC<TopMenuListProps> = ({ menuData }) => {
+    const { deleteChat } = useTopMenuList();
     return (
         <div className="dropdown dropdown-end">
             <label tabIndex={0} className="btn btn-square btn-sm rounded-btn">
@@ -21,11 +24,10 @@ export const TopMenuList: React.FC<TopMenuListProps> = ({ menuData }) => {
             >
                 <li>
                     <Link
-                        to={`${
-                            menuData.type === 'room'
+                        to={`${menuData.type === 'room'
                                 ? `/chatRoom/${menuData.chatRoomId}`
                                 : `/profile/${menuData.profileId}`
-                        }`}
+                            }`}
                     >
                         <Info />
 
@@ -33,7 +35,19 @@ export const TopMenuList: React.FC<TopMenuListProps> = ({ menuData }) => {
                     </Link>
                 </li>
                 <li>
-                    <a> {menuData.type === 'room' ? 'Leave Room' : 'Delete Chat'}</a>
+                    <a
+                        onClick={async () => {
+                            // removeUserFiles();
+                            console.log(menuData.members);
+
+                            deleteChat(menuData.members);
+
+                        }}
+                    >
+                        {' '}
+                        <Trash />
+                        {menuData.type === 'room' ? 'Leave Room' : 'Delete Chat'}
+                    </a>
                 </li>
             </ul>
         </div>

@@ -3,7 +3,6 @@ import { useDocument } from 'react-firebase-hooks/firestore';
 import { db } from '../../firebase';
 import { UserInfo } from '../../models/types';
 import { useChatRoomDetails } from '../ChatRoomDetails/useChatRoomDetails';
-
 export const useTopCardDetails = () => {
     const { chatRoomInfo, userListHashMap } = useChatRoomDetails();
     const loggedUser: UserInfo = JSON.parse(localStorage.getItem('currentUser')!);
@@ -20,6 +19,9 @@ export const useTopCardDetails = () => {
     const [userInfo, userInfoLoading, userInfoError] = useDocument(usersRef, {
         snapshotListenOptions: { includeMetadataChanges: true },
     });
+
+    // Create a reference under which you want to list
+
     return {
         userInfo,
         chatRoomInfo,

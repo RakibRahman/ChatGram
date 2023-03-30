@@ -68,6 +68,17 @@ export const useSentMessage = () => {
             ...(fileLink && { fileLink: fileLink }),
             ...(fileId && { fileId: fileId }),
         });
+
+        await setDoc(doc(db, 'messages', chatId, 'chats', messageId), {
+            sentBy: loggedUser?.uid,
+            chatRoomId,
+            message,
+            sentTime: timeStamp,
+            type: type,
+            messageId: messageId,
+            ...(fileLink && { fileLink: fileLink }),
+            ...(fileId && { fileId: fileId }),
+        });
     };
 
     return { lastMessage, sendMessage, currentUser: loggedUser };

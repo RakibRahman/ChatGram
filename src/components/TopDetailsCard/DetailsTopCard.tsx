@@ -17,6 +17,7 @@ export const DetailsTopCard = () => {
         chatRoomId: chatRoomInfo?.id,
         type: chatRoomInfo?.type,
         profileId: profileId ? profileId : null,
+        members: chatRoomInfo?.members,
     };
 
     if (userInfoLoading) {
