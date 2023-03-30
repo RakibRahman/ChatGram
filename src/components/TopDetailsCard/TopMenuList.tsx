@@ -12,7 +12,7 @@ interface TopMenuListProps {
     };
 }
 export const TopMenuList: React.FC<TopMenuListProps> = ({ menuData }) => {
-    const { deleteChat } = useTopMenuList();
+    const { deleteChat, deleteAllMessages } = useTopMenuList();
     return (
         <div className="dropdown dropdown-end">
             <label tabIndex={0} className="btn btn-square btn-sm rounded-btn">
@@ -24,10 +24,11 @@ export const TopMenuList: React.FC<TopMenuListProps> = ({ menuData }) => {
             >
                 <li>
                     <Link
-                        to={`${menuData.type === 'room'
+                        to={`${
+                            menuData.type === 'room'
                                 ? `/chatRoom/${menuData.chatRoomId}`
                                 : `/profile/${menuData.profileId}`
-                            }`}
+                        }`}
                     >
                         <Info />
 
@@ -41,12 +42,24 @@ export const TopMenuList: React.FC<TopMenuListProps> = ({ menuData }) => {
                             console.log(menuData.members);
 
                             deleteChat(menuData.members);
-
                         }}
                     >
                         {' '}
                         <Trash />
                         {menuData.type === 'room' ? 'Leave Room' : 'Delete Chat'}
+                    </a>
+                </li>
+
+                <li>
+                    <a
+                        onClick={async () => {
+                            // removeUserFiles();
+                            console.log(menuData.chatRoomId);
+                        }}
+                    >
+                        {' '}
+                        <Trash />
+                        Delete All Messages
                     </a>
                 </li>
             </ul>

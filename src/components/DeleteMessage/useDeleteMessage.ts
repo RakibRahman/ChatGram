@@ -1,7 +1,8 @@
-import { deleteDoc, doc } from 'firebase/firestore';
+import { deleteDoc, doc, collection, getDocs } from 'firebase/firestore';
 import { deleteObject, ref } from 'firebase/storage';
 import { db, storage } from '../../firebase';
 import { GroupMessage } from '../../models/types';
+
 export const useDeleteMessage = (selectedMessage: GroupMessage) => {
     const deleteFromStorage = async () => {
         if (!selectedMessage.fileId) return;
@@ -36,5 +37,6 @@ export const useDeleteMessage = (selectedMessage: GroupMessage) => {
                 console.log(r);
             });
     };
+
     return { handleDeleteMessage };
 };
