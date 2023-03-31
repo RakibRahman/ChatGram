@@ -31,7 +31,7 @@ export const useChatRoomDetails = () => {
 
     const chatRoomInfo = value?.docs.map((d) => d.data())[0] as SingleChatRoom;
     const chatRoomIDs = value?.docs.map((d) => d.data())[0]?.['members'] ?? [''];
-    const userQuery = query(usersRef, where('uid', 'in', chatRoomIDs));
+    const userQuery = query(usersRef, where('uid', 'in', chatRoomIDs.length ? chatRoomIDs : ['']));
 
     const [userList, userListLoading, userListError] = useCollectionData(userQuery);
 

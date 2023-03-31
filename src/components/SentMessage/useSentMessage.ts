@@ -1,11 +1,9 @@
 import { doc, setDoc } from 'firebase/firestore';
 import { nanoid } from 'nanoid';
 import { useParams } from 'react-router-dom';
-import { useChatRoomContext } from '../../context/context';
 import { db, timeStamp } from '../../firebase';
 import { UserInfo } from '../../models/types';
 import { validURL } from '../../utilities/validURL';
-import { useEditProfile } from '../EditProfile/useEditProfile';
 export const useSentMessage = () => {
     const { chatRoomId } = useParams()!;
     const loggedUser: UserInfo = JSON.parse(localStorage.getItem('currentUser')!);

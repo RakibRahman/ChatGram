@@ -72,7 +72,7 @@ export const TopMenuBar: React.FC<TopMenuBarProps> = ({ isSearchActive, setSearc
                         name="searchQuery"
                         type="text"
                         ref={searchQuery}
-                        placeholder="Search…"
+                        placeholder="Search for Users or Rooms…"
                         className=" input input-bordered w-full input-sm "
                     />
                     <div className="absolute right-16 top-1">
@@ -95,7 +95,7 @@ export const TopMenuBar: React.FC<TopMenuBarProps> = ({ isSearchActive, setSearc
                             </button>
                         ) : null}
                     </div>
-                    <button className="btn btn-sm  rounded-md" type="submit">
+                    <button className="btn btn-sm  rounded-md" type="submit" aria-label="search">
                         <Search />
                     </button>
                 </div>

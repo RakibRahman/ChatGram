@@ -18,6 +18,7 @@ export const DetailsTopCard = () => {
         type: chatRoomInfo?.type,
         profileId: profileId ? profileId : null,
         members: chatRoomInfo?.members,
+        chatName: chatRoomInfo?.type === 'room' ? chatRoomInfo.name : getSingleUserInfo('name')!,
     };
 
     if (userInfoLoading) {

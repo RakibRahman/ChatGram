@@ -17,7 +17,11 @@ export const LeftMainMenu = () => {
 
     return (
         <div>
-            <button className="btn btn-sm rounded-md " onClick={() => setIsOpen(true)}>
+            <button
+                className="btn btn-sm rounded-md "
+                aria-label="menu"
+                onClick={() => setIsOpen(true)}
+            >
                 <Menu />
             </button>
             <Drawer isOpen={isOpen} setIsOpen={setIsOpen}>

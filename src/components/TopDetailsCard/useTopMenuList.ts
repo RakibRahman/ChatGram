@@ -4,11 +4,13 @@ import { useNavigate, useParams } from 'react-router-dom';
 import { db } from '../../firebase';
 
 import 'firebase/firestore';
+import { UserInfo } from '../../models/types';
 export const useTopMenuList = () => {
     const storage = getStorage();
     const { chatRoomId } = useParams();
     const listRef = ref(storage, chatRoomId);
     const navigate = useNavigate();
+    const loggedUser: UserInfo = JSON.parse(localStorage.getItem('currentUser')!);
 
     const deleteAllMessages = async () => {
         const querySnapshot = await getDocs(collection(db, 'chatRooms', chatRoomId!, 'messages'));
@@ -46,7 +48,7 @@ export const useTopMenuList = () => {
     };
 
     const deleteChat = async (members: string[]) => {
-        if (members.length < 2) return;
+        if (!members.length) return;
         console.log({ members });
 
         const updateUsersChatRooms = async () => {
@@ -72,5 +74,42 @@ export const useTopMenuList = () => {
             });
     };
 
-    return { deleteChat, deleteAllMessages };
+    const leaveFromRoomChat = async (members: string[]) => {
+        await updateDoc(doc(db, 'chatRooms', chatRoomId!), {
+            members: arrayRemove(loggedUser.uid),
+        });
+        await updateDoc(doc(db, 'users', loggedUser.uid), {
+            chatRooms: arrayRemove(chatRoomId),
+        })
+            .then((s) => {
+                console.log('room leave successful');
+            })
+            .catch(() => {
+                console.log('room leave failed');
+            })
+            .finally(() => {
+                localStorage.removeItem('activeChat');
+                navigate('/');
+            });
+
+        if (members.length === 1) {
+            console.log('admin leave successfully');
+            await deleteDoc(doc(db, 'chatRooms', chatRoomId!))
+                .then((s) => {
+                    deleteAllMessages();
+                    handleDeleteChatFiles();
+                })
+                .then((s) => {
+                    localStorage.removeItem('activeChat');
+                    navigate('/');
+                });
+        }
+    };
+
+    const clearHistory = () => {
+        deleteAllMessages();
+        handleDeleteChatFiles();
+    };
+
+    return { deleteChat, deleteAllMessages, leaveFromRoomChat, loggedUser, clearHistory };
 };

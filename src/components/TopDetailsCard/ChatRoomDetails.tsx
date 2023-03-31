@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { ArrowLeft, Edit, Users } from 'react-feather';
+import { ArrowLeft, Edit, Trash, Users } from 'react-feather';
 import { useNavigate } from 'react-router-dom';
 import { getTime } from '../../utilities/getTime';
 import { useChatRoomDetails } from '../ChatRoomDetails/useChatRoomDetails';
@@ -8,9 +8,14 @@ import { Alert } from '../common/Alert';
 import { Loader } from '../common/Loader/Loader';
 import { CreateChatRoom } from '../CreateChatRoom/CreateChatRoom';
 import { useUserProfile } from '../UserProfile/useUserProfile';
+import { useTopMenuList } from './useTopMenuList';
+import { ModalV2 } from '../common/modal/ModalV2';
 
 export const ChatRoomDetails = () => {
     const { chatRoomInfo, loading, error, userListHashMap, currentUser } = useChatRoomDetails();
+    const { deleteChat, leaveFromRoomChat, loggedUser, clearHistory } = useTopMenuList();
+    const [deleteChatModal, setDeleteChatModal] = useState(false);
+
     const [isOpenModal, setIsOpenModal] = useState(false);
     const { photos, videos } = useUserProfile();
     const navigate = useNavigate();
@@ -72,14 +77,26 @@ export const ChatRoomDetails = () => {
                             Share your thoughts
                         </button>
                         {chatRoomInfo?.admins.includes(currentUser.uid) ? (
-                            <button
-                                className="btn btn-square btn-sm absolute right-1 top-1 hover:opacity-60"
-                                onClick={() => {
-                                    setIsOpenModal(true);
-                                }}
-                            >
-                                <Edit />
-                            </button>
+                            <div className="flex  absolute right-1 top-1">
+                                <button
+                                    title="Edit Room"
+                                    className="btn btn-square btn-sm hover:opacity-60"
+                                    onClick={() => {
+                                        setIsOpenModal(true);
+                                    }}
+                                >
+                                    <Edit />
+                                </button>
+                                <button
+                                    title="Delete Room"
+                                    className="btn btn-square btn-sm hover:opacity-60 text-red-400"
+                                    onClick={() => {
+                                        setDeleteChatModal(true);
+                                    }}
+                                >
+                                    <Trash />
+                                </button>
+                            </div>
                         ) : null}
                     </div>
                 </div>
@@ -93,6 +110,25 @@ export const ChatRoomDetails = () => {
                 }}
                 chatRoomInfo={chatRoomInfo}
             />
+
+            <ModalV2
+                isOpen={deleteChatModal}
+                onClose={() => {
+                    setDeleteChatModal(false);
+                }}
+                title={`Delete Chat Room ${chatRoomInfo?.name?.toUpperCase() ?? ''}?`}
+                yesText="Confirm"
+                onConfirm={() => {
+                    deleteChat(chatRoomInfo.members);
+                    setDeleteChatModal(false);
+                }}
+            >
+                <p>{'Are you sure you want to delete this chat room?'}</p>
+
+                <p className="mt-1">
+                    This action can't be undone & will also delete other member's chat data.
+                </p>
+            </ModalV2>
         </div>
     );
 };

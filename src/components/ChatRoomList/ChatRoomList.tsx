@@ -28,10 +28,11 @@ export const ChatRoomList = () => {
             ? userListHashMap?.[chatRoom['members'][1]]?.[key]
             : userListHashMap?.[chatRoom['members'][0]]?.[key];
     };
-
+    console.log(usersChatRooms);
     return (
         <div className=" flex flex-col overflow-hidden">
-            {usersChatRooms?.length === 1 && usersChatRooms[0] === '' ? (
+            {usersChatRooms?.length === 0 ||
+            (usersChatRooms?.length === 1 && usersChatRooms[0] === '') ? (
                 <Alert
                     title="No chat yet"
                     type="info"
