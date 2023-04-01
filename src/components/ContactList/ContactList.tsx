@@ -20,9 +20,9 @@ export const ContactList: React.FC<ContactProps> = ({ isOpen, onClose }) => {
                 onClose={onClose}
                 yesText="Join"
                 title="Contacts"
-                onConfirm={() => {}}
+                onConfirm={() => { }}
             >
-                <div className="form-control w-96">
+                <div className="form-control max-w-96">
                     <div></div>
                     <input
                         // ref={chatRoomId}

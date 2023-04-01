@@ -33,14 +33,14 @@ export const JoinChatRoom: React.FC<JoinChatRoomProps> = ({ isOpen, onClose }) =
                     }
                 }}
             >
-                <div className="form-control w-96">
+                <div className="form-control max-w-96">
                     <input
                         ref={chatRoomId}
                         type="text"
                         placeholder="Enter Chat Room Id"
-                        className="input input-md w-full max-w-full border border-blue-300 focus:outline-none"
+                        className="input input-md w-full max-w-full border  focus:outline-none"
                     />
-                    <span className="label-text mt-2">
+                    <span className="label-text mt-2 break-words">
                         For a chat room ID, ask your connection or group admin.
                     </span>
                 </div>
