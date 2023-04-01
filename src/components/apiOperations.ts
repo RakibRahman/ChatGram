@@ -2,11 +2,18 @@ import { arrayUnion, doc, getDoc, setDoc, updateDoc } from 'firebase/firestore';
 import { db, timeStamp } from '../firebase';
 import { CurrentUser, UserInfo } from '../models/types';
 import { handleResults } from '../utilities/handleResults';
+import { useNavigate } from 'react-router-dom';
 
 export const joinChatRoom = async (chatRoomId: string, userId: string) => {
-    const chatRoomRef = doc(db, 'chatRooms', chatRoomId);
+    const chatRoomRef = doc(db, 'chatRooms', chatRoomId.trim());
     const userRef = doc(db, 'users', userId);
 
+    const docRef = doc(db, 'chatRooms', chatRoomId.trim());
+    const docSnap = await getDoc(docRef);
+    if (!docSnap.exists()) {
+        alert('No chat room found');
+        return;
+    }
     const updateChatRoomMembers = await updateDoc(chatRoomRef, {
         members: arrayUnion(userId),
     });
@@ -15,12 +22,11 @@ export const joinChatRoom = async (chatRoomId: string, userId: string) => {
         chatRooms: arrayUnion(chatRoomId),
     });
 
-    const [chatRoomResult, userResult] = await Promise.allSettled([
-        updateChatRoomMembers,
-        updateUserChatRooms,
-    ]);
-
-    handleResults([chatRoomResult, userResult]);
+    await Promise.all([updateChatRoomMembers, updateUserChatRooms])
+        .then(() => {})
+        .catch(() => {
+            console.log('Error while joining chat');
+        });
 };
 
 export const updateUserOnlineStatus = async (
@@ -65,6 +71,7 @@ export const createUser = async (currentUser: CurrentUser) => {
             linkedin: '',
             twitter: '',
         },
+        contacts: [],
     };
 
     localStorage.setItem('currentUser', JSON.stringify(userInfo));

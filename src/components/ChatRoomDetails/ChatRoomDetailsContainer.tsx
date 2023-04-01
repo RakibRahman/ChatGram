@@ -1,7 +1,7 @@
-import { Alert } from '../common/Alert';
-import { Loader } from '../common/Loader/Loader';
 import { SentMessage } from '../SentMessage/SentMessage';
 import { DetailsTopCard } from '../TopDetailsCard/DetailsTopCard';
+import { Alert } from '../common/Alert';
+import { Loader } from '../common/Loader/Loader';
 import { Messages } from './Messages';
 import { useChatRoomDetails } from './useChatRoomDetails';
 
@@ -11,11 +11,11 @@ export const ChatRoomDetailsContainer = () => {
     if (!chatRoomInfo && !loading) {
         return (
             <div className={`w-full px-2 h-[100vh]   flex flex-col   justify-center `}>
-                {' '}
-                <Alert type="error" title="No such chat  exists, select another chat" />{' '}
+                <Alert type="error" title="No such chat  exists, select another chat" />
             </div>
         );
     }
+
     return (
         <div className="h-full  overflow-hidden flex flex-col justify-between">
             {loading ? (
@@ -24,7 +24,7 @@ export const ChatRoomDetailsContainer = () => {
                 </div>
             ) : null}
             <DetailsTopCard />
-            <div className="h-[85dvh]  p-1">
+            <div className="h-[82dvh]  p-1">
                 <Messages />
             </div>
 

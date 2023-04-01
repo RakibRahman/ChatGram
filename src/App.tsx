@@ -21,7 +21,6 @@ function App() {
 
     useEffect(() => {
         if (!!isAnyChatActive && currentUser && !isTab) {
-            console.log('hello');
             navigate(`/chat/${isAnyChatActive}`);
         }
         if (currentUser && isTab) {
@@ -31,15 +30,14 @@ function App() {
 
     if (loading) {
         return (
-            <>
-                <div className="hero" style={{ backgroundImage: `url(${BG})` }}>
-                    <div className="grid place-items-center  py-10 h-screen">
-                        <Loader />
-                    </div>
+            <div className="hero" style={{ backgroundImage: `url(${BG})` }}>
+                <div className="grid place-items-center  py-10 h-screen">
+                    <Loader />
                 </div>
-            </>
+            </div>
         );
     }
+
     if (isTab) {
         return (
             <div className="grid place-items-stretch max-w-full">
@@ -79,12 +77,14 @@ function App() {
                                 />
                                 <Route path="/chatRoom/:chatRoomId" element={<ChatRoomDetails />} />
                                 <Route path="/profile/:chatRoomId" element={<ChatUserProfile />} />
+                                <Route path="*" element={<Error404 />} />
                             </Routes>
                         </div>
                     </div>
                 </>
             ) : (
                 <Routes>
+                    <Route path="*" element={<Error404 />} />
                     <Route path="/" element={<Login />} />
                 </Routes>
             )}

@@ -1,9 +1,6 @@
 import { Link } from 'react-router-dom';
-import { useChatRoomContext } from '../../context/context';
 
 export const Error404 = () => {
-    const { currentUser } = useChatRoomContext();
-
     return (
         <main className="h-screen w-full flex flex-col justify-center items-center bg-[#1A2238]">
             <h1 className="text-9xl font-extrabold text-white tracking-widest">404</h1>
@@ -15,7 +12,7 @@ export const Error404 = () => {
                     <span className="absolute inset-0 transition-transform translate-x-0.5 translate-y-0.5 bg-[#FF6A3D] group-hover:translate-y-0 group-hover:translate-x-0"></span>
 
                     <span className="relative block px-8 py-3 bg-[#1A2238] border border-current">
-                        {currentUser ? <Link to={'/'}>Go Home</Link> : null}
+                        <Link to={'/'}>Go Home</Link>
                     </span>
                 </a>
             </button>

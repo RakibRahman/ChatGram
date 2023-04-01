@@ -54,6 +54,9 @@ export const useChatRoomList = () => {
             name: user?.name,
             uid: user?.uid,
             photoURL: user?.photoURL,
+            lastLogin: user?.lastLogin,
+
+            // chatRooms: user?.chatRooms ?? []
         };
         return acc;
     }, {});

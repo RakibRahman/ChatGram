@@ -31,7 +31,7 @@ export const ForwardMessage: React.FC<FMessageProps> = ({ isOpen, onClose, selec
                 onConfirm={() => {}}
             >
                 <div>
-                    <div className="py-2 mb-2 min-md">
+                    <div className="py-2 mb-2 min-w-[300px] max-h-96 overflow-y-auto">
                         <input
                             type="text"
                             className="input input-sm w-full"

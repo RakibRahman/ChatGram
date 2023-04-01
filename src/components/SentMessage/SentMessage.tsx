@@ -39,7 +39,7 @@ export const SentMessage = () => {
                         <input
                             ref={messageRef}
                             type="text"
-                            placeholder="Your message here"
+                            placeholder="Write a message..."
                             className="input input-bordered focus:outline-none  w-full input-md"
                         />
                         <button className="btn btn-square btn-md" type="submit">

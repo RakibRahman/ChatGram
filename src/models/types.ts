@@ -84,6 +84,7 @@ export interface UserInfo {
         linkedin: string;
         twitter: string;
     };
+    contacts: string[];
 }
 
 export type RecentMessage = ChatRoom['recentMessage'];

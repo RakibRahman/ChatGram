@@ -1,5 +1,5 @@
 import React from 'react';
-import { ChevronLeft, ChevronsLeft } from 'react-feather';
+import { X, ChevronsLeft } from 'react-feather';
 
 interface DrawerProps {
     children: React.ReactNode;
@@ -12,16 +12,16 @@ export const Drawer: React.FC<DrawerProps> = ({ children, isOpen, setIsOpen, sid
     return (
         <main
             className={
-                'cursor-pointer fixed  z-10 bg-black  bg-opacity-70 inset-0 transform ease-in-out  min-h-screen' +
+                'cursor-pointer fixed  z-10 bg-black  bg-opacity-70 inset-0 transform ease-in  min-h-screen' +
                 (isOpen
-                    ? ' transition-opacity opacity-100 duration-200 translate-y-0  '
-                    : ' transition-all delay-100 opacity-0 translate-y-full  ')
+                    ? ' transition-opacity opacity-100 duration-200 -translate-x-0  '
+                    : ' transition-all delay-100 opacity-0 -translate-x-full  ')
             }
         >
             <section
                 className={
                     ` w-screen max-w-xs ${side}-0 absolute   shadow-xl delay-100 duration-200 ease-in-out transition-all transform ` +
-                    (isOpen ? ' translate-y-0 ' : ' translate-y-full ')
+                    (isOpen ? '-translate-x-0' : ' -translate-x-full ')
                 }
             >
                 <div className="relative menu w-80 bg-base-100 text-base-content h-full">

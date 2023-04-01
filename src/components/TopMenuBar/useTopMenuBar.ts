@@ -5,18 +5,18 @@ import { db, timeStamp } from '../../firebase';
 import { UserInfo } from '../../models/types';
 import { joinChatRoom as joinRoom } from '../apiOperations';
 
-export const useTopMenuBar = (setSearchActive: Dispatch<SetStateAction<boolean>>) => {
+export const useTopMenuBar = (setSearchActive?: Dispatch<SetStateAction<boolean>>) => {
     const currentUser: UserInfo = JSON.parse(localStorage.getItem('currentUser')!) ?? {};
 
     const navigate = useNavigate();
 
-    const createOneToOneChatRoom = async (receiver: UserInfo) => {
+    const createOneToOneChatRoom = async (receiver: Partial<UserInfo>) => {
         if (!currentUser) return;
 
         const { uid, name, email, photoURL } = currentUser;
         // const chatRoomId = receiver.uid + currentUser?.uid;
         let chatRoomId =
-            currentUser?.uid > receiver?.uid
+            currentUser?.uid > receiver?.uid!
                 ? currentUser.uid + receiver?.uid
                 : receiver?.uid + currentUser?.uid;
 
@@ -30,7 +30,9 @@ export const useTopMenuBar = (setSearchActive: Dispatch<SetStateAction<boolean>>
 
         if (isAlreadyJoined) {
             navigate(`/chat/${docSnap.data()?.['id']}`);
-            setSearchActive(false);
+            if (setSearchActive) {
+                setSearchActive(false);
+            }
             localStorage.setItem('activeChat', chatRoomId);
 
             return;
@@ -60,14 +62,16 @@ export const useTopMenuBar = (setSearchActive: Dispatch<SetStateAction<boolean>>
 
             const updateUserInfo = async () => {
                 const currentUserRef = doc(db, 'users', uid);
-                const receiverUserRef = doc(db, 'users', receiver?.uid);
+                const receiverUserRef = doc(db, 'users', receiver?.uid!);
 
                 await updateDoc(currentUserRef, {
                     chatRooms: arrayUnion(chatRoomId),
+                    contacts: arrayUnion(receiver?.uid),
                 });
 
                 await updateDoc(receiverUserRef, {
                     chatRooms: arrayUnion(chatRoomId),
+                    contacts: arrayUnion(uid),
                 });
             };
 
@@ -75,8 +79,9 @@ export const useTopMenuBar = (setSearchActive: Dispatch<SetStateAction<boolean>>
                 Promise.allSettled([createNewChatRoom, updateUserInfo()]).then((values) => {
                     navigate(`/chat/${chatRoomId}`);
                     localStorage.setItem('activeChat', chatRoomId);
-
-                    setSearchActive(false);
+                    if (setSearchActive) {
+                        setSearchActive(false);
+                    }
                 });
             } catch {
                 alert('Error creating chat room');
@@ -96,14 +101,18 @@ export const useTopMenuBar = (setSearchActive: Dispatch<SetStateAction<boolean>>
         if (isAlreadyJoined) {
             navigate(`/chat/${chatRoomId}`);
             localStorage.setItem('activeChat', chatRoomId);
-            setSearchActive(false);
+            if (setSearchActive) {
+                setSearchActive(false);
+            }
             return;
         }
 
         if (!isAlreadyJoined) {
             joinRoom(chatRoomId, currentUser?.uid!)
                 .then(() => {
-                    setSearchActive(false);
+                    if (setSearchActive) {
+                        setSearchActive(false);
+                    }
                     navigate(`chat/${chatRoomId}`);
                     localStorage.setItem('activeChat', chatRoomId);
                 })

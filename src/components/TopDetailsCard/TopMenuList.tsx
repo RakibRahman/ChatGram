@@ -1,9 +1,8 @@
 import React, { useState } from 'react';
-import { Delete, Info, LogOut, MoreVertical, Trash } from 'react-feather';
+import { Copy, Delete, Info, LogOut, MoreVertical, Trash } from 'react-feather';
 import { Link } from 'react-router-dom';
-import { useTopMenuList } from './useTopMenuList';
-import { ModalV2 } from '../common/modal/ModalV2';
 import { DeleteLeaveModals } from './DeleteLeaveModals';
+import useCopyToClipboard from '../../hooks/useCopyToClipBoard';
 
 export interface TopMenuListProps {
     menuData: {
@@ -15,7 +14,8 @@ export interface TopMenuListProps {
     };
 }
 export const TopMenuList: React.FC<TopMenuListProps> = ({ menuData }) => {
-    const { deleteChat, leaveFromRoomChat, loggedUser, clearHistory } = useTopMenuList();
+    const [value, copy] = useCopyToClipboard();
+
     const [deleteChatModal, setDeleteChatModal] = useState(false);
     const [leaveChatModal, setLeaveChatModal] = useState(false);
     const [clearChatModal, setClearChatModal] = useState(false);
@@ -43,7 +43,18 @@ export const TopMenuList: React.FC<TopMenuListProps> = ({ menuData }) => {
                         {menuData.type === 'room' ? 'View Room Info' : 'View Profile'}
                     </Link>
                 </li>
-
+                {menuData.type === 'room' ? (
+                    <li>
+                        <a
+                            onClick={() => {
+                                copy(menuData.chatRoomId);
+                            }}
+                        >
+                            <Copy />
+                            Share Room ID
+                        </a>
+                    </li>
+                ) : null}
                 <li>
                     <a
                         onClick={() => {
@@ -81,7 +92,7 @@ export const TopMenuList: React.FC<TopMenuListProps> = ({ menuData }) => {
                         >
                             {isAdminLeaving ? <Trash /> : <LogOut />}
 
-                            {isAdminLeaving ? 'Delete & Leave' : 'Leave Room'}
+                            {isAdminLeaving ? 'Delete & Leave Room' : 'Leave Room'}
                         </a>
                     </li>
                 ) : null}
