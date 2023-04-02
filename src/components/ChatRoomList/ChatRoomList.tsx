@@ -28,7 +28,7 @@ export const ChatRoomList = () => {
             ? userListHashMap?.[chatRoom['members'][1]]?.[key]
             : userListHashMap?.[chatRoom['members'][0]]?.[key];
     };
-    console.log(usersChatRooms);
+
     return (
         <div className=" flex flex-col overflow-hidden">
             {usersChatRooms?.length === 0 ||

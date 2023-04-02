@@ -20,7 +20,8 @@ export const Login = () => {
                 <div className="text-center">
                     <img
                         src="https://img.icons8.com/arcade/64/null/filled-chat.png"
-                        className="text-center mx-auto animate-pulse"
+                        className="text-center mx-auto animate-pulse w-16 h-16"
+                        alt="logo"
                     />
                     <p className=" text-xl mb-4">Welcome to ChatGram</p>
                     <p className=" text-xl mb-4">Log in with your Google account to continue</p>

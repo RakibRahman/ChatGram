@@ -41,6 +41,7 @@ export const LeftMainMenu = () => {
                                 }
                                 alt="group"
                                 className="w-8 h-8 object-cover"
+                                loading="lazy"
                             />{' '}
                             <p className="text-sm font-medium"> New chat room</p>
                         </button>
@@ -53,6 +54,7 @@ export const LeftMainMenu = () => {
                                 src={
                                     'https://img.icons8.com/external-bearicons-outline-color-bearicons/64/null/external-sign-up-call-to-action-bearicons-outline-color-bearicons-1.png'
                                 }
+                                loading="lazy"
                                 alt="group"
                                 className="w-8 h-8 object-cover"
                             />{' '}
@@ -67,6 +69,7 @@ export const LeftMainMenu = () => {
                                 src={'https://img.icons8.com/fluency/48/null/address-book.png'}
                                 alt="group"
                                 className="w-8 h-8 object-cover"
+                                loading="lazy"
                             />{' '}
                             <p className="text-sm font-medium">Contacts</p>
                         </button>
@@ -76,6 +79,7 @@ export const LeftMainMenu = () => {
                                 src={'https://img.icons8.com/arcade/64/null/color-palette.png'}
                                 alt="group"
                                 className="w-8 h-8 object-cover"
+                                loading="lazy"
                             />
                             <div className="flex items-center gap-2">
                                 <p className="text-sm font-medium">Theme</p>
