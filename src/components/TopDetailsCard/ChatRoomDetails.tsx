@@ -11,7 +11,7 @@ import { useUserProfile } from '../UserProfile/useUserProfile';
 import { useTopMenuList } from './useTopMenuList';
 import { ModalV2 } from '../common/modal/ModalV2';
 
-export const ChatRoomDetails = () => {
+const ChatRoomDetails = () => {
     const { chatRoomInfo, loading, error, userListHashMap, currentUser } = useChatRoomDetails();
     const { deleteChat, leaveFromRoomChat, loggedUser, clearHistory } = useTopMenuList();
     const [deleteChatModal, setDeleteChatModal] = useState(false);
@@ -132,3 +132,5 @@ export const ChatRoomDetails = () => {
         </div>
     );
 };
+
+export default ChatRoomDetails;

@@ -7,7 +7,7 @@ import { Loader } from '../common/Loader/Loader';
 import { SocialLinks } from './SocialLinks';
 import { useUserProfile } from './useUserProfile';
 
-export const ChatUserProfile = () => {
+const ChatUserProfile = () => {
     const { userInfo, loading, error, photos, videos, errorMessage } = useUserProfile();
     const navigate = useNavigate();
     if (loading) {
@@ -107,3 +107,4 @@ export const ChatUserProfile = () => {
         </div>
     );
 };
+export default ChatUserProfile;

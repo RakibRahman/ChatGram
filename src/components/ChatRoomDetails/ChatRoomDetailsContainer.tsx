@@ -5,7 +5,7 @@ import { Loader } from '../common/Loader/Loader';
 import { Messages } from './Messages';
 import { useChatRoomDetails } from './useChatRoomDetails';
 
-export const ChatRoomDetailsContainer = () => {
+const ChatRoomDetailsContainer = () => {
     const { loading, chatRoomInfo } = useChatRoomDetails();
 
     if (!chatRoomInfo && !loading) {
@@ -32,3 +32,4 @@ export const ChatRoomDetailsContainer = () => {
         </div>
     );
 };
+export default ChatRoomDetailsContainer;
