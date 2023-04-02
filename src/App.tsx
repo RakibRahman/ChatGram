@@ -46,7 +46,7 @@ function App() {
     if (isTab) {
         return (
             <div className="grid place-items-stretch max-w-full">
-                <Suspense fallback={<Loader />}>
+                <Suspense fallback={<div className="mt-20"><Loader /></div>}>
                     <Routes>
                         {currentUser ? (
                             <Route path="/" element={<LeftSideBar />} />
@@ -74,7 +74,7 @@ function App() {
                         </div>
 
                         <div className="flex-1  h-[100dvh] border-l-2">
-                            <Suspense fallback={<Loader />}>
+                            <Suspense fallback={<div className="mt-20"><Loader /></div>}>
                                 <Routes>
                                     {!!isAnyChatActive ? null : (
                                         <Route path="/" element={<SelectChatRoom />} />
