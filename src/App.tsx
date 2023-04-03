@@ -1,5 +1,4 @@
-import { useEffect } from 'react';
-import { Route, Routes, useNavigate } from 'react-router-dom';
+import { Route, Routes } from 'react-router-dom';
 import './App.css';
 import BG from './assets/wave.svg';
 // import ChatRoomDetailsContainer from './components/ChatRoomDetails/ChatRoomDetailsContainer';
@@ -13,27 +12,17 @@ import { Login } from './components/Login/Login';
 import { lazy, Suspense } from 'react';
 import { useChatRoomContext } from './context/context';
 import { useMediaQuery } from './hooks/useMediaQuery';
-import { UserInfo } from './models/types';
 
-const ChatRoomDetailsContainer = lazy(() => import('./components/ChatRoomDetails/ChatRoomDetailsContainer'));
+const ChatRoomDetailsContainer = lazy(
+    () => import('./components/ChatRoomDetails/ChatRoomDetailsContainer')
+);
 const ChatRoomDetails = lazy(() => import('./components/TopDetailsCard/ChatRoomDetails'));
-const ChatUserProfile = lazy(() => import('./components/UserProfile/ChatUserProfile'))
+const ChatUserProfile = lazy(() => import('./components/UserProfile/ChatUserProfile'));
 
 function App() {
     const { currentUser, loading } = useChatRoomContext();
     const isAnyChatActive = localStorage.getItem('activeChat');
     const isTab = useMediaQuery('(max-width: 768px)');
-    const navigate = useNavigate();
-
-    useEffect(() => {
-
-        if (!!isAnyChatActive && currentUser && !isTab) {
-            navigate(`/chat/${isAnyChatActive}`);
-        }
-        if (currentUser && isTab) {
-            navigate('/');
-        }
-    }, []);
 
     if (loading) {
         return (
@@ -48,7 +37,13 @@ function App() {
     if (isTab) {
         return (
             <div className="grid place-items-stretch max-w-full">
-                <Suspense fallback={<div className="mt-20"><Loader /></div>}>
+                <Suspense
+                    fallback={
+                        <div className="mt-20">
+                            <Loader />
+                        </div>
+                    }
+                >
                     <Routes>
                         {currentUser ? (
                             <Route path="/" element={<LeftSideBar />} />
@@ -65,7 +60,7 @@ function App() {
             </div>
         );
     }
-
+    console.log({ isAnyChatActive });
     return (
         <div className="App">
             {currentUser ? (
@@ -76,17 +71,31 @@ function App() {
                         </div>
 
                         <div className="flex-1  h-[100dvh] border-l-2">
-                            <Suspense fallback={<div className="mt-20"><Loader /></div>}>
+                            <Suspense
+                                fallback={
+                                    <div className="mt-20">
+                                        <Loader />
+                                    </div>
+                                }
+                            >
                                 <Routes>
-                                    {!!isAnyChatActive ? null : (
+                                    {!!isAnyChatActive ? (
+                                        <Route path="/" element={<p>hello</p>} />
+                                    ) : (
                                         <Route path="/" element={<SelectChatRoom />} />
                                     )}
                                     <Route
                                         path="/chat/:chatRoomId"
                                         element={<ChatRoomDetailsContainer />}
                                     />
-                                    <Route path="/chatRoom/:chatRoomId" element={<ChatRoomDetails />} />
-                                    <Route path="/profile/:chatRoomId" element={<ChatUserProfile />} />
+                                    <Route
+                                        path="/chatRoom/:chatRoomId"
+                                        element={<ChatRoomDetails />}
+                                    />
+                                    <Route
+                                        path="/profile/:chatRoomId"
+                                        element={<ChatUserProfile />}
+                                    />
                                     <Route path="*" element={<Error404 />} />
                                 </Routes>
                             </Suspense>

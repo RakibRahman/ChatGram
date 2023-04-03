@@ -93,7 +93,6 @@ export interface ChatCardProps {
     name: string;
     logo: string;
     recentMessage: RecentMessage;
-    isActive: string;
     currentUserId: string;
 }
 

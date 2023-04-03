@@ -10,7 +10,6 @@ export const ChatCard: React.FC<ChatCardProps> = ({
     recentMessage,
     logo,
     id,
-    isActive,
     currentUserId,
 }) => {
     // const { logData } = useChatRoomDetails();
@@ -44,7 +43,6 @@ export const ChatCard: React.FC<ChatCardProps> = ({
                         <ChatCardMessage
                             recentMessage={recentMessage}
                             id={id}
-                            isActive={isActive}
                             currentUserId={currentUserId}
                             isNewMessage={newMessage}
                         />

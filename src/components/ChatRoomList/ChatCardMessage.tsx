@@ -6,7 +6,7 @@ import { useChatRoomList } from './useChatRoomList';
 
 interface ChatCardMessageProps {
     recentMessage: RecentMessage;
-    isActive: string;
+
     id: string;
     currentUserId: string;
     isNewMessage: string;

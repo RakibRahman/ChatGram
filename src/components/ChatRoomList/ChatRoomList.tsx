@@ -1,4 +1,6 @@
-import { useLocation } from 'react-router-dom';
+import { useEffect } from 'react';
+import { useNavigate } from 'react-router-dom';
+import { useMediaQuery } from '../../hooks/useMediaQuery';
 import { ChatRoom } from '../../models/types';
 import { Alert } from '../common/Alert';
 import { Loader } from '../common/Loader/Loader';
@@ -7,9 +9,16 @@ import { useChatRoomList } from './useChatRoomList';
 
 export const ChatRoomList = () => {
     const { currentUser, chatListData, usersChatRooms, userListHashMap } = useChatRoomList()!;
+    const isTab = useMediaQuery('(max-width: 768px)');
+    const navigate = useNavigate();
 
-    let location = useLocation();
-    const activeChat = location.pathname.replace(/^\/|\/$/g, '') ?? '';
+    useEffect(() => {
+        const isAnyChatActive = localStorage.getItem('activeChat');
+
+        if (!!isAnyChatActive && currentUser && !isTab) {
+            navigate(`/chat/${isAnyChatActive}`);
+        }
+    }, []);
 
     if (chatListData.chatRoomListLoading) {
         return (
@@ -55,12 +64,10 @@ export const ChatRoomList = () => {
                                 recentMessage={chatRoom?.recentMessage!}
                                 logo={chatRoom?.logo!}
                                 id={chatRoom?.id!}
-                                isActive={activeChat}
                                 currentUserId={currentUser?.uid!}
                             />
                         ) : (
                             <ChatCard
-                                isActive={activeChat}
                                 name={getSingleUserInfo('name', chatRoom)}
                                 logo={getSingleUserInfo('photoURL', chatRoom)}
                                 recentMessage={chatRoom?.recentMessage!}
