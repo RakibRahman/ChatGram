@@ -13,6 +13,7 @@ import { Login } from './components/Login/Login';
 import { lazy, Suspense } from 'react';
 import { useChatRoomContext } from './context/context';
 import { useMediaQuery } from './hooks/useMediaQuery';
+import { UserInfo } from './models/types';
 
 const ChatRoomDetailsContainer = lazy(() => import('./components/ChatRoomDetails/ChatRoomDetailsContainer'));
 const ChatRoomDetails = lazy(() => import('./components/TopDetailsCard/ChatRoomDetails'));
@@ -25,6 +26,7 @@ function App() {
     const navigate = useNavigate();
 
     useEffect(() => {
+
         if (!!isAnyChatActive && currentUser && !isTab) {
             navigate(`/chat/${isAnyChatActive}`);
         }

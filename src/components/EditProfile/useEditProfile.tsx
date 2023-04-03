@@ -3,7 +3,7 @@ import { useDocument } from 'react-firebase-hooks/firestore';
 import { db, timeStamp } from '../../firebase';
 import { UserInfo } from '../../models/types';
 export const useEditProfile = () => {
-    const currentUser: UserInfo = JSON.parse(localStorage.getItem('currentUser')!);
+    const currentUser: UserInfo = JSON.parse(localStorage.getItem('currentUser')!) ?? {};
 
     if (!currentUser) return;
 

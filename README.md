@@ -7,7 +7,9 @@ Features:
 -   One to one & group chat
 -   Share media files such as image,video
 -   Right menu click to copy,delete messages & download files.
--   Delete chat, leave group & clear history feature
+-   Contacts
+-   Create & join chat group.
+-   Delete chat, leave group & clear history feature.
 -   Forward message to another user or group.
 -   Search for users and groups
 -   User & group profile view
