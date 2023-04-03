@@ -42,7 +42,7 @@ const ChatRoomDetails = () => {
 
     return (
         <div className="bg-base-300 relative">
-            <div className="hero relative" style={{ backgroundImage: chatRoomBg }}>
+            <div className="hero relative min-h-[400px]" style={{ backgroundImage: chatRoomBg }}>
                 <button
                     className="btn btn-square hover:bg-transparent hover:-translate-x-1 p-0 bg-transparent border-none absolute top-2 left-0"
                     onClick={() => {

@@ -27,7 +27,7 @@ export const PaginatedMedia: React.FC<PaginatedMediaProps> = ({
 
     return (
         <>
-            <div className="grid lg:grid-cols-4  gap-2">
+            <div className="grid lg:grid-cols-6  gap-2">
                 {mediaArray?.length === 0 ? `No ${type ?? 'media'} here yet...` : null}
 
                 {currentPosts?.map((file: GroupMessage) => (
